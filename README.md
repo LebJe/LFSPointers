@@ -1,3 +1,3 @@
 # LFSPointers
 
-A description of this package.
+A tool that allows you to convert large files to Git LFS pointers.
