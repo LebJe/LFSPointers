@@ -3,8 +3,9 @@ import Foundation
 import ArgumentParser
 import Rainbow
 import Files
+import LFSPointersLibrary
 
-struct LFSPointers: ParsableCommand {
+struct LFSPointersCommand: ParsableCommand {
 	static let configuration = CommandConfiguration(commandName: "LFSPointers",
 		abstract: "Replaces large files in a directory with Git LFS pointers.", discussion: "EXIT CODES:\n1 = \"git lfs pointer ==file=file\" failed.\n2 = file manipulation failed (missing file permissions, deleted file, etc).")
 	
@@ -14,8 +15,8 @@ struct LFSPointers: ParsableCommand {
 	@Flag(name: .shortAndLong, help: "Don't print to standard output or standard error.")
 	var silent: Bool
 	
-	@Flag(name: .shortAndLong, help: "Whether to exit when \"git lfs pointer --file=file\" fails.")
-	var exitOnFailure: Bool
+	@Flag(name: .shortAndLong, help: "Repeat this process in all directories.")
+	var recursive: Bool
 	
 	@Option(default: nil, help: "The directory files will be copied to before being processed. Will be created if it does not exist.", transform: URL.init(fileURLWithPath:))
 	var backupDirectory: URL?
@@ -27,7 +28,7 @@ struct LFSPointers: ParsableCommand {
 	var regularExpression: String
 	
 	mutating func validate() throws {
-		// Verify the file actually exists.
+		// Verify the directory actually exists.
 		guard FileManager().fileExists(atPath: directory.path) else {
 			throw ValidationError("Directory does not exist at \(directory.path).".red)
 		}
@@ -40,6 +41,10 @@ struct LFSPointers: ParsableCommand {
 		
 		do {
 			
+			try LFSPointer.pointers(forDirectory: directory.absoluteString, regex: try NSRegularExpression(pattern: regularExpression), recursive: recursive).forEach({(filename: String, filePath: String, pointer: LFSPointer) in
+				try pointer.write(toFile: filePath)
+				
+			})
 			
 			
 			// Iterate over all the files in the specified directory.
@@ -69,9 +74,7 @@ struct LFSPointers: ParsableCommand {
 						if verbose {
 							fputs("Could not convert \"\(file)\" to a pointer.\n Git LFS error: \(error)\n".red, stderr)
 							
-							if exitOnFailure {
-								Foundation.exit(1)
-							}
+							
 							
 						} else {
 							fputs("Could not convert \"\(file)\" to a pointer.".red, stderr)
@@ -121,11 +124,6 @@ struct LFSPointers: ParsableCommand {
 	}
 }
 
-LFSPointers.main()
+LFSPointersCommand.main()
 
-extension NSRegularExpression {
-	func matches(_ string: String) -> Bool {
-		let range = NSRange(location: 0, length: string.utf16.count)
-		return firstMatch(in: string, options: [], range: range) != nil
-	}
-}
+

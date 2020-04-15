@@ -1,10 +1,11 @@
 import XCTest
 import SwiftShell
 import Files
+@testable import LFSPointersLibrary
 import class Foundation.Bundle
 
 final class LFSPointersTests: XCTestCase {
-    func testExample() throws {
+    func testConvertFileToPointer() throws {
 
         // Some of the APIs that we use below are available in macOS 10.13 and above.
         guard #available(macOS 10.13, *) else {
@@ -15,26 +16,9 @@ final class LFSPointersTests: XCTestCase {
 
         let lp = productsDirectory.appendingPathComponent("LFSPointers")
 		
-		try Folder(path: fm.currentDirectoryPath + "/Resources").files.recursive.forEach({ file in
-			
-			let r = SwiftShell.run("git", "lfs", "pointer", "--file=\(file.path)")
-			
-			let components = r.stdout.components(separatedBy: "\n")
-			
-			guard components.count >= 3 else { return }
-			
-			struct LFSPointer {
-				let version: String
-				let oid: String
-				let size: Int
-			}
-			
-			let pointer = LFSPointer(version: components[0].replacingOccurrences(of: "version ", with: ""), oid: components[1].replacingOccurrences(of: "oid sha256:", with: ""), size: Int(components[2].replacingOccurrences(of: "size ", with: "") ?? "0") ?? 0)
-			
-			print("\n\n\n\(pointer)\n\n\n")
-			
-		})
+		let pointer = try LFSPointer.pointer(forFile: Folder.current.subfolder(named: "Resources").file(named: "text.txt").path)
 		
+		XCTAssertEqual(915616, pointer.size)
 		
 		let r = SwiftShell.run(lp.absoluteString, "--help")
 		
@@ -54,6 +38,6 @@ final class LFSPointersTests: XCTestCase {
     }
 
     static var allTests = [
-        ("testExample", testExample),
+        ("testConvertFileToPointer", testConvertFileToPointer),
     ]
 }

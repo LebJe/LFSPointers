@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "LFSPointers",
 	products: [
-		.executable(name: "LFSPointers", targets: ["LFSPointers"]),
+		.executable(name: "LFSPointers", targets: ["LFSPointersExecutable"]),
 		.library(name: "LFSPointersLib", targets: ["LFSPointersLibrary"])
 	],
     dependencies: [
@@ -23,10 +23,10 @@ let package = Package(
             name: "LFSPointersLibrary",
 			dependencies: ["SwiftShell", "Files"]),
 		.target(
-			name: "LFSPointers",
-			dependencies: ["SwiftShell", .product(name: "ArgumentParser", package: "swift-argument-parser"), "Rainbow", "Files"]),
+			name: "LFSPointersExecutable",
+			dependencies: ["SwiftShell", .product(name: "ArgumentParser", package: "swift-argument-parser"), "Rainbow", "Files", "LFSPointersLibrary"]),
         .testTarget(
             name: "LFSPointersTests",
-            dependencies: ["LFSPointers"]),
+            dependencies: ["LFSPointersLibrary", "SwiftShell"]),
     ]
 )
