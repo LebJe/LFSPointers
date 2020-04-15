@@ -8,7 +8,7 @@
 	<img src="https://img.shields.io/badge/spm-compatible-brightgreen.svg" alt="SPM Compatible">
 	</a>
 	<a href="https://travis-ci.org/github/LebJe/LFSPointers">
-	<img src=">https://travis-ci.org/LebJe/LFSPointers.svg?branch=master" alt="Build Status">
+	<img src="https://travis-ci.org/LebJe/LFSPointers.svg?branch=master" alt="Build Status">
 	</a>
 </p>
 
