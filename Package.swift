@@ -12,7 +12,7 @@ let package = Package(
     dependencies: [
         // Dependencies declare other packages that this package depends on.
          .package(url: "https://github.com/kareman/SwiftShell", from: "5.0.1"),
-		 .package(url: "https://github.com/apple/swift-argument-parser.git", .upToNextMinor(from: "0.0.4")),
+		 .package(url: "https://github.com/apple/swift-argument-parser.git", .upToNextMinor(from: "0.0.5")),
 		 .package(url: "https://github.com/onevcat/Rainbow", from: "3.1.5"),
 		 .package(url: "https://github.com/JohnSundell/Files", from: "4.1.1")
     ],
@@ -21,7 +21,7 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
             name: "LFSPointersLibrary",
-			dependencies: ["SwiftShell", "Files"]),
+			dependencies: ["SwiftShell", "Files", "Rainbow"]),
 		.target(
 			name: "LFSPointersExecutable",
 			dependencies: ["SwiftShell", .product(name: "ArgumentParser", package: "swift-argument-parser"), "Rainbow", "Files", "LFSPointersLibrary"]),

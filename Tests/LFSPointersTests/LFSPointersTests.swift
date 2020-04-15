@@ -11,19 +11,24 @@ final class LFSPointersTests: XCTestCase {
         guard #available(macOS 10.13, *) else {
             return
         }
-		
-		let fm = FileManager()
 
         let lp = productsDirectory.appendingPathComponent("LFSPointers")
-		
-		let pointer = try LFSPointer.pointer(forFile: Folder.current.subfolder(named: "Resources").file(named: "text.txt").path)
+
+		let pointer = try LFSPointer.pointer(forFile: Folder.current.subfolder(named: "Resources").file(named: "foo.txt").path)
 		
 		XCTAssertEqual(915616, pointer.size)
+		XCTAssertEqual("7460be75572755e82af8be291eb5113bcfe4a5e929578f1a4690c8b364f83207", pointer.oid)
 		
-		let r = SwiftShell.run(lp.absoluteString, "--help")
 		
-		XCTAssertEqual(r.stdout, r.stdout)
     }
+	
+	func testRecursivelyGeneratePointersForFilesInSubdirectories() throws {
+		XCTAssertNoThrow(try LFSPointer.pointers(forDirectory: Folder.current.subfolder(named: "Resources").path, regex: NSRegularExpression(pattern: "^*$"), recursive: true))
+		
+		let pointers = try LFSPointer.pointers(forDirectory: Folder.current.subfolder(named: "Resources").path, regex: NSRegularExpression(pattern: "^*$"), recursive: true)
+		
+		print("\n\n\(pointers[0].pointer)\n\n")
+	}
 
     /// Returns path to the built products directory.
     var productsDirectory: URL {
