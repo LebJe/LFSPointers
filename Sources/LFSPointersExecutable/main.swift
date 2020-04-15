@@ -46,7 +46,7 @@ struct LFSPointersCommand: ParsableCommand {
 				
 			})
 			
-			
+			/*
 			// Iterate over all the files in the specified directory.
 			for file in try fm.contentsOfDirectory(atPath: directory.absoluteString) {
 				
@@ -116,6 +116,7 @@ struct LFSPointersCommand: ParsableCommand {
 				}
 
 			}
+*/
 			
 		} catch let error {
 			fputs("An error occurred: \(error)".red, stderr)
