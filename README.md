@@ -23,7 +23,7 @@ Install [Swift](https://swift.org) at [https://swift.org/download/](https://swif
 Coming soon!
 
 ### Command Line
-To convert the all files with the extension `png` (the files are in the directory `large-files`) to LFS pointers, run `$ LFSPointers large-files "^*.png$"`.
+To convert all files with the extension `png` (the files are in the directory `large-files`) to LFS pointers, run `$ LFSPointers large-files "^*.png$"`.
 
 ## More Information
 Run `$ LFSPointers --help`.
