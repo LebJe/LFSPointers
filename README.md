@@ -1,6 +1,6 @@
 # LFSPointers
 
-A tool that allows you to convert a directory of large files to Git LFS pointers.
+A command line tool that allows you to convert a directory of large files to Git LFS pointers.
 
 ## Prerequisites
 ### [Git](https://git-scm.com)
