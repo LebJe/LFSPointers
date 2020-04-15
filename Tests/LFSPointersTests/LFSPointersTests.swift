@@ -27,7 +27,9 @@ final class LFSPointersTests: XCTestCase {
 		
 		let pointers = try LFSPointer.pointers(forDirectory: Folder.current.subfolder(named: "Resources").path, regex: NSRegularExpression(pattern: "^*$"), recursive: true)
 		
-		print("\n\n\(pointers[0].pointer)\n\n")
+		print(Folder.current.path)
+		
+		print(Folder.current.subfolders.names())
 	}
 
     /// Returns path to the built products directory.
