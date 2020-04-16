@@ -3,7 +3,7 @@ language: swift
 install:
 - swift package resolve
 - brew update
-- brew install git
+- brew upgrade git
 script:
 - swift build
 - swift test
