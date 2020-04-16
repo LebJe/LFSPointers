@@ -1,19 +1,19 @@
 matrix:
-include:
-- os: linux
-dist: bionic
-sudo: required
-language: cpp
-- os: osx
-osx_image: xcode11.4
-language: swift
-sudo: required
+  include:
+    - os: linux
+        dist: bionic
+        sudo: required
+        language: cpp
+    - os: osx
+        osx_image: xcode11.4
+        language: swift
+        sudo: required
 
-install:
-- chmod ugo+x ./scripts/install.sh
-- . ./scripts/install.sh
+    install:
+        - chmod ugo+x ./scripts/install.sh
+        - . ./scripts/install.sh
 
-script:
-- swift package resolve
-- swift build
-- swift test
+    script:
+        - swift package resolve
+        - swift build
+        - swift test
