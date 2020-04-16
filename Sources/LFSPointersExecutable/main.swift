@@ -50,7 +50,17 @@ struct LFSPointersCommand: ParsableCommand {
 				}
 			}
 			
-			try LFSPointer.pointers(forDirectory: directory.absoluteString, regex: try NSRegularExpression(pattern: regularExpression), recursive: recursive, printOutput: silent, printVerboseOutput: verbose).forEach({ (filename: String, filePath: String, pointer: LFSPointer) in
+			let regex: NSRegularExpression!
+			
+			do {
+				regex = try NSRegularExpression(pattern: regularExpression)
+			} catch let error {
+				if !silent {
+					fputs("Invalid regular expression.".red, stderr)
+				}
+			}
+			
+			try LFSPointer.pointers(forDirectory: directory.absoluteString, regex: regex, recursive: recursive, printOutput: silent, printVerboseOutput: verbose).forEach({ (filename: String, filePath: String, pointer: LFSPointer) in
 				
 				do {
 					try pointer.write(toFile: filePath)
@@ -67,7 +77,10 @@ struct LFSPointersCommand: ParsableCommand {
 			})
 			
 		} catch let error {
-			fputs("An error occurred: \(error)".red, stderr)
+			if !silent {
+				fputs("An error occurred: \(error)".red, stderr)
+			}
+			
 			Foundation.exit(2)
 		}
 	}
