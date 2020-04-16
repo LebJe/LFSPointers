@@ -39,7 +39,15 @@ Install [Swift](https://swift.org) at [https://swift.org/download/](https://swif
 Coming soon!
 
 ### Command Line
-Let's imagine you have a directory of large `png` and `jpg` files called `Project Logos`. If you wanted to convert the files with the extension `png` to LFS pointers, you could run `$ LFSPointers path/to/Project\ Logos "^*.png$"`. The first argument is the path to the directory, and the second argument is the regular expression used to search for `png` files.
+Let's imagine you have a directory of large `png` and `jpg` files called `Project Logos`. If you wanted to convert the files with the extension `png` to LFS pointers, you could run 
+```
+$ LFSPointers path/to/Project\ Logos "^*.png$"
+```
+. The first argument is the path to the directory, and the second argument is the regular expression used to search for `png` files.\
+But wait! It's not safe to run random programs on your computer! To backup your files just in case something goes wrong, add `-b path/to/backup-directory` to the previous command, like this: 
+```
+$ LFSPointers -b path/to/backup-directory path/to/Project\ Logos "^*.png$"
+```
 
 ## More Information
 Run `$ LFSPointers --help`.

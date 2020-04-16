@@ -18,13 +18,13 @@ struct LFSPointersCommand: ParsableCommand {
 	@Flag(name: .shortAndLong, help: "Repeat this process in all directories.")
 	var recursive: Bool
 	
-	@Option(default: nil, help: "The directory files will be copied to before being processed. Will be created if it does not exist. If no directory is specified, no files will be copied.", transform: URL.init(fileURLWithPath:))
+	@Option(name: .shortAndLong, default: nil, help: "The directory files will be copied to before being processed. Will be created if it does not exist. If no directory is specified, no files will be copied.", transform: URL.init(fileURLWithPath:))
 	var backupDirectory: URL?
 	
 	@Argument(help: "The directory which contains the files you want to convert to LFS pointers.", transform: URL.init(fileURLWithPath:))
 	var directory: URL
 	
-	@Argument(help: "The regular expression used to filter files (\"*\" will match everything). Remember to encapsulate your expression with double quotes so your shell doesn't pass in a list of filenames that match the expression.")
+	@Argument(help: "The regular expression used to filter files (\"^*$\" will match everything). Remember to encapsulate your expression with double quotes so your shell doesn't pass in a list of filenames that match the expression.")
 	var regularExpression: String
 	
 	mutating func validate() throws {
@@ -42,7 +42,7 @@ struct LFSPointersCommand: ParsableCommand {
 			if let bd = backupDirectory {
 				do {
 					// Copy the specified directory into the backup directory.
-					try Folder(path: directory.absoluteString).copy(to: Folder(path: bd.absoluteString))
+					try Folder(path: directory.path).copy(to: Folder(path: bd.path))
 				} catch {
 					fputs("Unable to copy the contents of the target directory to the backup directory. Check the folder permissions and check that both folders exist.".red, stderr)
 					
@@ -54,7 +54,7 @@ struct LFSPointersCommand: ParsableCommand {
 			
 			do {
 				regex = try NSRegularExpression(pattern: regularExpression)
-			} catch let error {
+			} catch _ {
 				if !silent {
 					fputs("Invalid regular expression.".red, stderr)
 				}
@@ -62,9 +62,11 @@ struct LFSPointersCommand: ParsableCommand {
 				Foundation.exit(3)
 			}
 			
-			try LFSPointer.pointers(forDirectory: directory.absoluteString, regex: regex, recursive: recursive, printOutput: silent, printVerboseOutput: verbose).forEach({ (filename: String, filePath: String, pointer: LFSPointer) in
+			try LFSPointer.pointers(forDirectory: directory.path, regex: regex, recursive: recursive, printOutput: silent, printVerboseOutput: verbose).forEach({ (filename: String, filePath: String, pointer: LFSPointer) in
 				
 				do {
+					SwiftShell.run("brew", "reinstall", "git")
+					// TODO: Test on Linux.
 					try pointer.write(toFile: filePath)
 				} catch is LocationError {
 					if !silent {
