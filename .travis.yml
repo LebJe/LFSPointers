@@ -2,11 +2,11 @@ os: osx
 osx_image: xcode11.4
 language: swift
 install:
-	- brew update
-	- brew upgrade gti
-	- brew install git-lfs
-	- git lfs install
-	- swift package resolve
+  - brew update
+  - brew upgrade git
+  - brew install git-lfs
+  - git lfs install
+  - swift package resolve
 script:
-	- swift build
-	- swift test
+  - swift build
+  - swift test

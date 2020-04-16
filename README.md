@@ -44,7 +44,7 @@ Let's imagine you have a directory of large `png` and `jpg` files called `Projec
 $ LFSPointers path/to/Project\ Logos "^*.png$"
 ```
 . The first argument is the path to the directory, and the second argument is the regular expression used to search for `png` files.\
-But wait! It's not safe to run random programs on your computer! To backup your files just in case something goes wrong, add `-b path/to/backup-directory` to the previous command, like this: 
+But wait! It's not safe to run random programs on your computer! To backup your files just in case something goes wrong, add `-b path/to/backup-directory` to the previous command, like this:
 ```
 $ LFSPointers -b path/to/backup-directory path/to/Project\ Logos "^*.png$"
 ```
