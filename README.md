@@ -19,10 +19,12 @@ A command line tool that allows you to convert a directory of large files to Git
 ### [Git](https://git-scm.com)
 Install Git at [https://git-scm.com](https://git-scm.com).
 
+### [Git-LFS](https://git-lfs.github.com)
+Install Git-LFS at [https://git-lfs.github.com](https://git-lfs.github.com).
+
 ## Install
 ### [Mint](https://github.com/yonaskolb/mint)
 `$ mint install LebJe/LFSPointers`
-
 ### [Homebrew](https://brew.sh)
 `$ brew install LebJe/formulae/lfs-pointers`
 
