@@ -4,6 +4,7 @@ install:
 - swift package resolve
 - brew update
 - brew upgrade git
+- git lfs install
 script:
 - swift build
 - swift test
