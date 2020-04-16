@@ -32,76 +32,158 @@ public struct LFSPointer {
 	/// - Parameters:
 	///   - directory: The directory to iterate over.
 	///   - recursive: Whether to include subdirectories when iterating.
-	///   - regex: The regular expression used to filter files. NSRegularExpression(pattern: "*") will match all files.
+	///   - type:
 	///   - printOutput: Whether output should be printed.
 	///   - printVerboseOutput: Whether verbose output should be printed.
-	/// - Throws: `GitLFSError` or `LocationError` if the directory path is invalid.
+	/// - Throws: `GitLFSError` if an error occurred while generating pointers, or `LocationError` if the directory path is invalid.
 	/// - Returns: An array of tuples that contain the filename, file path, and `LFSPointer`.
-	public static func pointers(forDirectory directory: String, regex: NSRegularExpression, recursive: Bool = false, printOutput: Bool = false, printVerboseOutput: Bool = false) throws -> [(filename: String, filePath: String, pointer: LFSPointer)] {
+	public static func pointers(forDirectory directory: String, searchType type: SearchTypes, recursive: Bool = false, printOutput: Bool = false, printVerboseOutput: Bool = false) throws -> [(filename: String, filePath: String, pointer: LFSPointer)] {
 		var pointers: [(filename: String, filePath: String, pointer: LFSPointer)] = []
 		
+		let folder = try Folder(path: directory)
+		
 		if recursive {
-			try Folder(path: directory).files.recursive.forEach({ file in
-				if regex.matches(file.name) {
+			switch type {
+				case .fileNames(let fileNames):
+					let folder = try Folder(path: directory)
 					
-					if printOutput && printVerboseOutput {
-						print("Converting \"\(file.name)\" to pointer...\n")
-						print("git lfs pointer --file=\(file.name)".blue)
-					} else if printOutput {
-						print("Converting \"\(file.name)\" to pointer...\n")
-					}
+					let folderNames = folder.files.recursive.names()
 					
-					do {
-						
-						let pointer = try self.pointer(forFile: file.path)
-						pointers.append((file.name, file.path, pointer))
-						
-					} catch let error {
-						if printVerboseOutput && printOutput {
-							fputs("Could not convert \"\(file.name)\" to a pointer.\n Git LFS error: \(error)\n".red, stderr)
+					for name in fileNames {
+						if folderNames.contains(name) {
+							let file = folder.files.recursive.first(where: { file in
+								file.name == name
+							})!
 							
-						} else if printOutput {
-							fputs("Could not convert \"\(file.name)\" to a pointer.".red, stderr)
+							if printOutput && printVerboseOutput {
+								print("Converting \"\(file.name)\" to pointer...\n")
+								print("git lfs pointer --file=\(file.name)".blue)
+							} else if printOutput {
+								print("Converting \"\(file.name)\" to pointer...\n")
+							}
+							
+							if printOutput {
+								do {
+									let pointer = try self.pointer(forFile: file.path)
+									pointers.append((file.name, file.path, pointer))
+								} catch let error {
+									if printVerboseOutput && printOutput {
+										fputs("Could not convert \"\(file.name)\" to a pointer.\n Git LFS error: \(error)\n".red, stderr)
+										
+									} else if printOutput {
+										fputs("Could not convert \"\(file.name)\" to a pointer.".red, stderr)
+									}
+								}
+								
+							} else {
+								let pointer = try self.pointer(forFile: file.path)
+								pointers.append((file.name, file.path, pointer))
+							}
+							
 						}
-						
 					}
-				} else {
-					if printOutput && printVerboseOutput {
-						print("File name \"\(file.name)\" does not match regular expression \"\(regex.pattern)\", continuing...")
-					}
-				}
 				
-			})
-		} else {
-			for file in try Folder(path: directory).files {
-				if regex.matches(file.name) {
-					
-					if printOutput && printVerboseOutput {
-						print("Converting \"\(file.name)\" to pointer...\n")
-						print("git lfs pointer --file=\(file.name)".blue)
-					} else if printOutput {
-						print("Converting \"\(file.name)\" to pointer...\n")
-					}
-					
-					do {
-						
-						let pointer = try self.pointer(forFile: file.path)
-						
-						pointers.append((file.name, file.path, pointer))
-						
-					} catch let error {
-						
-						if printVerboseOutput && printOutput {
-							fputs("Could not convert \"\(file.name)\" to a pointer.\n Git LFS error: \(error)\n".red, stderr)
+				case .regex(let regex):
+					try folder.files.recursive.forEach({ file in
+						if regex.matches(file.name) {
 							
-						} else if printOutput {
-							fputs("Could not convert \"\(file.name)\" to a pointer.".red, stderr)
+							if printOutput && printVerboseOutput {
+								print("Converting \"\(file.name)\" to pointer...\n")
+								print("git lfs pointer --file=\(file.name)".blue)
+							} else if printOutput {
+								print("Converting \"\(file.name)\" to pointer...\n")
+							}
+							
+							if printOutput {
+								do {
+									
+									let pointer = try self.pointer(forFile: file.path)
+									pointers.append((file.name, file.path, pointer))
+									
+								} catch let error {
+									if printVerboseOutput && printOutput {
+										fputs("Could not convert \"\(file.name)\" to a pointer.\n Git LFS error: \(error)\n".red, stderr)
+										
+									} else if printOutput {
+										fputs("Could not convert \"\(file.name)\" to a pointer.".red, stderr)
+									}
+									
+								}
+							} else {
+								let pointer = try self.pointer(forFile: file.path)
+								pointers.append((file.name, file.path, pointer))
+							}
+							
+						} else {
+							if printOutput && printVerboseOutput {
+								print("File name \"\(file.name)\" does not match regular expression \"\(regex.pattern)\", continuing...")
+							}
+						}
+					})
+			}
+			
+			
+		} else {
+			switch type {
+				case .fileNames(let fileNames):
+					for name in fileNames {
+						if folder.containsFile(named: name) {
+							let file = try folder.file(named: name)
+							
+							if printOutput && printVerboseOutput {
+								print("Converting \"\(file.name)\" to pointer...\n")
+								print("git lfs pointer --file=\(file.name)".blue)
+							} else if printOutput {
+								print("Converting \"\(file.name)\" to pointer...\n")
+							}
+							
+							if printOutput {
+								do {
+									
+									let pointer = try self.pointer(forFile: file.path)
+									pointers.append((file.name, file.path, pointer))
+									
+								} catch let error {
+									if printVerboseOutput && printOutput {
+										fputs("Could not convert \"\(file.name)\" to a pointer.\n Git LFS error: \(error)\n".red, stderr)
+										
+									} else if printOutput {
+										fputs("Could not convert \"\(file.name)\" to a pointer.".red, stderr)
+									}
+									
+								}
+							} else {
+								let pointer = try self.pointer(forFile: file.path)
+								pointers.append((file.name, file.path, pointer))
+							}
+
 						}
 					}
-				} else {
-					if printOutput && printVerboseOutput {
-						print("File name \"\(file.name)\" does not match regular expression \"\(regex.pattern)\", continuing...")
-					}
+				case .regex(let regex):
+				
+					for file in folder.files {
+						if regex.matches(file.name) {
+							
+							if printOutput {
+								do {
+									
+									let pointer = try self.pointer(forFile: file.path)
+									pointers.append((file.name, file.path, pointer))
+									
+								} catch let error {
+									if printVerboseOutput && printOutput {
+										fputs("Could not convert \"\(file.name)\" to a pointer.\n Git LFS error: \(error)\n".red, stderr)
+										
+									} else if printOutput {
+										fputs("Could not convert \"\(file.name)\" to a pointer.".red, stderr)
+									}
+									
+								}
+							} else {
+								let pointer = try self.pointer(forFile: file.path)
+								pointers.append((file.name, file.path, pointer))
+							}
+						}
 				}
 			}
 		}
@@ -111,7 +193,7 @@ public struct LFSPointer {
 	
 	/// Generates a LFS pointer for a file.
 	/// - Parameter path: The path to the file.
-	/// - Throws: `GitLFSError` or `LocationError` if the file path is invalid.
+	/// - Throws: `GitLFSError` if an error occurred while generating pointers, or `LocationError` if the file path is invalid.
 	/// - Returns: A `LFSPointer`.
 	public static func pointer(forFile path: String) throws -> LFSPointer {
 		let file = try File(path: path)

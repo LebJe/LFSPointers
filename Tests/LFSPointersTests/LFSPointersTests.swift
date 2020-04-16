@@ -22,14 +22,26 @@ final class LFSPointersTests: XCTestCase {
 		
     }
 	
-	func testRecursivelyGeneratePointersForFilesInSubdirectories() throws {
-		XCTAssertNoThrow(try LFSPointer.pointers(forDirectory: Folder.current.subfolder(named: "Resources").path, regex: NSRegularExpression(pattern: "^*$"), recursive: true))
+	func testRecursivelyGeneratePointersForFilesInSubdirectoriesAndOverwriteSaidFiles() throws {
+		// Resources directory.
+		let resources = try Folder.current.subfolder(named: "Resources")
 		
-		let pointers = try LFSPointer.pointers(forDirectory: Folder.current.subfolder(named: "Resources").path, regex: NSRegularExpression(pattern: "^*$"), recursive: true)
+		// Get the text from "foo.txt" and "recursive/bar.txt".
+		let foo = try resources.file(named: "foo.txt").readAsString()
+		let bar = try resources.subfolder(named: "recursive").file(named: "bar.txt").readAsString()
 		
-		print(Folder.current.path)
+		XCTAssertNoThrow(try LFSPointer.pointers(forDirectory: resources.path, searchType: .regex(try NSRegularExpression(pattern: "^*$")), recursive: true))
 		
-		print(Folder.current.subfolders.names())
+		let pointers = try LFSPointer.pointers(forDirectory: resources.path, searchType: .regex(try NSRegularExpression(pattern: "^*$")), recursive: true)
+		
+		// Make sure there are two pointers ("foo.txt" and "recursive/bar.txt").
+		XCTAssertEqual(2, pointers.count)
+		
+		// Try writing the pointer to "foo.txt".
+		XCTAssertNoThrow(try pointers[0].pointer.write(toFile: resources.file(named: "foo.txt").path, shouldAppend: false, printOutput: true, printVerboseOutput: true))
+		
+		// Restore the contents of "foo.txt".
+		XCTAssertNoThrow(try foo.write(to: URL(fileURLWithPath: resources.file(named: "foo.txt").path), atomically: false, encoding: .utf8))
 	}
 
     /// Returns path to the built products directory.

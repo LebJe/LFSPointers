@@ -18,14 +18,17 @@ struct LFSPointersCommand: ParsableCommand {
 	@Flag(name: .shortAndLong, help: "Repeat this process in all directories.")
 	var recursive: Bool
 	
+	@Flag(name: .shortAndLong, help: "Convert all files to pointers (USE WITH CAUTION!).")
+	var all: Bool
+	
 	@Option(name: .shortAndLong, default: nil, help: "The directory files will be copied to before being processed. Will be created if it does not exist. If no directory is specified, no files will be copied.", transform: URL.init(fileURLWithPath:))
 	var backupDirectory: URL?
 	
 	@Argument(help: "The directory which contains the files you want to convert to LFS pointers.", transform: URL.init(fileURLWithPath:))
 	var directory: URL
 	
-	@Argument(help: "The regular expression used to filter files (\"^*$\" will match everything). Remember to encapsulate your expression with double quotes so your shell doesn't pass in a list of filenames that match the expression.")
-	var regularExpression: String
+	@Argument(help: "A list of filenames that represent files to be converted. Use your shell's regular expression support to pass in a list of files.")
+	var files: [String]
 	
 	mutating func validate() throws {
 		// Verify the directory actually exists.
@@ -38,7 +41,6 @@ struct LFSPointersCommand: ParsableCommand {
 		
 		do {
 			
-			
 			if let bd = backupDirectory {
 				do {
 					// Copy the specified directory into the backup directory.
@@ -50,35 +52,41 @@ struct LFSPointersCommand: ParsableCommand {
 				}
 			}
 			
-			var regex: NSRegularExpression! = nil
-			
-			do {
-				regex = try NSRegularExpression(pattern: regularExpression)
-			} catch _ {
-				if !silent {
-					fputs("Invalid regular expression.".red, stderr)
-				}
-				
-				Foundation.exit(3)
+			if all {
+				try LFSPointer.pointers(forDirectory: directory.path, searchType: .regex(NSRegularExpression(pattern: "^*$")), recursive: recursive, printOutput: silent == false ? true : false, printVerboseOutput: verbose).forEach({ (filename: String, filePath: String, pointer: LFSPointer) in
+					
+					do {
+						try pointer.write(toFile: filePath)
+					} catch is LocationError {
+						if !silent {
+							fputs("Unable to overwrite file \"\(filename)\". Check the file permissions and check that the file exists.".red, stderr)
+						}
+					} catch let error {
+						if !silent {
+							fputs("Unable to overwrite file \"\(filename)\". Error: \(error)", stderr)
+						}
+					}
+					
+				})
+
+			} else {
+				try LFSPointer.pointers(forDirectory: directory.path, searchType: .fileNames(files), recursive: recursive, printOutput: silent == false ? true : false, printVerboseOutput: verbose).forEach({ (filename: String, filePath: String, pointer: LFSPointer) in
+					
+					do {
+						try pointer.write(toFile: filePath)
+					} catch is LocationError {
+						if !silent {
+							fputs("Unable to overwrite file \"\(filename)\". Check the file permissions and check that the file exists.".red, stderr)
+						}
+					} catch let error {
+						if !silent {
+							fputs("Unable to overwrite file \"\(filename)\". Error: \(error)", stderr)
+						}
+					}
+					
+				})
+
 			}
-			
-			try LFSPointer.pointers(forDirectory: directory.path, regex: regex, recursive: recursive, printOutput: silent, printVerboseOutput: verbose).forEach({ (filename: String, filePath: String, pointer: LFSPointer) in
-				
-				do {
-					SwiftShell.run("brew", "reinstall", "git")
-					// TODO: Test on Linux.
-					try pointer.write(toFile: filePath)
-				} catch is LocationError {
-					if !silent {
-						fputs("Unable to overwrite file \"\(filename)\". Check the file permissions and check that the file exists.".red, stderr)
-					}
-				} catch let error {
-					if !silent {
-						fputs("Unable to overwrite file \"\(filename)\". Error: \(error)", stderr)
-					}
-				}
-				
-			})
 			
 		} catch let error {
 			if !silent {
