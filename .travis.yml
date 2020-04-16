@@ -1,19 +1,11 @@
-matrix:
-  include:
-    - os: linux
+jobs:
+    include:
+      - os: linux
         dist: bionic
         sudo: required
-        language: cpp
-    - os: osx
+      - os: osx
         osx_image: xcode11.4
-        language: swift
-        sudo: required
-
-    install:
-        - chmod ugo+x ./scripts/install.sh
-        - . ./scripts/install.sh
-
-    script:
-        - swift package resolve
-        - swift build
-        - swift test
+  before_install:
+    - ./Scripts/install.sh
+  script:
+    - ./Scripts/script.sh
