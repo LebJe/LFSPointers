@@ -50,7 +50,7 @@ struct LFSPointersCommand: ParsableCommand {
 				}
 			}
 			
-			let regex: NSRegularExpression! = nil
+			var regex: NSRegularExpression! = nil
 			
 			do {
 				regex = try NSRegularExpression(pattern: regularExpression)

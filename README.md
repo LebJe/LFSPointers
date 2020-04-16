@@ -21,6 +21,7 @@ Install Git at [https://git-scm.com](https://git-scm.com).
 
 ### [Git-LFS](https://git-lfs.github.com)
 Install Git-LFS at [https://git-lfs.github.com](https://git-lfs.github.com).
+It it recommended that you read [https://git-lfs.github.com](https://git-lfs.github.com) before continuing.
 
 ## Install
 ### [Mint](https://github.com/yonaskolb/mint)
@@ -38,7 +39,7 @@ Install [Swift](https://swift.org) at [https://swift.org/download/](https://swif
 Coming soon!
 
 ### Command Line
-To convert all files with the extension `png` (the files are in the directory `large-files`) to LFS pointers, run `$ LFSPointers large-files "^*.png$"`.
+Let's imagine you have a directory of large `png` and `jpg` files called `Project Logos`. If you wanted to convert the files with the extension `png` to LFS pointers, you could run `$ LFSPointers path/to/Project\ Logos "^*.png$"`. The first argument is the path to the directory, and the second argument is the regular expression used to search for `png` files.
 
 ## More Information
 Run `$ LFSPointers --help`.
