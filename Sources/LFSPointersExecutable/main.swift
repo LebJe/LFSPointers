@@ -46,11 +46,11 @@ struct LFSPointersCommand: ParsableCommand {
 				} catch {
 					fputs("Unable to copy the contents of the target directory to the backup directory. Check the folder permissions and check that both folders exist.".red, stderr)
 					
-					Foundation.exit(3)
+					Foundation.exit(4)
 				}
 			}
 			
-			let regex: NSRegularExpression!
+			let regex: NSRegularExpression! = nil
 			
 			do {
 				regex = try NSRegularExpression(pattern: regularExpression)
@@ -58,6 +58,8 @@ struct LFSPointersCommand: ParsableCommand {
 				if !silent {
 					fputs("Invalid regular expression.".red, stderr)
 				}
+				
+				Foundation.exit(3)
 			}
 			
 			try LFSPointer.pointers(forDirectory: directory.absoluteString, regex: regex, recursive: recursive, printOutput: silent, printVerboseOutput: verbose).forEach({ (filename: String, filePath: String, pointer: LFSPointer) in
