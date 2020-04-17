@@ -46,7 +46,7 @@ Let's imagine you have a directory of large `png` and `jpg` files called `Projec
 ```
 $ LFSPointers path/to/Project\ Logos *.png
 ```
-. The first argument is the path to the directory, and the second argument is the regular expression used to search for `png` files.\
+. The first argument is the path to the directory, and the second argument a regular expression used to search for `png` files that your shell will convert to a list of filenames.\
 But wait! It's not safe to run random programs on your computer! To backup your files just in case something goes wrong, add `-b path/to/backup-directory` to the previous command, like this:
 ```
 $ LFSPointers -b path/to/backup-directory path/to/Project\ Logos *.png
@@ -61,4 +61,4 @@ Tested on MacOS Catalina 10.15.4 (19E287), using Swift 5.2.2.
 ### Linux
 Tested on Ubuntu 18.04.4 LTS (Bionic Beaver), also using Swift 5.2.2.
 ## iOS WatchOS, tvOS
-Unfortunately, you cannot install command line programs, like `git`, on these systems.
+Unfortunately, you cannot install command line programs, like `git`, on these systems And because this program depends on `git`, it can't be installed.
