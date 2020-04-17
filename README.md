@@ -60,5 +60,5 @@ Run `$ LFSPointers --help`.\
 Tested on MacOS Catalina 10.15.4 (19E287), using Swift 5.2.2.
 ### Linux
 Tested on Ubuntu 18.04.4 LTS (Bionic Beaver), also using Swift 5.2.2.
-### iOS WatchOS, tvOS
+## iOS WatchOS, tvOS
 Unfortunately, you cannot install command line programs, like `git`, on these systems.
