@@ -1,12 +1,14 @@
-os: osx
-osx_image: xcode11.4
-language: swift
-install:
-  - brew update
-  - brew upgrade git
-  - brew install git-lfs
-  - git lfs install
-  - swift package resolve
+jobs:
+  include:
+    - os: linux
+      dist: bionic
+      sudo: required
+    - os: osx
+      osx_image: xcode11.4
+env:
+  global:
+  - FRAMEWORK_NAME=AssetLib
+before_install:
+  - bash -e ./Scripts/before_install.sh
 script:
-  - swift build
-  - swift test
+  - bash -e ./Scripts/script.sh

@@ -1,11 +1,13 @@
-jobs:
-include:
-- os: linux
-dist: bionic
-sudo: required
-- os: osx
+os: osx
 osx_image: xcode11.4
-before_install:
-- ./Scripts/install.sh
+language: swift
+install:
+  - brew update
+  - brew upgrade git
+  - brew install git-lfs
+  - git lfs install
+  - swift package resolve
 script:
-- ./Scripts/script.sh
+  - swift build
+  - swift test
+
