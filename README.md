@@ -11,7 +11,7 @@
 	<img src="https://travis-ci.org/LebJe/LFSPointers.svg?branch=master" alt="Build Status">
 	</a>
 	<a href="https://img.shields.io/badge/Platforms-MacOS-lightgrey">
-	<img src="https://img.shields.io/badge/Platforms-MacOS-lightgrey" alt="">
+	<img src="https://img.shields.io/badge/Platforms-osx-lightgrey" alt="">
 	</a>
 </p>
 
