@@ -26,7 +26,7 @@ Install Git at [https://git-scm.com](https://git-scm.com).
 Install Git-LFS at [https://git-lfs.github.com](https://git-lfs.github.com).
 It it recommended that you read [https://git-lfs.github.com](https://git-lfs.github.com) before continuing.
 
-## Install
+## Install Program
 ### [Mint](https://github.com/yonaskolb/mint)
 `$ mint install LebJe/LFSPointers`
 ### [Homebrew](https://brew.sh)
@@ -37,6 +37,12 @@ It it recommended that you read [https://git-lfs.github.com](https://git-lfs.git
 Install [Swift 5.2.2](https://swift.org) at [https://swift.org/download/](https://swift.org/download/), then run:\
 `$ swift build -c release && cp .build/release/LFSPointers ~/usr/bin/local`
 
+## Install Library
+# Swift Package Manager
+```
+.package(url: "https://github.com/LebJe/LFSPointers.git", .upToNextMinor(from: "0.0.11"))
+```
+
 ## Usage
 ### Library
 Coming soon!
@@ -46,14 +52,14 @@ Let's imagine you have a directory of large `png` and `jpg` files called `Projec
 ```
 $ LFSPointers path/to/Project\ Logos *.png
 ```
-. The first argument is the path to the directory, and the second argument a regular expression used to search for `png` files that your shell will convert to a list of filenames.\
+. The first argument is the path to the directory, and the second argument is a regular expression used to search for `png` files that your shell will convert to a list of filenames.\
 But wait! It's not safe to run random programs on your computer! To backup your files just in case something goes wrong, add `-b path/to/backup-directory` to the previous command, like this:
 ```
 $ LFSPointers -b path/to/backup-directory path/to/Project\ Logos *.png
 ```
 
 ## More Information
-Run `$ LFSPointers --help`.\
+Run `$ LFSPointers --help`.
 
 ## Tested Platforms
 ### Mac

@@ -7,7 +7,6 @@ jobs:
       osx_image: xcode11.4
 env:
   global:
-  - FRAMEWORK_NAME=AssetLib
   - SWIFT_VER=5.2.2
 before_install:
   - bash -e ./Scripts/install.sh
