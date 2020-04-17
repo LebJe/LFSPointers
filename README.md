@@ -53,4 +53,12 @@ $ LFSPointers -b path/to/backup-directory path/to/Project\ Logos "^*.png$"
 ```
 
 ## More Information
-Run `$ LFSPointers --help`.
+Run `$ LFSPointers --help`.\
+
+## Tested Platforms
+### Mac
+Tested on MacOS Catalina 10.15.4 (19E287).
+### Linux
+Coming soon!
+### iOS WatchOS, tvOS
+Unfortunately, you cannot install command line programs, like `git`, on these systems.

@@ -56,7 +56,7 @@ struct LFSPointersCommand: ParsableCommand {
 				try LFSPointer.pointers(forDirectory: directory.path, searchType: .regex(NSRegularExpression(pattern: "^*$")), recursive: recursive, printOutput: silent == false ? true : false, printVerboseOutput: verbose).forEach({ (filename: String, filePath: String, pointer: LFSPointer) in
 					
 					do {
-						try pointer.write(toFile: filePath)
+						try pointer.write(toFile: filePath, printOutput: silent == false ? true : false, printVerboseOutput: verbose)
 					} catch is LocationError {
 						if !silent {
 							fputs("Unable to overwrite file \"\(filename)\". Check the file permissions and check that the file exists.".red, stderr)
