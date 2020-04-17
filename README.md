@@ -57,7 +57,7 @@ Run `$ LFSPointers --help`.\
 
 ## Tested Platforms
 ### Mac
-Tested on MacOS Catalina 10.15.4 (19E287).
+Tested on MacOS Catalina 10.15.4 (19E287), using Swift 5.2.2.
 ### Linux
 Coming soon!
 ### iOS WatchOS, tvOS
