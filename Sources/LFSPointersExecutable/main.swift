@@ -43,6 +43,10 @@ struct LFSPointersCommand: ParsableCommand {
 			
 			if let bd = backupDirectory {
 				do {
+					if !silent {
+						print("Copying files to backup directory...")
+					}
+					
 					// Copy the specified directory into the backup directory.
 					try Folder(path: directory.path).copy(to: Folder(path: bd.path))
 				} catch {
@@ -95,6 +99,8 @@ struct LFSPointersCommand: ParsableCommand {
 			
 			Foundation.exit(2)
 		}
+		
+		print("Success!".green)
 	}
 }
 

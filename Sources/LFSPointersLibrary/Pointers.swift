@@ -139,7 +139,7 @@ public struct LFSPointer {
 							
 							if printOutput {
 								do {
-									
+								
 									let pointer = try self.pointer(forFile: file.path)
 									pointers.append((file.name, file.path, pointer))
 									
@@ -166,6 +166,12 @@ public struct LFSPointer {
 							
 							if printOutput {
 								do {
+									if printOutput && printVerboseOutput {
+										print("Converting \"\(file.name)\" to pointer...\n")
+										print("git lfs pointer --file=\(file.name)".blue)
+									} else if printOutput {
+										print("Converting \"\(file.name)\" to pointer...\n")
+									}
 									
 									let pointer = try self.pointer(forFile: file.path)
 									pointers.append((file.name, file.path, pointer))
