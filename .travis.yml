@@ -8,6 +8,7 @@ jobs:
 env:
   global:
   - FRAMEWORK_NAME=AssetLib
+  - SWIFT_VER=5.2
 before_install:
   - bash -e ./Scripts/install.sh
 script:
