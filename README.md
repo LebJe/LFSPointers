@@ -34,7 +34,7 @@ It it recommended that you read [https://git-lfs.github.com](https://git-lfs.git
 
 ### Manually
 #### Install
-Install [Swift](https://swift.org) at [https://swift.org/download/](https://swift.org/download/), then run:\
+Install [Swift 5.2.2](https://swift.org) at [https://swift.org/download/](https://swift.org/download/), then run:\
 `$ swift build -c release && cp .build/release/LFSPointers ~/usr/bin/local`
 
 ## Usage
