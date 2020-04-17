@@ -9,6 +9,6 @@ env:
   global:
   - FRAMEWORK_NAME=AssetLib
 before_install:
-  - bash -e ./Scripts/before_install.sh
+  - bash -e ./Scripts/install.sh
 script:
   - bash -e ./Scripts/script.sh
