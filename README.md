@@ -10,8 +10,8 @@
 	<a href="https://travis-ci.org/github/LebJe/LFSPointers">
 	<img src="https://travis-ci.org/LebJe/LFSPointers.svg?branch=master" alt="Build Status">
 	</a>
-	<a href="https://img.shields.io/badge/Platforms-MacOS-lightgrey">
-	<img src="https://img.shields.io/badge/Platforms-osx-lightgrey" alt="">
+	<a href="https://img.shields.io/badge/Platforms-MacOS%20%7C%20Linux-lightgrey">
+	<img src="https://img.shields.io/badge/Platforms-MacOS%20%7C%20Linux-lightgrey" alt="Platforms: MacOS | Linux">
 	</a>
 </p>
 
@@ -59,6 +59,6 @@ Run `$ LFSPointers --help`.\
 ### Mac
 Tested on MacOS Catalina 10.15.4 (19E287), using Swift 5.2.2.
 ### Linux
-Coming soon!
+Tested on Ubuntu 18.04.4 LTS (Bionic Beaver), also using Swift 5.2.2.
 ### iOS WatchOS, tvOS
 Unfortunately, you cannot install command line programs, like `git`, on these systems.
