@@ -30,3 +30,13 @@ let package = Package(
             dependencies: ["LFSPointersLibrary", "SwiftShell"]),
     ]
 )
+
+// SwiftyJSON is not supported on linux, so we need to use a fork that is supported.
+#if os(Linux)
+package.dependencies.append(.package(url: "https://github.com/IBM-Swift/SwiftyJSON.git", from: "17.0.5"))
+#elseif os(macOS)
+package.dependencies.append(.package(url: "https://github.com/SwiftyJSON/SwiftyJSON.git", from: "5.0.0"))
+#endif
+
+package.targets[0].dependencies.append("SwiftyJSON")
+package.targets[1].dependencies.append("SwiftyJSON")

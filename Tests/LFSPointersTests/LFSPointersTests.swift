@@ -41,14 +41,16 @@ final class LFSPointersTests: XCTestCase {
 		// Get a list of pointers.
 		let pointers = try LFSPointer.pointers(forDirectory: resources.path, searchType: .regex(try NSRegularExpression(pattern: "^*$")), recursive: true)
 		
+		toJSON(array: pointers)
+		
 		// Make sure there are two pointers ("foo.txt" and "recursive/bar.txt").
 		XCTAssertEqual(2, pointers.count)
 		
 		// Try writing the pointer to "foo.txt".
-		XCTAssertNoThrow(try pointers[0].pointer.write(toFile: fooFile.path, shouldAppend: false, printOutput: true, printVerboseOutput: true))
+		XCTAssertNoThrow(try pointers[0].pointer.write(toFile: fooFile.path, shouldAppend: false))
 		
 		// Try writing the pointer to "recursive/bar.txt".
-		XCTAssertNoThrow(try pointers[1].pointer.write(toFile: barFile.path, shouldAppend: false, printOutput: true, printVerboseOutput: true))
+		XCTAssertNoThrow(try pointers[1].pointer.write(toFile: barFile.path, shouldAppend: false))
 		
 		// Restore the contents of "foo.txt".
 		XCTAssertNoThrow(try foo.write(to: URL(fileURLWithPath: fooFile.path), atomically: false, encoding: .utf8))

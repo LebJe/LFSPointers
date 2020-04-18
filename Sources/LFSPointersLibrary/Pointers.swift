@@ -9,8 +9,7 @@ import Foundation
 import Files
 import SwiftShell
 import Rainbow
-
-let fm = FileManager()
+import SwiftyJSON
 
 /// Represents a Git LFS pointer for a file.
 ///
@@ -23,7 +22,7 @@ let fm = FileManager()
 /// let pointer = LFSPointer(version: "https://git-lfs.github.com/spec/v1", oid: "10b2cd328e193dd4b81d921dbe91bda74bda704c37bca43f1e15f41fcd20ac2a", size: 1455)
 /// ```
 ///
-public struct LFSPointer {
+public struct LFSPointer: Codable {
 	/// The version of the pointer. Example: "https://git-lfs.github.com/spec/v1".
 	public let version: String
 	
@@ -36,6 +35,24 @@ public struct LFSPointer {
 	/// String representation of this pointer.
 	public var stringRep: String {
 		"version \(self.version)\noid sha256:\(self.oid)\nsize \(self.size)"
+	}
+	
+	public func encode(to encoder: Encoder) throws {
+		var container = encoder.container(keyedBy: CodingKeys.self)
+		
+		try container.encode(self.version, forKey: .version)
+		try container.encode(self.oid, forKey: .oid)
+		try container.encode(self.size, forKey: .size)
+	}
+	
+	var json: String {
+		"""
+		{
+			"version": "\(self.version)",
+			"oid": "\(self.oid)",
+			"size": \(self.size)
+		}
+		"""
 	}
 	
 	/// Iterates over all files in a directory (excluding hidden files), and generates a LFS pointer for each one.
@@ -334,6 +351,10 @@ public struct LFSPointer {
 			try file.write("version \(self.version)\noidsha256:\(self.oid)\nsize \(self.size)", encoding: .utf8)
 		}
 	}
+	
+	enum CodingKeys: String, CodingKey {
+		case version, oid, size
+	}
 }
 
 extension LFSPointer: CustomDebugStringConvertible {
@@ -341,5 +362,20 @@ extension LFSPointer: CustomDebugStringConvertible {
 		"version \(self.version)\noid sha256:\(self.oid)\nsize \(self.size)"
 	}
 	
+}
+
+/// Generates a string containing `JSON`.
+/// - Parameter array: No description.
+/// - Returns: No description.
+public func toJSON(array: [(filename: String, filePath: String, pointer: LFSPointer)]) -> String {
 	
+	
+	var arrayOfDict: [[String: Any]] = []
+	for val in array {
+		arrayOfDict.append(["filename": val.filename, "filePath": val.filePath, "pointer": ["version": val.pointer.version, "oid": val.pointer.oid, "size": val.pointer.size]])
+	}
+	
+	let json = JSON(arrayOfDict)
+	
+	return json.description
 }

@@ -137,3 +137,27 @@ Tested on MacOS Catalina 10.15.4 (19E287), using Swift 5.2.2.
 Tested on Ubuntu 18.04.4 LTS (Bionic Beaver), also using Swift 5.2.2.
 ## iOS, watchOS, tvOS
 Unfortunately, you cannot install command line programs, like `git`, on these systems And because this program depends on `git`, it can't be installed.
+
+## JSON Structure
+```json
+[
+	{
+		"filename": "foo.txt",
+		"filePath": "/path/to/foo.txt",
+		"pointer": {
+						"version": "https://git-lfs.github.com/spec/v1",
+						"oid": "10b2cd328e193dd4b81d921dbe91bda74bda704c37bca43f1e15f41fcd20ac2a",
+						"size": 1455
+					}
+	},
+	{
+		"filename": "bar.txt",
+		"filePath": "/path/to/bar.txt",
+		"pointer": {
+						"version": "https://git-lfs.github.com/spec/v1",
+						"oid": "601952b2d85214ea602104a4784728ffa6b323b3a6131a124044fa5bfc2f7bf2",
+						"size": 1285200
+					}
+	}
+]
+```
