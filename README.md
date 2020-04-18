@@ -2,10 +2,10 @@
 
 <p align="center">
 	<a href="https://swift.org">
-	<img src="https://img.shields.io/badge/swift-5.2-brightgreen.svg" alt="Swift 5.2">
+	<img src="https://img.shields.io/badge/Swift-5.2-brightgreen.svg" alt="Swift 5.2">
 	</a>
 	<a href="https://swift.org/package-manager">
-	<img src="https://img.shields.io/badge/spm-compatible-brightgreen.svg" alt="SPM Compatible">
+	<img src="https://img.shields.io/badge/SPM-compatible-brightgreen.svg" alt="SPM Compatible">
 	</a>
 	<a href="https://travis-ci.org/github/LebJe/LFSPointers">
 	<img src="https://travis-ci.org/LebJe/LFSPointers.svg?branch=master" alt="Build Status">
@@ -23,7 +23,12 @@ A command line tool that allows you to convert a directory of large files to Git
 Install Git at [https://git-scm.com](https://git-scm.com).
 
 ### [Git-LFS](https://git-lfs.github.com)
-Install Git-LFS at [https://git-lfs.github.com](https://git-lfs.github.com).
+Install Git-LFS at [https://git-lfs.github.com](https://git-lfs.github.com), then run:
+
+```
+$ git lfs install
+```
+
 It it recommended that you read [https://git-lfs.github.com](https://git-lfs.github.com) before continuing.
 
 ## Install Program
@@ -33,13 +38,15 @@ It it recommended that you read [https://git-lfs.github.com](https://git-lfs.git
 `$ brew install LebJe/formulae/lfs-pointers`
 
 ### Manually
-#### Install
-Install [Swift 5.2.2](https://swift.org) at [https://swift.org/download/](https://swift.org/download/), then run:\
-`$ swift build -c release && cp .build/release/LFSPointers ~/usr/bin/local`
+Install [Swift 5.2.2](https://swift.org) at [https://swift.org/download/](https://swift.org/download/), then run:
+
+```
+path/to/LFSPointers $ swift build -c release && cp .build/release/LFSPointers ~/usr/bin/local
+```
 
 ## Install Library
 ### Swift Package Manager
-```
+```swift
 .package(url: "https://github.com/LebJe/LFSPointers.git", .upToNextMinor(from: "0.0.11"))
 ```
 
