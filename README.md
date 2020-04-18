@@ -83,7 +83,7 @@ public struct LFSPointer {
 ### Folder Conversion
 To convert a folder of files to pointers, you could write: 
 ```swift
-let pointers = try LFSPointer.pointers(forDirectory: "/full/path/to/file", searchType: .regex(regex))
+let pointers = try LFSPointer.pointers(forDirectory: "/full/path/to/folder", searchType: .filenames(["foo.java", "bar.js", "baz.py"]))
 ```
 
 The search types available are:

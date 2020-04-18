@@ -19,7 +19,7 @@ final class LFSPointersTests: XCTestCase {
 		
     }
 	
-	func testRecursivelyGeneratePointersForFilesInSubdirectoriesAndOverwriteSaidFiles() throws {
+	func testRecursivelyGeneratePointersForFilesInSubdirectoriesAndOverwriteSaidFilesWithOriginalContents() throws {
 		// Resources directory.
 		let resources = try Folder.current.subfolder(named: "Resources")
 		
@@ -70,6 +70,7 @@ final class LFSPointersTests: XCTestCase {
     }
 
     static var allTests = [
-        ("testConvertFileToPointer", testConvertFileToPointer),
+        ("Test converting a file to pointer", testConvertFileToPointer),
+		("Test recursively generating pointers for files in subdirectories and overwrite those files with their original contents", testRecursivelyGeneratePointersForFilesInSubdirectoriesAndOverwriteSaidFilesWithOriginalContents)
     ]
 }
