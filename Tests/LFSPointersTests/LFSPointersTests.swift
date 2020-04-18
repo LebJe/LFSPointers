@@ -41,8 +41,6 @@ final class LFSPointersTests: XCTestCase {
 		// Get a list of pointers.
 		let pointers = try LFSPointer.pointers(forDirectory: resources.path, searchType: .regex(try NSRegularExpression(pattern: "^*$")), recursive: true)
 		
-		toJSON(array: pointers)
-		
 		// Make sure there are two pointers ("foo.txt" and "recursive/bar.txt").
 		XCTAssertEqual(2, pointers.count)
 		
