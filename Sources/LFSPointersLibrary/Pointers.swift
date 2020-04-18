@@ -120,8 +120,38 @@ public struct LFSPointer {
 							}
 						}
 					})
+				case .all:
+					try folder.files.recursive.forEach({ file in
+							
+						if printOutput && printVerboseOutput {
+							print("Converting \"\(file.name)\" to pointer...\n")
+							print("git lfs pointer --file=\(file.name)".blue)
+						} else if printOutput {
+							print("Converting \"\(file.name)\" to pointer...\n")
+						}
+						
+						if printOutput {
+							do {
+								
+								let pointer = try self.pointer(forFile: file.path)
+								pointers.append((file.name, file.path, pointer))
+								
+							} catch let error {
+								if printVerboseOutput && printOutput {
+									fputs("Could not convert \"\(file.name)\" to a pointer.\n Git LFS error: \(error)\n".red, stderr)
+									
+								} else if printOutput {
+									fputs("Could not convert \"\(file.name)\" to a pointer.".red, stderr)
+								}
+								
+							}
+						} else {
+							let pointer = try self.pointer(forFile: file.path)
+							pointers.append((file.name, file.path, pointer))
+						}
+
+					})
 			}
-			
 			
 		} else {
 			switch type {
@@ -186,10 +216,54 @@ public struct LFSPointer {
 									
 								}
 							} else {
+								if printOutput && printVerboseOutput {
+									print("Converting \"\(file.name)\" to pointer...\n")
+									print("git lfs pointer --file=\(file.name)".blue)
+								} else if printOutput {
+									print("Converting \"\(file.name)\" to pointer...\n")
+								}
+								
 								let pointer = try self.pointer(forFile: file.path)
 								pointers.append((file.name, file.path, pointer))
 							}
 						}
+				}
+				case .all:
+					for file in folder.files {
+													
+						if printOutput {
+							do {
+								if printOutput && printVerboseOutput {
+									print("Converting \"\(file.name)\" to pointer...\n")
+									print("git lfs pointer --file=\(file.name)".blue)
+								} else if printOutput {
+									print("Converting \"\(file.name)\" to pointer...\n")
+								}
+								
+								let pointer = try self.pointer(forFile: file.path)
+								pointers.append((file.name, file.path, pointer))
+								
+							} catch let error {
+								if printVerboseOutput && printOutput {
+									fputs("Could not convert \"\(file.name)\" to a pointer.\n Git LFS error: \(error)\n".red, stderr)
+									
+								} else if printOutput {
+									fputs("Could not convert \"\(file.name)\" to a pointer.".red, stderr)
+								}
+								
+							}
+						} else {
+							if printOutput && printVerboseOutput {
+								print("Converting \"\(file.name)\" to pointer...\n")
+								print("git lfs pointer --file=\(file.name)".blue)
+							} else if printOutput {
+								print("Converting \"\(file.name)\" to pointer...\n")
+							}
+							
+							let pointer = try self.pointer(forFile: file.path)
+							pointers.append((file.name, file.path, pointer))
+						}
+					
 				}
 			}
 		}

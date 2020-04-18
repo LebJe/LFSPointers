@@ -7,5 +7,5 @@
 
 import Foundation
 public enum SearchTypes {
-	case fileNames([String]), regex(NSRegularExpression) // case all
+	case fileNames([String]), regex(NSRegularExpression), all
 }

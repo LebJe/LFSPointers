@@ -38,7 +38,7 @@ Install [Swift 5.2.2](https://swift.org) at [https://swift.org/download/](https:
 `$ swift build -c release && cp .build/release/LFSPointers ~/usr/bin/local`
 
 ## Install Library
-# Swift Package Manager
+### Swift Package Manager
 ```
 .package(url: "https://github.com/LebJe/LFSPointers.git", .upToNextMinor(from: "0.0.11"))
 ```
