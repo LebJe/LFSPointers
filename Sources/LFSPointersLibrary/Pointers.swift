@@ -1,5 +1,5 @@
 //
-//  Pointer.swift
+//  Pointers.swift
 //  
 //
 //  Created by Jeff Lebrun on 4/14/20.
@@ -14,7 +14,7 @@ let fm = FileManager()
 
 /// Represents a Git LFS pointer for a file.
 ///
-/// This pointer "Git LFS pointer for file.txt
+/// The pointer "Git LFS pointer for file.txt
 /// version https://git-lfs.github.com/spec/v1
 /// oid sha256:10b2cd328e193dd4b81d921dbe91bda74bda704c37bca43f1e15f41fcd20ac2a
 /// size 1455", would look like this:
@@ -24,9 +24,19 @@ let fm = FileManager()
 /// ```
 ///
 public struct LFSPointer {
-	let version: String
-	let oid: String
-	let size: Int
+	/// The version of the pointer. Example: "https://git-lfs.github.com/spec/v1".
+	public let version: String
+	
+	/// An SHA 256 hash for the pointer.
+	public let oid: String
+	
+	/// The size of the converted file.
+	public let size: Int
+	
+	/// String representation of this pointer.
+	public var stringRep: String {
+		"version \(self.version)\noid sha256:\(self.oid)\nsize \(self.size)"
+	}
 	
 	/// Iterates over all files in a directory (excluding hidden files), and generates a LFS pointer for each one.
 	/// - Parameters:
@@ -37,7 +47,11 @@ public struct LFSPointer {
 	///   - printVerboseOutput: Whether verbose output should be printed.
 	/// - Throws: `GitLFSError` if an error occurred while generating pointers, or `LocationError` if the directory path is invalid.
 	/// - Returns: An array of tuples that contain the filename, file path, and `LFSPointer`.
-	public static func pointers(forDirectory directory: String, searchType type: SearchTypes, recursive: Bool = false, printOutput: Bool = false, printVerboseOutput: Bool = false) throws -> [(filename: String, filePath: String, pointer: LFSPointer)] {
+	public static func pointers(forDirectory directory: String,
+								searchType type: SearchTypes,
+								recursive: Bool = false,
+								printOutput: Bool = false,
+								printVerboseOutput: Bool = false) throws -> [(filename: String, filePath: String, pointer: LFSPointer)] {
 		var pointers: [(filename: String, filePath: String, pointer: LFSPointer)] = []
 		
 		let folder = try Folder(path: directory)
