@@ -38,7 +38,6 @@ It it recommended that you read [https://git-lfs.github.com](https://git-lfs.git
 `$ brew install LebJe/formulae/lfs-pointers`
 
 ### Manually
-#### Install
 Install [Swift 5.2.2](https://swift.org) at [https://swift.org/download/](https://swift.org/download/), then run:
 
 ```
