@@ -2,10 +2,10 @@
 
 <p align="center">
 	<a href="https://swift.org">
-	<img src="https://img.shields.io/badge/swift-5.2-brightgreen.svg" alt="Swift 5.2">
+	<img src="https://img.shields.io/badge/Swift-5.2-brightgreen.svg" alt="Swift 5.2">
 	</a>
 	<a href="https://swift.org/package-manager">
-	<img src="https://img.shields.io/badge/spm-compatible-brightgreen.svg" alt="SPM Compatible">
+	<img src="https://img.shields.io/badge/SPM-compatible-brightgreen.svg" alt="SPM Compatible">
 	</a>
 	<a href="https://travis-ci.org/github/LebJe/LFSPointers">
 	<img src="https://travis-ci.org/LebJe/LFSPointers.svg?branch=master" alt="Build Status">
@@ -41,7 +41,7 @@ It it recommended that you read [https://git-lfs.github.com](https://git-lfs.git
 Install [Swift 5.2.2](https://swift.org) at [https://swift.org/download/](https://swift.org/download/), then run:
 
 ```
-path/toLFSPointers $ swift build -c release && cp .build/release/LFSPointers ~/usr/bin/local
+path/to/LFSPointers $ swift build -c release && cp .build/release/LFSPointers ~/usr/bin/local
 ```
 
 ## Install Library
