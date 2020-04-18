@@ -23,7 +23,12 @@ A command line tool that allows you to convert a directory of large files to Git
 Install Git at [https://git-scm.com](https://git-scm.com).
 
 ### [Git-LFS](https://git-lfs.github.com)
-Install Git-LFS at [https://git-lfs.github.com](https://git-lfs.github.com).
+Install Git-LFS at [https://git-lfs.github.com](https://git-lfs.github.com), then run:\
+
+```
+$ git lfs install
+```
+
 It it recommended that you read [https://git-lfs.github.com](https://git-lfs.github.com) before continuing.
 
 ## Install Program
@@ -35,11 +40,14 @@ It it recommended that you read [https://git-lfs.github.com](https://git-lfs.git
 ### Manually
 #### Install
 Install [Swift 5.2.2](https://swift.org) at [https://swift.org/download/](https://swift.org/download/), then run:\
-`$ swift build -c release && cp .build/release/LFSPointers ~/usr/bin/local`
+
+```
+path/toLFSPointers $ swift build -c release && cp .build/release/LFSPointers ~/usr/bin/local
+```
 
 ## Install Library
-# Swift Package Manager
-```
+### Swift Package Manager
+```swift
 .package(url: "https://github.com/LebJe/LFSPointers.git", .upToNextMinor(from: "0.0.11"))
 ```
 
