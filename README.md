@@ -125,7 +125,7 @@ let pointers = try LFSPointer.pointers(...)
 toJSON(pointer)
 ```
 
-The JSON for the `LFSPointer` array will be structured as shown [here](#json-structure-for-lfspointer-array).
+The JSON for the `LFSPointer` array will be structured as shown [here](#json-structure-for-lfspointer-array), and the JSON for the single `LFSPointer` will be structured as shown [here](#json-structure-for-single-lfspointer).
 
 ### Command Line
 Let's imagine you have a directory of large `png` and `jpg` files called `Project Logos`. If you wanted to convert the files with the extension `png` to LFS pointers, you could run 
@@ -142,7 +142,7 @@ If you want to generate JSON output instead, do:
 ```bash
 $ LFSPointers --json path/to/Project\ Logos *.png
 ```
-The JSON will be structured as shown [here](#json-structure).
+The JSON will be structured as shown [here](#json-structure-for-lfspointer-array)
 
 ## Dependencies
 - [Files](https://github.com/JohnSundell/Files)
