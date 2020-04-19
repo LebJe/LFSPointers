@@ -142,7 +142,7 @@ If you want to generate JSON output instead, do:
 ```bash
 $ LFSPointers --json path/to/Project\ Logos *.png
 ```
-The JSON will be structured as shown [here](#json-structure-for-lfspointer-array)
+The JSON will be structured as shown [here](#json-structure-for-lfspointer-array).
 
 ## Dependencies
 - [Files](https://github.com/JohnSundell/Files)
