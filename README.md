@@ -89,10 +89,10 @@ let pointers = try LFSPointer.pointers(forDirectory: "/full/path/to/folder", sea
 The search types available are:
 ```swift
 // Array of filenames.
-.fileNames(["foo.java", "bar.js", "baz.py"]),
+.fileNames(["foo.java", "bar.js", "baz.py"])
 
 // Regular expression.
-.regex(NSRegularExpression(pattern: "^*.swift$")),
+.regex(NSRegularExpression(pattern: "^*.swift$"))
 
 // All files.
 .all
@@ -118,11 +118,11 @@ let pointer = try LFSPointer.pointer(...)
 let json = pointer.json
 ```
 
-and to convert an array of pointers:
+and to convert an array of tuples consisting of filename, file path, and pointer:
 
 ```swift
 let pointers = try LFSPointer.pointers(...)
-toJSON(pointer)
+toJSON(pointers)
 ```
 
 The JSON for the `LFSPointer` array will be structured as shown [here](#json-structure-for-lfspointer-array), and the JSON for the single `LFSPointer` will be structured as shown [here](#json-structure-for-single-lfspointer).
