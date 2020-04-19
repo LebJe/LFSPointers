@@ -40,7 +40,7 @@ path/to/LFSPointers $ swift build -c release && cp .build/release/LFSPointers ~/
 Add this to the `dependencies` array in `Package.swift`:
 
 ```swift
-.package(url: "https://github.com/LebJe/LFSPointers.git", .upToNextMinor(from: "0.0.11"))
+.package(url: "https://github.com/LebJe/LFSPointers.git", .upToNextMinor(from: "0.7.0"))
 ```
 . Also add this to the `targets` array in the aforementioned file:
 ```swift

@@ -1,1 +1,3 @@
-gem "jekyll-readme-index"
+source 'https://rubygems.org' do
+  gem "jekyll-readme-index"
+end
