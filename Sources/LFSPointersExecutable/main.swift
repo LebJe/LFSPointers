@@ -35,8 +35,8 @@ struct LFSPointersCommand: ParsableCommand {
 	@Flag(name: .shortAndLong, help: "Whether to display verbose output.")
 	var verbose: Bool
 	
-	@Flag(name: .shortAndLong, help: "Don't print to standard output or standard error.")
-	var silent: Bool
+	@Flag(name: .short, help: "Don't print to standard output or standard error.")
+	var s: Bool
 	
 	@Flag(name: .shortAndLong, help: "Repeat this process in all directories.")
 	var recursive: Bool
@@ -53,7 +53,7 @@ struct LFSPointersCommand: ParsableCommand {
 	@Argument(help: "The directory which contains the files you want to convert to LFS pointers.", transform: URL.init(fileURLWithPath:))
 	var directory: URL
 	
-	@Argument(help: "A list of filenames that represent files to be converted. Use your shell's regular expression support to pass in a list of files.")
+	@Argument(help: "A list of filenames that represent files to be converted. You can use your shell's regular expression support to pass in a list of files.")
 	var files: [String]
 	
 	mutating func validate() throws {
@@ -63,7 +63,8 @@ struct LFSPointersCommand: ParsableCommand {
 		}
 	}
 	
-	mutating func run() throws {
+	func run() throws {
+		var silent = false
 		
 		if json {
 			silent = true
@@ -142,7 +143,9 @@ struct LFSPointersCommand: ParsableCommand {
 			Foundation.exit(2)
 		}
 		
-		print("Done!".green)
+		if !silent {
+			print("Done!".green)
+		}
 	}
 }
 
