@@ -348,7 +348,7 @@ public struct LFSPointer: Codable {
 				print("Overwriting file \"\(file.name)\" with \"\("version \(self.version)\noid sha256:\(self.oid)\nsize \(self.size)")\"...")
 			}
 			
-			try file.write("version \(self.version)\noidsha256:\(self.oid)\nsize \(self.size)", encoding: .utf8)
+			try file.write("version \(self.version)\noid sha256:\(self.oid)\nsize \(self.size)", encoding: .utf8)
 		}
 	}
 	
