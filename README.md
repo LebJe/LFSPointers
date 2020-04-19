@@ -80,7 +80,7 @@ public struct LFSPointer {
 }
 ```
 
-### Folder Conversion
+#### Folder Conversion
 To convert a folder of files to pointers, you could write: 
 ```swift
 let pointers = try LFSPointer.pointers(forDirectory: "/full/path/to/folder", searchType: .filenames(["foo.java", "bar.js", "baz.py"]))
@@ -103,12 +103,29 @@ This returns an array of tuples, that each contain the filename, file path, and 
 (filename: String, filePath: String, pointer: LFSPointer)
 ```
 
-## Writing Pointers
+#### Writing Pointers
 After you generate a pointer, write it to a file using:
 ```swift
-let pointer = LFSPointer.pointer(...)
+let pointer = try LFSPointer.pointer(...)
 try pointer.write(toFile: "/full/path/to/file", shouldAppend: false)
 ```
+
+#### Generating JSON
+To convert a pointer to JSON:
+
+```swift
+let pointer = try LFSPointer.pointer(...)
+let json = pointer.json
+```
+
+and to convert an array of pointers:
+
+```swift
+let pointers = try LFSPointer.pointers(...)
+toJSON(pointer)
+```
+
+The JSON will be structured as shown [here](#json-structure).
 
 ### Command Line
 Let's imagine you have a directory of large `png` and `jpg` files called `Project Logos`. If you wanted to convert the files with the extension `png` to LFS pointers, you could run 
@@ -120,6 +137,12 @@ But wait! It's not safe to run random programs on your computer! To backup your 
 ```bash
 $ LFSPointers -b path/to/backup-directory path/to/Project\ Logos *.png
 ```
+
+If you want to generate JSON output instead, do:
+```bash
+$ LFSPointers --json path/to/Project\ Logos *.png
+```
+The JSON will be structured as shown [here](#json-structure).
 
 ## Dependencies
 - [Files](https://github.com/JohnSundell/Files)

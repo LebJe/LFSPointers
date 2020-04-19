@@ -1,3 +1,3 @@
 # Todo
 
-- [ ] Generate JSON output.
+- [x] Generate JSON output.
