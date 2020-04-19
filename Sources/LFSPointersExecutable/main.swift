@@ -44,7 +44,7 @@ struct LFSPointersCommand: ParsableCommand {
 	@Flag(name: .shortAndLong, help: "Convert all files to pointers (USE WITH CAUTION!).")
 	var all: Bool
 	
-	@Flag(name: .long, help: "Sends JSON to standard output. The JSON is structured as shown above. This will automatically enable -s.")
+	@Flag(name: .long, help: "Sends JSON to standard output. The JSON is structured as shown above. This will automatically enable --silent.")
 	var json: Bool
 	
 	@Option(name: .shortAndLong, default: nil, help: "The directory files will be copied to before being processed. Will be created if it does not exist. If no directory is specified, no files will be copied.", transform: URL.init(fileURLWithPath:))
