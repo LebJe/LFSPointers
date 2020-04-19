@@ -30,7 +30,7 @@ let jsonStructure = """
 
 struct LFSPointersCommand: ParsableCommand {
 	static let configuration = CommandConfiguration(commandName: "LFSPointers",
-		abstract: "Replaces large files in a directory with Git LFS pointers.", discussion: "JSON STRUCTURE:\n\(jsonStructure)")
+		abstract: "Replaces large files in a Git repository directory with Git LFS pointers.", discussion: "JSON STRUCTURE:\n\(jsonStructure)")
 	
 	@Flag(name: .shortAndLong, help: "Whether to display verbose output.")
 	var verbose: Bool

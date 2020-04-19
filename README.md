@@ -1,6 +1,6 @@
 # LFS Pointers
 
-<p align="center"><strong>A command line tool and SPM package that allows you to convert a directory of large files to Git LFS pointers.</strong></p>
+<p align="center"><strong>A command line tool and SPM package that allows you to convert a Git repository directory of large files to Git LFS pointers.</strong></p>
 
 <p align="center">
 	<a href="https://swift.org"><img src="https://img.shields.io/badge/Swift-5.2-brightgreen.svg" alt="Swift 5.2"></a>
@@ -125,7 +125,7 @@ let pointers = try LFSPointer.pointers(...)
 toJSON(pointer)
 ```
 
-The JSON will be structured as shown [here](#json-structure).
+The JSON for the `LFSPointer` array will be structured as shown [here](#json-structure-for-lfspointer-array).
 
 ### Command Line
 Let's imagine you have a directory of large `png` and `jpg` files called `Project Logos`. If you wanted to convert the files with the extension `png` to LFS pointers, you could run 
@@ -161,7 +161,7 @@ Tested on Ubuntu 18.04.4 LTS (Bionic Beaver), also using Swift 5.2.2.
 ## iOS, watchOS, tvOS
 Unfortunately, you cannot install command line programs, like `git`, on these systems And because this program depends on `git`, it can't be installed.
 
-## JSON Structure
+## JSON Structure for LFSPointer Array
 ```json
 [
 	{
@@ -183,4 +183,13 @@ Unfortunately, you cannot install command line programs, like `git`, on these sy
 					}
 	}
 ]
+```
+
+## JSON Structure for Single LFSPointer
+```json
+{
+	"version": "https://git-lfs.github.com/spec/v1",
+	"oid": "10b2cd328e193dd4b81d921dbe91bda74bda704c37bca43f1e15f41fcd20ac2a",
+	"size": 1455
+}
 ```
