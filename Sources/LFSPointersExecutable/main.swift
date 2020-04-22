@@ -90,10 +90,10 @@ struct LFSPointersCommand: ParsableCommand {
 			}
 			
 			if all {
-				let pointers = try LFSPointer.pointers(forDirectory: directory.path, searchType: .all, recursive: recursive, printOutput: silent == false ? true : false, printVerboseOutput: verbose)
+				let pointers = try LFSPointer.pointers(forDirectory: directory, searchType: .all, recursive: recursive, printOutput: silent == false ? true : false, printVerboseOutput: verbose)
 				
 				if !json {
-					pointers.forEach({ (filename: String, filePath: String, pointer: LFSPointer) in
+					pointers.forEach({ (filename: String, filePath: URL, pointer: LFSPointer) in
 						
 						do {
 							try pointer.write(toFile: filePath, printOutput: silent == false ? true : false, printVerboseOutput: verbose)
@@ -113,10 +113,10 @@ struct LFSPointersCommand: ParsableCommand {
 				}
 
 			} else {
-				let pointers = try LFSPointer.pointers(forDirectory: directory.path, searchType: .fileNames(files), recursive: recursive, printOutput: silent == false ? true : false, printVerboseOutput: verbose)
+				let pointers = try LFSPointer.pointers(forDirectory: directory, searchType: .fileNames(files), recursive: recursive, printOutput: silent == false ? true : false, printVerboseOutput: verbose)
 				
 				if !json {
-					pointers.forEach({ (filename: String, filePath: String, pointer: LFSPointer) in
+					pointers.forEach({ (filename: String, filePath: URL, pointer: LFSPointer) in
 						
 						do {
 							try pointer.write(toFile: filePath)
