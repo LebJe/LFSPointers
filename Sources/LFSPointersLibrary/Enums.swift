@@ -19,3 +19,8 @@ public enum SearchTypes {
 	/// Searches for all files.
 	case all
 }
+
+
+public enum Status {
+	case writing(LFSPointer), appending(LFSPointer), generating, error(Error), regexDosentMatch(NSRegularExpression)
+}
