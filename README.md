@@ -2,6 +2,8 @@
 
 <p align="center"><strong>A command line tool and SPM package that allows you to convert a Git repository directory of large files to Git LFS pointers.</strong></p>
 
+## <p align="center">Until 1.0.0 is reached, all releases should be considered as incompatible with previous releases.</p>
+
 <p align="center">
 	<a href="https://swift.org"><img src="https://img.shields.io/badge/Swift-5.2-brightgreen.svg" alt="Swift 5.2"></a>
 	<a href="https://swift.org/package-manager"><img src="https://img.shields.io/badge/SPM-compatible-brightgreen.svg" alt="SPM Compatible"></a>
