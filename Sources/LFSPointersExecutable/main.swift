@@ -49,6 +49,9 @@ struct LFSPointersCommand: ParsableCommand {
 	@Flag(name: .long, help: "Sends JSON to standard output. The JSON is structured as shown above. This will automatically enable --silent.")
 	var json: Bool
 	
+	@Flag(name: .long, default: true, inversion: .prefixedEnableDisable, help: "Whether to send colorized output to the terminal or not.")
+	var color: Bool
+	
 	@Option(name: .shortAndLong, default: nil, help: "The directory files will be copied to before being processed. Will be created if it does not exist. If no directory is specified, no files will be copied.", transform: URL.init(fileURLWithPath:))
 	var backupDirectory: URL?
 	
@@ -68,8 +71,64 @@ struct LFSPointersCommand: ParsableCommand {
 	func run() throws {
 		var silent = false
 		
+		if s {
+			silent = true
+		}
+		
 		if json {
 			silent = true
+		}
+		
+		if !color {
+			Rainbow.enabled = false
+		}
+		
+		let printClosure: (URL, Status) -> Void = { url, status in
+			switch status {
+				case let .appending(pointer):
+					let file = try! File(path: url.path)
+					if self.verbose && !silent {
+						print("Appending \"\("version \(pointer.version)\noid sha256:\(pointer.oid)\nsize \(pointer.size)")\" to file \"\(file.name)\"...")
+					} else if !silent {
+						print("Appending pointer to file \"\(file.name)\"...")
+				}
+				
+				case let .error(error):
+					let file = try! File(path: url.path)
+					
+					if self.verbose && !silent {
+						fputs("Could not convert \"\(file.name)\" to a pointer.\n Git LFS error: \(error)\n".red, stderr)
+						
+					} else if !silent {
+						fputs("Could not convert \"\(file.name)\" to a pointer.".red, stderr)
+					}
+				break
+				
+				case .generating:
+					let file = try! File(path: url.path)
+					
+					if !silent && self.verbose {
+						print("Converting \"\(file.name)\" to pointer...\n")
+						print("git lfs pointer --file=\(file.name)".blue)
+					} else if !silent {
+						print("Converting \"\(file.name)\" to pointer...\n")
+					}
+				
+				case let .regexDosentMatch(regex):
+					let file = try! File(path: url.path)
+					
+					if !silent && self.verbose {
+						print("File name \"\(file.name)\" does not match regular expression \"\(regex.pattern)\", continuing...")
+					}
+				
+				case let .writing(pointer):
+					let file = try! File(path: url.path)
+					if self.verbose && !silent {
+						print("Overwriting file \"\(file.name)\" with \"\("version \(pointer.version)\noid sha256:\(pointer.oid)\nsize \(pointer.size)")\"...")
+					} else if !silent {
+						print("Overwriting file \"\(file.name)\" with pointer...")
+					}
+			}
 		}
 		
 		do {
@@ -90,13 +149,13 @@ struct LFSPointersCommand: ParsableCommand {
 			}
 			
 			if all {
-				let pointers = try LFSPointer.pointers(forDirectory: directory, searchType: .all, recursive: recursive, printOutput: silent == false ? true : false, printVerboseOutput: verbose)
+				let pointers = try LFSPointer.pointers(forDirectory: directory, searchType: .all, recursive: recursive, statusClosure: printClosure)
 				
 				if !json {
 					pointers.forEach({ (filename: String, filePath: URL, pointer: LFSPointer) in
 						
 						do {
-							try pointer.write(toFile: filePath, printOutput: silent == false ? true : false, printVerboseOutput: verbose)
+							try pointer.write(toFile: filePath, statusClosure: printClosure)
 						} catch is LocationError {
 							if !silent {
 								fputs("Unable to overwrite file \"\(filename)\". Check the file permissions and check that the file exists.".red, stderr)
@@ -113,13 +172,13 @@ struct LFSPointersCommand: ParsableCommand {
 				}
 
 			} else {
-				let pointers = try LFSPointer.pointers(forDirectory: directory, searchType: .fileNames(files), recursive: recursive, printOutput: silent == false ? true : false, printVerboseOutput: verbose)
+				let pointers = try LFSPointer.pointers(forDirectory: directory, searchType: .fileNames(files), recursive: recursive, statusClosure: printClosure)
 				
 				if !json {
 					pointers.forEach({ (filename: String, filePath: URL, pointer: LFSPointer) in
 						
 						do {
-							try pointer.write(toFile: filePath)
+							try pointer.write(toFile: filePath, statusClosure: printClosure)
 						} catch is LocationError {
 							if !silent {
 								fputs("Unable to overwrite file \"\(filename)\". Check the file permissions and check that the file exists.".red, stderr)
@@ -152,5 +211,3 @@ struct LFSPointersCommand: ParsableCommand {
 }
 
 LFSPointersCommand.main()
-
-

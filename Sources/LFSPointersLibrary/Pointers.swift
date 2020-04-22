@@ -62,13 +62,13 @@ public struct LFSPointer: Codable {
 	///   - type:The search method you want to use.
 	///   - printOutput: Whether output should be printed.
 	///   - printVerboseOutput: Whether verbose output should be printed.
+	///   - statusClosure: Use this closure to determine the status of this function. It will be passed the `URL` of the file or folder being operated on, as well as an enum representing the status of this function.
 	/// - Throws: `GitLFSError` if an error occurred while generating pointers, or `LocationError` if the directory path is invalid.
 	/// - Returns: An array of tuples that contain the filename, file path, and `LFSPointer`.
 	public static func pointers(forDirectory directory: URL,
 								searchType type: SearchTypes,
 								recursive: Bool = false,
-								printOutput: Bool = false,
-								printVerboseOutput: Bool = false) throws -> [(filename: String, filePath: URL, pointer: LFSPointer)] {
+								statusClosure status: ((URL, Status) -> Void)? = nil) throws -> [(filename: String, filePath: URL, pointer: LFSPointer)] {
 		var pointers: [(filename: String, filePath: URL, pointer: LFSPointer)] = []
 		
 		let folder = try Folder(path: directory.path)
@@ -86,31 +86,17 @@ public struct LFSPointer: Codable {
 								file.name == name
 							})!
 							
-							if printOutput && printVerboseOutput {
-								print("Converting \"\(file.name)\" to pointer...\n")
-								print("git lfs pointer --file=\(file.name)".blue)
-							} else if printOutput {
-								print("Converting \"\(file.name)\" to pointer...\n")
-							}
+							if status != nil { status!(file.url, .generating) }
 							
-							if printOutput {
-								do {
-									let pointer = try self.pointer(forFile: file.url)
-									pointers.append((file.name, file.url, pointer))
-								} catch let error {
-									if printVerboseOutput && printOutput {
-										fputs("Could not convert \"\(file.name)\" to a pointer.\n Git LFS error: \(error)\n".red, stderr)
-										
-									} else if printOutput {
-										fputs("Could not convert \"\(file.name)\" to a pointer.".red, stderr)
-									}
-								}
-								
-							} else {
+							do {
 								let pointer = try self.pointer(forFile: file.url)
+								
 								pointers.append((file.name, file.url, pointer))
+							} catch let error {
+								if status != nil { status!(file.url, .error(error)) }
+								
+								throw error
 							}
-							
 						}
 					}
 				
@@ -118,69 +104,38 @@ public struct LFSPointer: Codable {
 					try folder.files.recursive.forEach({ file in
 						if regex.matches(file.name) {
 							
-							if printOutput && printVerboseOutput {
-								print("Converting \"\(file.name)\" to pointer...\n")
-								print("git lfs pointer --file=\(file.name)".blue)
-							} else if printOutput {
-								print("Converting \"\(file.name)\" to pointer...\n")
-							}
-							
-							if printOutput {
-								do {
-									
-									let pointer = try self.pointer(forFile: file.url)
-									pointers.append((file.name, file.url, pointer))
-									
-								} catch let error {
-									if printVerboseOutput && printOutput {
-										fputs("Could not convert \"\(file.name)\" to a pointer.\n Git LFS error: \(error)\n".red, stderr)
-										
-									} else if printOutput {
-										fputs("Could not convert \"\(file.name)\" to a pointer.".red, stderr)
-									}
-									
-								}
-							} else {
+							if status != nil { status!(file.url, .generating) }
+						
+							do {
 								let pointer = try self.pointer(forFile: file.url)
+								
 								pointers.append((file.name, file.url, pointer))
+								
+							} catch let error {
+								if status != nil { status!(file.url, .error(error)) }
+								
+								throw error
 							}
 							
 						} else {
-							if printOutput && printVerboseOutput {
-								print("File name \"\(file.name)\" does not match regular expression \"\(regex.pattern)\", continuing...")
-							}
+							if status != nil { status!(file.url, .regexDosentMatch(regex)) }
 						}
 					})
 				case .all:
 					try folder.files.recursive.forEach({ file in
-							
-						if printOutput && printVerboseOutput {
-							print("Converting \"\(file.name)\" to pointer...\n")
-							print("git lfs pointer --file=\(file.name)".blue)
-						} else if printOutput {
-							print("Converting \"\(file.name)\" to pointer...\n")
-						}
+						if status != nil { status!(file.url, .generating) }
 						
-						if printOutput {
-							do {
-								
-								let pointer = try self.pointer(forFile: file.url)
-								pointers.append((file.name, file.url, pointer))
-								
-							} catch let error {
-								if printVerboseOutput && printOutput {
-									fputs("Could not convert \"\(file.name)\" to a pointer.\n Git LFS error: \(error)\n".red, stderr)
-									
-								} else if printOutput {
-									fputs("Could not convert \"\(file.name)\" to a pointer.".red, stderr)
-								}
-								
-							}
-						} else {
+						do {
+							
 							let pointer = try self.pointer(forFile: file.url)
+							
 							pointers.append((file.name, file.url, pointer))
+							
+						} catch let error {
+							if status != nil { status!(file.url, .error(error)) }
+							
+							throw error
 						}
-
 					})
 			}
 			
@@ -191,33 +146,17 @@ public struct LFSPointer: Codable {
 						if folder.containsFile(named: name) {
 							let file = try folder.file(named: name)
 							
-							if printOutput && printVerboseOutput {
-								print("Converting \"\(file.name)\" to pointer...\n")
-								print("git lfs pointer --file=\(file.name)".blue)
-							} else if printOutput {
-								print("Converting \"\(file.name)\" to pointer...\n")
-							}
+							if status != nil { status!(file.url, .generating) }
 							
-							if printOutput {
-								do {
-								
-									let pointer = try self.pointer(forFile: file.url)
-									pointers.append((file.name, file.url, pointer))
-									
-								} catch let error {
-									if printVerboseOutput && printOutput {
-										fputs("Could not convert \"\(file.name)\" to a pointer.\n Git LFS error: \(error)\n".red, stderr)
-										
-									} else if printOutput {
-										fputs("Could not convert \"\(file.name)\" to a pointer.".red, stderr)
-									}
-									
-								}
-							} else {
+							do {
 								let pointer = try self.pointer(forFile: file.url)
+								
 								pointers.append((file.name, file.url, pointer))
+							} catch let error {
+								if status != nil { status!(file.url, .error(error)) }
+								
+								throw error
 							}
-
 						}
 					}
 				case .regex(let regex):
@@ -225,77 +164,36 @@ public struct LFSPointer: Codable {
 					for file in folder.files {
 						if regex.matches(file.name) {
 							
-							if printOutput {
-								do {
-									if printOutput && printVerboseOutput {
-										print("Converting \"\(file.name)\" to pointer...\n")
-										print("git lfs pointer --file=\(file.name)".blue)
-									} else if printOutput {
-										print("Converting \"\(file.name)\" to pointer...\n")
-									}
-									
-									let pointer = try self.pointer(forFile: file.url)
-									pointers.append((file.name, file.url, pointer))
-									
-								} catch let error {
-									if printVerboseOutput && printOutput {
-										fputs("Could not convert \"\(file.name)\" to a pointer.\n Git LFS error: \(error)\n".red, stderr)
-										
-									} else if printOutput {
-										fputs("Could not convert \"\(file.name)\" to a pointer.".red, stderr)
-									}
-									
-								}
-							} else {
-								if printOutput && printVerboseOutput {
-									print("Converting \"\(file.name)\" to pointer...\n")
-									print("git lfs pointer --file=\(file.name)".blue)
-								} else if printOutput {
-									print("Converting \"\(file.name)\" to pointer...\n")
-								}
+							do {
+								if status != nil { status!(file.url, .generating) }
 								
 								let pointer = try self.pointer(forFile: file.url)
+								
 								pointers.append((file.name, file.url, pointer))
+							} catch let error {
+								if status != nil { status!(file.url, .error(error)) }
+								
+								throw error
 							}
+						} else {
+							if status != nil { status!(file.url, .regexDosentMatch(regex)) }
 						}
 				}
 				case .all:
 					for file in folder.files {
-													
-						if printOutput {
-							do {
-								if printOutput && printVerboseOutput {
-									print("Converting \"\(file.name)\" to pointer...\n")
-									print("git lfs pointer --file=\(file.name)".blue)
-								} else if printOutput {
-									print("Converting \"\(file.name)\" to pointer...\n")
-								}
-								
-								let pointer = try self.pointer(forFile: file.url)
-								pointers.append((file.name, file.url, pointer))
-								
-							} catch let error {
-								if printVerboseOutput && printOutput {
-									fputs("Could not convert \"\(file.name)\" to a pointer.\n Git LFS error: \(error)\n".red, stderr)
-									
-								} else if printOutput {
-									fputs("Could not convert \"\(file.name)\" to a pointer.".red, stderr)
-								}
-								
-							}
-						} else {
-							if printOutput && printVerboseOutput {
-								print("Converting \"\(file.name)\" to pointer...\n")
-								print("git lfs pointer --file=\(file.name)".blue)
-							} else if printOutput {
-								print("Converting \"\(file.name)\" to pointer...\n")
-							}
+						do {
+							if status != nil { status!(file.url, .generating) }
 							
 							let pointer = try self.pointer(forFile: file.url)
+							
 							pointers.append((file.name, file.url, pointer))
+							
+						} catch let error {
+							if status != nil { status!(file.url, .error(error)) }
+							
+							throw error
 						}
-					
-				}
+					}
 			}
 		}
 		
@@ -303,7 +201,9 @@ public struct LFSPointer: Codable {
 	}
 	
 	/// Generates a LFS pointer for a file.
-	/// - Parameter path: The path to the file.
+	/// - Parameters:
+	///   - path: The path to the file.
+	///   - statusClosure: Use this closure to determine the status of this function. It will be passed the `URL` of the file or folder being operated on, as well as an enum representing the status of this function.
 	/// - Throws: `GitLFSError` if an error occurred while generating pointers, or `LocationError` if the file path is invalid.
 	/// - Returns: A `LFSPointer`.
 	public static func pointer(forFile path: URL) throws -> LFSPointer {
@@ -326,27 +226,22 @@ public struct LFSPointer: Codable {
 	/// - Parameters:
 	///   - file: The file to write or append to.
 	///   - shouldAppend: If the file should be appended to.
+	///   - statusClosure: Use this closure to determine the status of this function. It will be passed the `URL` of the file or folder being operated on, as well as an enum representing the status of this function.
 	///   - printOutput: Whether output should be printed.
 	///   - printVerboseOutput: Whether verbose output should be printed.
 	/// - Throws: `LocationError` if the file path is invalid, or `WriteError` if the file could not be written.
-	public func write(toFile file: URL, shouldAppend: Bool = false, printOutput: Bool = false, printVerboseOutput: Bool = false) throws {
+	public func write(toFile file: URL,
+					  shouldAppend: Bool = false,
+					  statusClosure status: ((URL, Status) -> Void)? = nil) throws {
 		
 		let file = try File(path: file.path)
 		
 		if shouldAppend {
-			if printOutput {
-				print("Appending pointer to file \"\(file.name)\"...")
-			} else if printVerboseOutput && printOutput {
-				print("Appending \"\("version \(self.version)\noid sha256:\(self.oid)\nsize \(self.size)")\" to file \"\(file.name)\"...")
-			}
+			if status != nil { status!(file.url, .appending(self)) }
 			
 			try file.append("version \(self.version)\noid sha256:\(self.oid)\nsize \(self.size)", encoding: .utf8)
 		} else {
-			if printOutput {
-				print("Overwriting file \"\(file.name)\" with pointer...")
-			} else if printVerboseOutput && printOutput {
-				print("Overwriting file \"\(file.name)\" with \"\("version \(self.version)\noid sha256:\(self.oid)\nsize \(self.size)")\"...")
-			}
+			if status != nil { status!(file.url, .writing(self)) }
 			
 			try file.write("version \(self.version)\noid sha256:\(self.oid)\nsize \(self.size)", encoding: .utf8)
 		}
@@ -361,16 +256,14 @@ extension LFSPointer: CustomDebugStringConvertible {
 	public var debugDescription: String {
 		"version \(self.version)\noid sha256:\(self.oid)\nsize \(self.size)"
 	}
-	
 }
 
 /// Generates a string containing `JSON`.
 /// - Parameter array: No description.
 /// - Returns: A `String` containing `JSON`.
 public func toJSON(array: [(filename: String, filePath: URL, pointer: LFSPointer)]) -> String {
-	
-	
 	var arrayOfDict: [[String: Any]] = []
+	
 	for val in array {
 		arrayOfDict.append(["filename": val.filename, "filePath": val.filePath.path, "pointer": ["version": val.pointer.version, "oid": val.pointer.oid, "size": val.pointer.size]])
 	}
