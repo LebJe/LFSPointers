@@ -59,24 +59,24 @@ public struct LFSPointer: Codable {
 	/// - Parameters:
 	///   - directory: The directory to iterate over.
 	///   - recursive: Whether to include subdirectories when iterating.
-	///   - type:
+	///   - type:The search method you want to use.
 	///   - printOutput: Whether output should be printed.
 	///   - printVerboseOutput: Whether verbose output should be printed.
 	/// - Throws: `GitLFSError` if an error occurred while generating pointers, or `LocationError` if the directory path is invalid.
 	/// - Returns: An array of tuples that contain the filename, file path, and `LFSPointer`.
-	public static func pointers(forDirectory directory: String,
+	public static func pointers(forDirectory directory: URL,
 								searchType type: SearchTypes,
 								recursive: Bool = false,
 								printOutput: Bool = false,
-								printVerboseOutput: Bool = false) throws -> [(filename: String, filePath: String, pointer: LFSPointer)] {
-		var pointers: [(filename: String, filePath: String, pointer: LFSPointer)] = []
+								printVerboseOutput: Bool = false) throws -> [(filename: String, filePath: URL, pointer: LFSPointer)] {
+		var pointers: [(filename: String, filePath: URL, pointer: LFSPointer)] = []
 		
-		let folder = try Folder(path: directory)
+		let folder = try Folder(path: directory.path)
 		
 		if recursive {
 			switch type {
 				case .fileNames(let fileNames):
-					let folder = try Folder(path: directory)
+					let folder = try Folder(path: directory.path)
 					
 					let folderNames = folder.files.recursive.names()
 					
@@ -95,8 +95,8 @@ public struct LFSPointer: Codable {
 							
 							if printOutput {
 								do {
-									let pointer = try self.pointer(forFile: file.path)
-									pointers.append((file.name, file.path, pointer))
+									let pointer = try self.pointer(forFile: file.url)
+									pointers.append((file.name, file.url, pointer))
 								} catch let error {
 									if printVerboseOutput && printOutput {
 										fputs("Could not convert \"\(file.name)\" to a pointer.\n Git LFS error: \(error)\n".red, stderr)
@@ -107,8 +107,8 @@ public struct LFSPointer: Codable {
 								}
 								
 							} else {
-								let pointer = try self.pointer(forFile: file.path)
-								pointers.append((file.name, file.path, pointer))
+								let pointer = try self.pointer(forFile: file.url)
+								pointers.append((file.name, file.url, pointer))
 							}
 							
 						}
@@ -128,8 +128,8 @@ public struct LFSPointer: Codable {
 							if printOutput {
 								do {
 									
-									let pointer = try self.pointer(forFile: file.path)
-									pointers.append((file.name, file.path, pointer))
+									let pointer = try self.pointer(forFile: file.url)
+									pointers.append((file.name, file.url, pointer))
 									
 								} catch let error {
 									if printVerboseOutput && printOutput {
@@ -141,8 +141,8 @@ public struct LFSPointer: Codable {
 									
 								}
 							} else {
-								let pointer = try self.pointer(forFile: file.path)
-								pointers.append((file.name, file.path, pointer))
+								let pointer = try self.pointer(forFile: file.url)
+								pointers.append((file.name, file.url, pointer))
 							}
 							
 						} else {
@@ -164,8 +164,8 @@ public struct LFSPointer: Codable {
 						if printOutput {
 							do {
 								
-								let pointer = try self.pointer(forFile: file.path)
-								pointers.append((file.name, file.path, pointer))
+								let pointer = try self.pointer(forFile: file.url)
+								pointers.append((file.name, file.url, pointer))
 								
 							} catch let error {
 								if printVerboseOutput && printOutput {
@@ -177,8 +177,8 @@ public struct LFSPointer: Codable {
 								
 							}
 						} else {
-							let pointer = try self.pointer(forFile: file.path)
-							pointers.append((file.name, file.path, pointer))
+							let pointer = try self.pointer(forFile: file.url)
+							pointers.append((file.name, file.url, pointer))
 						}
 
 					})
@@ -201,8 +201,8 @@ public struct LFSPointer: Codable {
 							if printOutput {
 								do {
 								
-									let pointer = try self.pointer(forFile: file.path)
-									pointers.append((file.name, file.path, pointer))
+									let pointer = try self.pointer(forFile: file.url)
+									pointers.append((file.name, file.url, pointer))
 									
 								} catch let error {
 									if printVerboseOutput && printOutput {
@@ -214,8 +214,8 @@ public struct LFSPointer: Codable {
 									
 								}
 							} else {
-								let pointer = try self.pointer(forFile: file.path)
-								pointers.append((file.name, file.path, pointer))
+								let pointer = try self.pointer(forFile: file.url)
+								pointers.append((file.name, file.url, pointer))
 							}
 
 						}
@@ -234,8 +234,8 @@ public struct LFSPointer: Codable {
 										print("Converting \"\(file.name)\" to pointer...\n")
 									}
 									
-									let pointer = try self.pointer(forFile: file.path)
-									pointers.append((file.name, file.path, pointer))
+									let pointer = try self.pointer(forFile: file.url)
+									pointers.append((file.name, file.url, pointer))
 									
 								} catch let error {
 									if printVerboseOutput && printOutput {
@@ -254,8 +254,8 @@ public struct LFSPointer: Codable {
 									print("Converting \"\(file.name)\" to pointer...\n")
 								}
 								
-								let pointer = try self.pointer(forFile: file.path)
-								pointers.append((file.name, file.path, pointer))
+								let pointer = try self.pointer(forFile: file.url)
+								pointers.append((file.name, file.url, pointer))
 							}
 						}
 				}
@@ -271,8 +271,8 @@ public struct LFSPointer: Codable {
 									print("Converting \"\(file.name)\" to pointer...\n")
 								}
 								
-								let pointer = try self.pointer(forFile: file.path)
-								pointers.append((file.name, file.path, pointer))
+								let pointer = try self.pointer(forFile: file.url)
+								pointers.append((file.name, file.url, pointer))
 								
 							} catch let error {
 								if printVerboseOutput && printOutput {
@@ -291,8 +291,8 @@ public struct LFSPointer: Codable {
 								print("Converting \"\(file.name)\" to pointer...\n")
 							}
 							
-							let pointer = try self.pointer(forFile: file.path)
-							pointers.append((file.name, file.path, pointer))
+							let pointer = try self.pointer(forFile: file.url)
+							pointers.append((file.name, file.url, pointer))
 						}
 					
 				}
@@ -306,8 +306,8 @@ public struct LFSPointer: Codable {
 	/// - Parameter path: The path to the file.
 	/// - Throws: `GitLFSError` if an error occurred while generating pointers, or `LocationError` if the file path is invalid.
 	/// - Returns: A `LFSPointer`.
-	public static func pointer(forFile path: String) throws -> LFSPointer {
-		let file = try File(path: path)
+	public static func pointer(forFile path: URL) throws -> LFSPointer {
+		let file = try File(path: path.path)
 		
 		let r = SwiftShell.run("git", "lfs", "pointer", "--file=\(file.path)")
 		
@@ -325,13 +325,13 @@ public struct LFSPointer: Codable {
 	/// Write `self` (`LFSPointer`) to a file.
 	/// - Parameters:
 	///   - file: The file to write or append to.
-	///   - shouldAppend: If the fie should be appended to.
+	///   - shouldAppend: If the file should be appended to.
 	///   - printOutput: Whether output should be printed.
 	///   - printVerboseOutput: Whether verbose output should be printed.
 	/// - Throws: `LocationError` if the file path is invalid, or `WriteError` if the file could not be written.
-	public func write(toFile file: String, shouldAppend: Bool = false, printOutput: Bool = false, printVerboseOutput: Bool = false) throws {
+	public func write(toFile file: URL, shouldAppend: Bool = false, printOutput: Bool = false, printVerboseOutput: Bool = false) throws {
 		
-		let file = try File(path: file)
+		let file = try File(path: file.path)
 		
 		if shouldAppend {
 			if printOutput {
@@ -366,13 +366,13 @@ extension LFSPointer: CustomDebugStringConvertible {
 
 /// Generates a string containing `JSON`.
 /// - Parameter array: No description.
-/// - Returns: No description.
-public func toJSON(array: [(filename: String, filePath: String, pointer: LFSPointer)]) -> String {
+/// - Returns: A `String` containing `JSON`.
+public func toJSON(array: [(filename: String, filePath: URL, pointer: LFSPointer)]) -> String {
 	
 	
 	var arrayOfDict: [[String: Any]] = []
 	for val in array {
-		arrayOfDict.append(["filename": val.filename, "filePath": val.filePath, "pointer": ["version": val.pointer.version, "oid": val.pointer.oid, "size": val.pointer.size]])
+		arrayOfDict.append(["filename": val.filename, "filePath": val.filePath.path, "pointer": ["version": val.pointer.version, "oid": val.pointer.oid, "size": val.pointer.size]])
 	}
 	
 	let json = JSON(arrayOfDict)

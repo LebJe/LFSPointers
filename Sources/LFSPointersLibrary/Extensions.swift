@@ -8,8 +8,9 @@
 import Foundation
 
 public extension NSRegularExpression {
+	/// Checks if this regular  expression matches the supplied `String`.
+	/// - Returns: `true` if the `String` matches, otherwise, `false`.
 	func matches(_ string: String) -> Bool {
-		let range = NSRange(location: 0, length: string.utf16.count)
-		return firstMatch(in: string, options: [], range: range) != nil
+		firstMatch(in: string, options: [], range: NSRange(location: 0, length: string.utf16.count)) != nil
 	}
 }

@@ -9,6 +9,7 @@ import Foundation
 
 public enum GitLFSError: Error {
 	
+	/// Generic error.
 	case generic(message: String)
 	
 	/// Thrown when the output of "git lfs pointer --file=foo.txt" is not recognized.
