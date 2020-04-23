@@ -31,8 +31,8 @@ let package = Package(
     ]
 )
 
-// SwiftyJSON is not supported on linux, so we need to use a fork that is supported.
 #if os(Linux)
+// SwiftyJSON is not supported on Linux, so we need to use a fork from IBM-Swift that is supported.
 package.dependencies.append(.package(url: "https://github.com/IBM-Swift/SwiftyJSON.git", from: "17.0.5"))
 #elseif os(macOS)
 package.dependencies.append(.package(url: "https://github.com/SwiftyJSON/SwiftyJSON.git", from: "5.0.0"))
