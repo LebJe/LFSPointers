@@ -86,6 +86,16 @@ final class LFSPointersTests: XCTestCase {
 		
 		// Make sure there are two pointers.
 		XCTAssertEqual(pointers.count, 1)
+		
+		XCTAssertEqual(pointers[0].filename, filenames[0])
+	}
+	
+	func testLFSPointerIsEquatable() throws {
+		let p1 = try LFSPointer.pointer(forFile: resources.file(named: "foo.txt").url)
+		let p2 = try LFSPointer.pointer(forFile: resources.file(named: "foo.txt").url)
+		
+		// Make sure these are equal.
+		XCTAssertEqual(p1, p2)
 	}
 
     /// Returns path to the built products directory.
@@ -105,6 +115,7 @@ final class LFSPointersTests: XCTestCase {
 		("Test recursively generating pointers for files in subdirectories and overwrite those files with their original contents", testRecursivelyGeneratePointersForFilesInSubdirectories),
 		("Test searching for all files", testSearchTypeAll),
 		("Test searching for a file whose name matches a regular expression", testSearchTypeRegex),
-		("Test searching for a file with a specified filename", testSearchTypeFilenames)
+		("Test searching for a file with a specified filename", testSearchTypeFilenames),
+		("Test LFSPointer is Equatable", testLFSPointerIsEquatable)
     ]
 }
