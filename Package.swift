@@ -27,7 +27,7 @@ let package = Package(
 			dependencies: ["SwiftShell", .product(name: "ArgumentParser", package: "swift-argument-parser"), "Rainbow", "Files", "LFSPointersLibrary"]),
         .testTarget(
             name: "LFSPointersTests",
-            dependencies: ["LFSPointersLibrary", "SwiftShell"]),
+            dependencies: ["LFSPointersLibrary", "SwiftShell"])
     ]
 )
 
