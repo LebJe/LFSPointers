@@ -1,0 +1,377 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 52;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DAF8016E2458AEC300413161 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF8016D2458AEC300413161 /* AppDelegate.swift */; };
+		DAF801702458AEC300413161 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF8016F2458AEC300413161 /* ContentView.swift */; };
+		DAF801722458AEC900413161 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAF801712458AEC900413161 /* Assets.xcassets */; };
+		DAF801752458AEC900413161 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAF801742458AEC900413161 /* Preview Assets.xcassets */; };
+		DAF801782458AEC900413161 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAF801762458AEC900413161 /* Main.storyboard */; };
+		DAF801822458AFB100413161 /* LFSPointersLib in Frameworks */ = {isa = PBXBuildFile; productRef = DAF801812458AFB100413161 /* LFSPointersLib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		DAF8016A2458AEC300413161 /* FileToPointer-MacOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FileToPointer-MacOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAF8016D2458AEC300413161 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DAF8016F2458AEC300413161 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		DAF801712458AEC900413161 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DAF801742458AEC900413161 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		DAF801772458AEC900413161 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DAF801792458AEC900413161 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DAF8017A2458AEC900413161 /* FileToPointer_MacOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FileToPointer_MacOS.entitlements; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DAF801672458AEC300413161 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAF801822458AFB100413161 /* LFSPointersLib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DAF801612458AEC300413161 = {
+			isa = PBXGroup;
+			children = (
+				DAF8016C2458AEC300413161 /* FileToPointer-MacOS */,
+				DAF8016B2458AEC300413161 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DAF8016B2458AEC300413161 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DAF8016A2458AEC300413161 /* FileToPointer-MacOS.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DAF8016C2458AEC300413161 /* FileToPointer-MacOS */ = {
+			isa = PBXGroup;
+			children = (
+				DAF8016D2458AEC300413161 /* AppDelegate.swift */,
+				DAF8016F2458AEC300413161 /* ContentView.swift */,
+				DAF801712458AEC900413161 /* Assets.xcassets */,
+				DAF801762458AEC900413161 /* Main.storyboard */,
+				DAF801792458AEC900413161 /* Info.plist */,
+				DAF8017A2458AEC900413161 /* FileToPointer_MacOS.entitlements */,
+				DAF801732458AEC900413161 /* Preview Content */,
+			);
+			path = "FileToPointer-MacOS";
+			sourceTree = "<group>";
+		};
+		DAF801732458AEC900413161 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				DAF801742458AEC900413161 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DAF801692458AEC300413161 /* FileToPointer-MacOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DAF8017D2458AEC900413161 /* Build configuration list for PBXNativeTarget "FileToPointer-MacOS" */;
+			buildPhases = (
+				DAF801662458AEC300413161 /* Sources */,
+				DAF801672458AEC300413161 /* Frameworks */,
+				DAF801682458AEC300413161 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "FileToPointer-MacOS";
+			packageProductDependencies = (
+				DAF801812458AFB100413161 /* LFSPointersLib */,
+			);
+			productName = "FileToPointer-MacOS";
+			productReference = DAF8016A2458AEC300413161 /* FileToPointer-MacOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DAF801622458AEC300413161 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1140;
+				LastUpgradeCheck = 1140;
+				ORGANIZATIONNAME = LFSPointers;
+				TargetAttributes = {
+					DAF801692458AEC300413161 = {
+						CreatedOnToolsVersion = 11.4.1;
+					};
+				};
+			};
+			buildConfigurationList = DAF801652458AEC300413161 /* Build configuration list for PBXProject "FileToPointer-MacOS" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DAF801612458AEC300413161;
+			packageReferences = (
+				DAF801802458AFB100413161 /* XCRemoteSwiftPackageReference "LFSPointers" */,
+			);
+			productRefGroup = DAF8016B2458AEC300413161 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DAF801692458AEC300413161 /* FileToPointer-MacOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DAF801682458AEC300413161 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAF801782458AEC900413161 /* Main.storyboard in Resources */,
+				DAF801752458AEC900413161 /* Preview Assets.xcassets in Resources */,
+				DAF801722458AEC900413161 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DAF801662458AEC300413161 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAF801702458AEC300413161 /* ContentView.swift in Sources */,
+				DAF8016E2458AEC300413161 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		DAF801762458AEC900413161 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DAF801772458AEC900413161 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DAF8017B2458AEC900413161 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		DAF8017C2458AEC900413161 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		DAF8017E2458AEC900413161 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "FileToPointer-MacOS/FileToPointer_MacOS.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"FileToPointer-MacOS/Preview Content\"";
+				DEVELOPMENT_TEAM = 5VZ4B379WC;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "FileToPointer-MacOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lfspointers.FileToPointer-MacOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		DAF8017F2458AEC900413161 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "FileToPointer-MacOS/FileToPointer_MacOS.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"FileToPointer-MacOS/Preview Content\"";
+				DEVELOPMENT_TEAM = 5VZ4B379WC;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "FileToPointer-MacOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lfspointers.FileToPointer-MacOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DAF801652458AEC300413161 /* Build configuration list for PBXProject "FileToPointer-MacOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAF8017B2458AEC900413161 /* Debug */,
+				DAF8017C2458AEC900413161 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DAF8017D2458AEC900413161 /* Build configuration list for PBXNativeTarget "FileToPointer-MacOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAF8017E2458AEC900413161 /* Debug */,
+				DAF8017F2458AEC900413161 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DAF801802458AFB100413161 /* XCRemoteSwiftPackageReference "LFSPointers" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:LebJe/LFSPointers.git";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 0.11.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DAF801812458AFB100413161 /* LFSPointersLib */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DAF801802458AFB100413161 /* XCRemoteSwiftPackageReference "LFSPointers" */;
+			productName = LFSPointersLib;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = DAF801622458AEC300413161 /* Project object */;
+}

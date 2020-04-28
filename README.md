@@ -39,12 +39,11 @@ path/to/LFSPointers $ swift build -c release && cp .build/release/LFSPointers ~/
 ```
 
 ## Install Library
-## <p align=>"center">Library is under development and is not ready to be used.</p>
 ### Swift Package Manager
 Add this to the `dependencies` array in `Package.swift`:
 
 ```swift
-.package(url: "https://github.com/LebJe/LFSPointers.git", .upToNextMinor(from: "0.10.0"))
+.package(url: "https://github.com/LebJe/LFSPointers.git", .upToNextMinor(from: "0.11.1"))
 ```
 . Also add this to the `targets` array in the aforementioned file:
 ```swift

@@ -1,0 +1,394 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 52;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DAF801902458B36300413161 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF8018F2458B36300413161 /* AppDelegate.swift */; };
+		DAF801922458B36300413161 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF801912458B36300413161 /* SceneDelegate.swift */; };
+		DAF801942458B36300413161 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF801932458B36300413161 /* ContentView.swift */; };
+		DAF801962458B36400413161 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAF801952458B36400413161 /* Assets.xcassets */; };
+		DAF801992458B36400413161 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAF801982458B36400413161 /* Preview Assets.xcassets */; };
+		DAF8019C2458B36400413161 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAF8019A2458B36400413161 /* LaunchScreen.storyboard */; };
+		DAF801A52458B3A600413161 /* LFSPointersLib in Frameworks */ = {isa = PBXBuildFile; productRef = DAF801A42458B3A600413161 /* LFSPointersLib */; };
+		DAF801A72458B7B400413161 /* FilePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF801A62458B7B400413161 /* FilePickerController.swift */; };
+		DAF801AA2458CAD500413161 /* bar.txt in Resources */ = {isa = PBXBuildFile; fileRef = DAF801A92458CAD500413161 /* bar.txt */; };
+		DAF801AC2458CADD00413161 /* foo.txt in Resources */ = {isa = PBXBuildFile; fileRef = DAF801AB2458CADD00413161 /* foo.txt */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		DAF8018C2458B36300413161 /* FileToPointer-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FileToPointer-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAF8018F2458B36300413161 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DAF801912458B36300413161 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		DAF801932458B36300413161 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		DAF801952458B36400413161 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DAF801982458B36400413161 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		DAF8019B2458B36400413161 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DAF8019D2458B36400413161 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DAF801A62458B7B400413161 /* FilePickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePickerController.swift; sourceTree = "<group>"; };
+		DAF801A92458CAD500413161 /* bar.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = bar.txt; path = ../../../../Resources/recursive/bar.txt; sourceTree = "<group>"; };
+		DAF801AB2458CADD00413161 /* foo.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = foo.txt; path = ../../../../Resources/foo.txt; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DAF801892458B36300413161 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAF801A52458B3A600413161 /* LFSPointersLib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DAF801832458B36300413161 = {
+			isa = PBXGroup;
+			children = (
+				DAF8018E2458B36300413161 /* FileToPointer-iOS */,
+				DAF8018D2458B36300413161 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DAF8018D2458B36300413161 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DAF8018C2458B36300413161 /* FileToPointer-iOS.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DAF8018E2458B36300413161 /* FileToPointer-iOS */ = {
+			isa = PBXGroup;
+			children = (
+				DAF801A82458CAB900413161 /* Supporting Files */,
+				DAF8018F2458B36300413161 /* AppDelegate.swift */,
+				DAF801912458B36300413161 /* SceneDelegate.swift */,
+				DAF801932458B36300413161 /* ContentView.swift */,
+				DAF801952458B36400413161 /* Assets.xcassets */,
+				DAF8019A2458B36400413161 /* LaunchScreen.storyboard */,
+				DAF8019D2458B36400413161 /* Info.plist */,
+				DAF801972458B36400413161 /* Preview Content */,
+				DAF801A62458B7B400413161 /* FilePickerController.swift */,
+			);
+			path = "FileToPointer-iOS";
+			sourceTree = "<group>";
+		};
+		DAF801972458B36400413161 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				DAF801982458B36400413161 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		DAF801A82458CAB900413161 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DAF801AB2458CADD00413161 /* foo.txt */,
+				DAF801A92458CAD500413161 /* bar.txt */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DAF8018B2458B36300413161 /* FileToPointer-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DAF801A02458B36400413161 /* Build configuration list for PBXNativeTarget "FileToPointer-iOS" */;
+			buildPhases = (
+				DAF801882458B36300413161 /* Sources */,
+				DAF801892458B36300413161 /* Frameworks */,
+				DAF8018A2458B36300413161 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "FileToPointer-iOS";
+			packageProductDependencies = (
+				DAF801A42458B3A600413161 /* LFSPointersLib */,
+			);
+			productName = "FileToPointer-iOS";
+			productReference = DAF8018C2458B36300413161 /* FileToPointer-iOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DAF801842458B36300413161 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1140;
+				LastUpgradeCheck = 1140;
+				ORGANIZATIONNAME = LFSPointers;
+				TargetAttributes = {
+					DAF8018B2458B36300413161 = {
+						CreatedOnToolsVersion = 11.4.1;
+					};
+				};
+			};
+			buildConfigurationList = DAF801872458B36300413161 /* Build configuration list for PBXProject "FileToPointer-iOS" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DAF801832458B36300413161;
+			packageReferences = (
+				DAF801A32458B3A600413161 /* XCRemoteSwiftPackageReference "LFSPointers" */,
+			);
+			productRefGroup = DAF8018D2458B36300413161 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DAF8018B2458B36300413161 /* FileToPointer-iOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DAF8018A2458B36300413161 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAF8019C2458B36400413161 /* LaunchScreen.storyboard in Resources */,
+				DAF801AC2458CADD00413161 /* foo.txt in Resources */,
+				DAF801992458B36400413161 /* Preview Assets.xcassets in Resources */,
+				DAF801AA2458CAD500413161 /* bar.txt in Resources */,
+				DAF801962458B36400413161 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DAF801882458B36300413161 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAF801902458B36300413161 /* AppDelegate.swift in Sources */,
+				DAF801922458B36300413161 /* SceneDelegate.swift in Sources */,
+				DAF801942458B36300413161 /* ContentView.swift in Sources */,
+				DAF801A72458B7B400413161 /* FilePickerController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		DAF8019A2458B36400413161 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DAF8019B2458B36400413161 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DAF8019E2458B36400413161 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		DAF8019F2458B36400413161 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DAF801A12458B36400413161 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"FileToPointer-iOS/Preview Content\"";
+				DEVELOPMENT_TEAM = 5VZ4B379WC;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "FileToPointer-iOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lfspointers.FileToPointer-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DAF801A22458B36400413161 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"FileToPointer-iOS/Preview Content\"";
+				DEVELOPMENT_TEAM = 5VZ4B379WC;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "FileToPointer-iOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lfspointers.FileToPointer-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DAF801872458B36300413161 /* Build configuration list for PBXProject "FileToPointer-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAF8019E2458B36400413161 /* Debug */,
+				DAF8019F2458B36400413161 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DAF801A02458B36400413161 /* Build configuration list for PBXNativeTarget "FileToPointer-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAF801A12458B36400413161 /* Debug */,
+				DAF801A22458B36400413161 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DAF801A32458B3A600413161 /* XCRemoteSwiftPackageReference "LFSPointers" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:LebJe/LFSPointers.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.11.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DAF801A42458B3A600413161 /* LFSPointersLib */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DAF801A32458B3A600413161 /* XCRemoteSwiftPackageReference "LFSPointers" */;
+			productName = LFSPointersLib;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = DAF801842458B36300413161 /* Project object */;
+}
