@@ -1,4 +1,3 @@
-import SwiftShell
 import Foundation
 import ArgumentParser
 import Rainbow
