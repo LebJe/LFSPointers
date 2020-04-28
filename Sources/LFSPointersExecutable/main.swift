@@ -142,7 +142,9 @@ struct LFSPointersCommand: ParsableCommand {
 					// Copy the specified directory into the backup directory.
 					try Folder(path: directory.path).copy(to: Folder(path: bd.path))
 				} catch {
-					fputs("Unable to copy the contents of the target directory to the backup directory. Check the folder permissions and check that both folders exist.".red, stderr)
+					if !silent {
+						fputs("Unable to copy the contents of the target directory to the backup directory. Check the folder permissions and check that both folders exist.".red, stderr)
+					}
 					
 					Foundation.exit(4)
 				}

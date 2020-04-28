@@ -7,9 +7,8 @@
 
 import Foundation
 import Files
-import SwiftShell
-import Rainbow
 import SwiftyJSON
+import CryptoSwift
 
 /// Represents a Git LFS pointer for a file.
 ///
@@ -204,20 +203,20 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 	/// - Parameters:
 	///   - path: The path to the file.
 	///   - statusClosure: Use this closure to determine the status of this function. It will be passed the `URL` of the file or folder being operated on, as well as an enum representing the status of this function.
-	/// - Throws: `GitLFSError` if an error occurred while generating pointers, or `LocationError` if the file path is invalid.
+	/// - Throws: `GitLFSError` if an error occurred while generating pointers, `LocationError` if the file path is invalid, or `ReadError` if the file could not be read.
 	/// - Returns: A `LFSPointer`.
 	public static func pointer(forFile path: URL) throws -> LFSPointer {
 		let file = try File(path: path.path)
+
+		let version = "https://git-lfs.github.com/spec/v1"
 		
-		let r = SwiftShell.run("git", "lfs", "pointer", "--file=\(file.path)")
+		let hash = try file.read().sha256()
 		
-		guard !r.stdout.isEmpty && r.stderror != "read \(file): is a directory" else { throw GitLFSError.generic(message: "Git LFS error: \(r.stderror)") }
+		let attr = try FileManager.default.attributesOfItem(atPath: file.path)
 		
-		let components = r.stdout.components(separatedBy: "\n")
+		let size = attr[.size]
 		
-		guard components.count >= 3 else { throw GitLFSError.malformedGitLFSCommandOutput(output: r.stdout) }
-		
-		let pointer = LFSPointer(version: components[0].replacingOccurrences(of: "version ", with: ""), oid: components[1].replacingOccurrences(of: "oid sha256:", with: ""), size: Int(components[2].replacingOccurrences(of: "size ", with: "")) ?? 0)
+		let pointer = LFSPointer(version: version, oid: hash.toHexString(), size: size as! Int)
 		
 		return pointer
 	}

@@ -1,10 +1,10 @@
 import XCTest
-import SwiftShell
 import Files
 @testable import LFSPointersLibrary
-import class Foundation.Bundle
 
 final class LFSPointersTests: XCTestCase {
+	#warning("When running tests, make sure your working directory is at the root of this project.")
+	
 	let resources = try! Folder.current.subfolder(named: "Resources")
 	
 	func testConvertFileToPointer() throws {
@@ -97,18 +97,6 @@ final class LFSPointersTests: XCTestCase {
 		// Make sure these are equal.
 		XCTAssertEqual(p1, p2)
 	}
-
-    /// Returns path to the built products directory.
-    var productsDirectory: URL {
-      #if os(macOS)
-        for bundle in Bundle.allBundles where bundle.bundlePath.hasSuffix(".xctest") {
-            return bundle.bundleURL.deletingLastPathComponent()
-        }
-        fatalError("couldn't find the products directory")
-      #else
-        return Bundle.main.bundleURL
-      #endif
-    }
 
     static var allTests = [
         ("Test converting a file to pointer", testConvertFileToPointer),
