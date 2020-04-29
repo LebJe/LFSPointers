@@ -38,7 +38,7 @@ struct ContentView: View {
 					if let url = self.url {
 						do {
 							
-							let pointer = try LFSPointer.pointer(forFile: url)
+							let pointer = try LFSPointer(forFile: url)
 							self.text = pointer.stringRep
 							
 							

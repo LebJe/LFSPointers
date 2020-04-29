@@ -54,6 +54,22 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 		"""
 	}
 	
+	/// Initializes `self` from a file.
+	/// - Parameters:
+	///   - path: The path to the file.
+	/// - Throws: `LocationError` if the file path is invalid.
+	init(forFile path: URL) throws {
+		let file = try File(path: path.path)
+		
+		self.version = "https://git-lfs.github.com/spec/v1"
+		
+		self.oid = try String(contentsOfFile: file.path).sha256()
+		
+		let attr = try FileManager.default.attributesOfItem(atPath: file.path)
+		
+		self.size = attr[.size] as! Int
+	}
+	
 	/// Iterates over all files in a directory (excluding hidden files), and generates a LFS pointer for each one.
 	/// - Parameters:
 	///   - directory: The directory to iterate over.
@@ -88,7 +104,7 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 							if status != nil { status!(file.url, .generating) }
 							
 							do {
-								let pointer = try self.pointer(forFile: file.url)
+								let pointer = try self.init(forFile: file.url)
 								
 								pointers.append((file.name, file.url, pointer))
 							} catch let error {
@@ -106,7 +122,7 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 							if status != nil { status!(file.url, .generating) }
 						
 							do {
-								let pointer = try self.pointer(forFile: file.url)
+								let pointer = try self.init(forFile: file.url)
 								
 								pointers.append((file.name, file.url, pointer))
 								
@@ -126,7 +142,7 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 						
 						do {
 							
-							let pointer = try self.pointer(forFile: file.url)
+							let pointer = try self.init(forFile: file.url)
 							
 							pointers.append((file.name, file.url, pointer))
 							
@@ -148,7 +164,7 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 							if status != nil { status!(file.url, .generating) }
 							
 							do {
-								let pointer = try self.pointer(forFile: file.url)
+								let pointer = try self.init(forFile: file.url)
 								
 								pointers.append((file.name, file.url, pointer))
 							} catch let error {
@@ -166,7 +182,7 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 							do {
 								if status != nil { status!(file.url, .generating) }
 								
-								let pointer = try self.pointer(forFile: file.url)
+								let pointer = try self.init(forFile: file.url)
 								
 								pointers.append((file.name, file.url, pointer))
 							} catch let error {
@@ -183,7 +199,7 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 						do {
 							if status != nil { status!(file.url, .generating) }
 							
-							let pointer = try self.pointer(forFile: file.url)
+							let pointer = try self.init(forFile: file.url)
 							
 							pointers.append((file.name, file.url, pointer))
 							
@@ -197,27 +213,6 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 		}
 		
 		return pointers
-	}
-	
-	/// Generates a LFS pointer for a file.
-	/// - Parameters:
-	///   - path: The path to the file.
-	/// - Throws: `GitLFSError` if an error occurred while generating pointers, `LocationError` if the file path is invalid, or `ReadError` if the file could not be read.
-	/// - Returns: A `LFSPointer`.
-	public static func pointer(forFile path: URL) throws -> LFSPointer {
-		let file = try File(path: path.path)
-
-		let version = "https://git-lfs.github.com/spec/v1"
-		
-		let hash = try String(contentsOfFile: file.path).sha256()
-		
-		let attr = try FileManager.default.attributesOfItem(atPath: file.path)
-		
-		let size = attr[.size] as! Int
-		
-		let pointer = LFSPointer(version: version, oid: hash, size: size)
-		
-		return pointer
 	}
 	
 	/// Write `self` (`LFSPointer`) to a file.

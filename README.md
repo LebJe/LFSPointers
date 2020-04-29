@@ -60,7 +60,7 @@ import LFSPointersLibrary
 #### File Conversion
 To convert a file to a pointer you could write:
 ```swift
-let pointer = try LFSPointer.pointer(forFile: URL(fileURLWithPath: "path/to/file"))
+let pointer = try LFSPointer(forFile: URL(fileURLWithPath: "path/to/file"))
 ```
 
 The pointer is represented as a Swift struct.
@@ -109,7 +109,7 @@ This returns an array of tuples, that each contain the filename, file path, and 
 #### Writing Pointers
 After you generate a pointer, write it to a file using:
 ```swift
-let pointer = try LFSPointer.pointer(...)
+let pointer = try LFSPointer(...)
 try pointer.write(toFile: URL(fileURLWithPath: "path/to/file"), shouldAppend: false)
 ```
 
@@ -117,7 +117,7 @@ try pointer.write(toFile: URL(fileURLWithPath: "path/to/file"), shouldAppend: fa
 To convert a pointer to JSON:
 
 ```swift
-let pointer = try LFSPointer.pointer(...)
+let pointer = try LFSPointer(...)
 let json = pointer.json
 ```
 

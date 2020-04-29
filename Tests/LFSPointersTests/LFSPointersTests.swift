@@ -7,7 +7,7 @@ final class LFSPointersTests: XCTestCase {
 	let resources = try! Folder.current.subfolder(named: "Resources")
 	
 	func testConvertFileToPointer() throws {
-		let pointer = try LFSPointer.pointer(forFile: resources.file(named: "foo.txt").url)
+		let pointer = try LFSPointer(forFile: resources.file(named: "foo.txt").url)
 		
 		XCTAssertEqual(667684, pointer.size)
 		XCTAssertEqual("802cd848ada6f6f7177bc4bd0952e2c3a5c7378757899b1ed16c0f1a243eb930", pointer.oid)
@@ -78,8 +78,8 @@ final class LFSPointersTests: XCTestCase {
 	}
 	
 	func testLFSPointerIsEquatable() throws {
-		let p1 = try LFSPointer.pointer(forFile: resources.file(named: "foo.txt").url)
-		let p2 = try LFSPointer.pointer(forFile: resources.file(named: "foo.txt").url)
+		let p1 = try LFSPointer(forFile: resources.file(named: "foo.txt").url)
+		let p2 = try LFSPointer(forFile: resources.file(named: "foo.txt").url)
 		
 		// Make sure these are equal.
 		XCTAssertEqual(p1, p2)
