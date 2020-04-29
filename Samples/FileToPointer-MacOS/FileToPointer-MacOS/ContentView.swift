@@ -28,8 +28,6 @@ struct ContentView: View {
 				openPanel.canChooseFiles = true
 				openPanel.resolvesAliases = true
 				
-				//openPanel.title = ""
-				
 				let result = openPanel.runModal()
 				
 				if result == .OK {

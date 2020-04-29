@@ -63,7 +63,7 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 		
 		self.version = "https://git-lfs.github.com/spec/v1"
 		
-		self.oid = try String(contentsOfFile: file.path).sha256()
+		self.oid = try Data(contentsOf: file.url).sha256().toHexString()
 		
 		let attr = try FileManager.default.attributesOfItem(atPath: file.path)
 		
