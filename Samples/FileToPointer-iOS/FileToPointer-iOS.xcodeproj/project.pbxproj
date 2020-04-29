@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DAB11EE8245A0AF1005E49BD /* bar.txt in Resources */ = {isa = PBXBuildFile; fileRef = DAB11EE6245A0AF1005E49BD /* bar.txt */; };
+		DAB11EE9245A0AF1005E49BD /* foo.txt in Resources */ = {isa = PBXBuildFile; fileRef = DAB11EE7245A0AF1005E49BD /* foo.txt */; };
 		DAF801902458B36300413161 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF8018F2458B36300413161 /* AppDelegate.swift */; };
 		DAF801922458B36300413161 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF801912458B36300413161 /* SceneDelegate.swift */; };
 		DAF801942458B36300413161 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF801932458B36300413161 /* ContentView.swift */; };
@@ -14,12 +16,11 @@
 		DAF801992458B36400413161 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAF801982458B36400413161 /* Preview Assets.xcassets */; };
 		DAF8019C2458B36400413161 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAF8019A2458B36400413161 /* LaunchScreen.storyboard */; };
 		DAF801A52458B3A600413161 /* LFSPointersLib in Frameworks */ = {isa = PBXBuildFile; productRef = DAF801A42458B3A600413161 /* LFSPointersLib */; };
-		DAF801A72458B7B400413161 /* FilePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF801A62458B7B400413161 /* FilePickerController.swift */; };
-		DAF801AA2458CAD500413161 /* bar.txt in Resources */ = {isa = PBXBuildFile; fileRef = DAF801A92458CAD500413161 /* bar.txt */; };
-		DAF801AC2458CADD00413161 /* foo.txt in Resources */ = {isa = PBXBuildFile; fileRef = DAF801AB2458CADD00413161 /* foo.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DAB11EE6245A0AF1005E49BD /* bar.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bar.txt; sourceTree = "<group>"; };
+		DAB11EE7245A0AF1005E49BD /* foo.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = foo.txt; sourceTree = "<group>"; };
 		DAF8018C2458B36300413161 /* FileToPointer-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FileToPointer-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAF8018F2458B36300413161 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DAF801912458B36300413161 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -28,9 +29,6 @@
 		DAF801982458B36400413161 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DAF8019B2458B36400413161 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DAF8019D2458B36400413161 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DAF801A62458B7B400413161 /* FilePickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePickerController.swift; sourceTree = "<group>"; };
-		DAF801A92458CAD500413161 /* bar.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = bar.txt; path = ../../../../Resources/recursive/bar.txt; sourceTree = "<group>"; };
-		DAF801AB2458CADD00413161 /* foo.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = foo.txt; path = ../../../../Resources/foo.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,7 +70,6 @@
 				DAF8019A2458B36400413161 /* LaunchScreen.storyboard */,
 				DAF8019D2458B36400413161 /* Info.plist */,
 				DAF801972458B36400413161 /* Preview Content */,
-				DAF801A62458B7B400413161 /* FilePickerController.swift */,
 			);
 			path = "FileToPointer-iOS";
 			sourceTree = "<group>";
@@ -88,8 +85,8 @@
 		DAF801A82458CAB900413161 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				DAF801AB2458CADD00413161 /* foo.txt */,
-				DAF801A92458CAD500413161 /* bar.txt */,
+				DAB11EE6245A0AF1005E49BD /* bar.txt */,
+				DAB11EE7245A0AF1005E49BD /* foo.txt */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -159,9 +156,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAF8019C2458B36400413161 /* LaunchScreen.storyboard in Resources */,
-				DAF801AC2458CADD00413161 /* foo.txt in Resources */,
+				DAB11EE9245A0AF1005E49BD /* foo.txt in Resources */,
 				DAF801992458B36400413161 /* Preview Assets.xcassets in Resources */,
-				DAF801AA2458CAD500413161 /* bar.txt in Resources */,
+				DAB11EE8245A0AF1005E49BD /* bar.txt in Resources */,
 				DAF801962458B36400413161 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -176,7 +173,6 @@
 				DAF801902458B36300413161 /* AppDelegate.swift in Sources */,
 				DAF801922458B36300413161 /* SceneDelegate.swift in Sources */,
 				DAF801942458B36300413161 /* ContentView.swift in Sources */,
-				DAF801A72458B7B400413161 /* FilePickerController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

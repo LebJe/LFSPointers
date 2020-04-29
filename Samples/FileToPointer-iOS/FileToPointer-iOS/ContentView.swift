@@ -11,24 +11,31 @@ import LFSPointersLibrary
 
 struct ContentView: View {
 	@State private var selection: Int = 0
-	var version = ""
-	var hash = ""
-	var size = ""
+	@State var version = ""
+	@State var hash = ""
+	@State var size = ""
 	static let files = ["foo", "bar"]
 	
     var body: some View {
-		let pointer = try! LFSPointer.pointer(forFile: Bundle.main.url(forResource: ContentView.files[selection], withExtension: "txt")!)
 		
 		return VStack {
 			Picker("Select a File", selection: $selection, content: {
 				ForEach(Self.files, id: \.self) {
-					Text($0)
+					Text($0 + ".txt")
 				}
 			}).padding()
 			
-			Text(pointer.version)
-			Text("oid sha256:" + pointer.oid)
-			Text(String(pointer.size))
+			Button("Generate Pointer") {
+				let pointer = try! LFSPointer.pointer(forFile: Bundle.main.url(forResource: ContentView.files[self.selection], withExtension: "txt")!)
+				
+				self.version = pointer.version
+				self.hash = pointer.oid
+				self.size = String(pointer.size)
+				}.padding(5).background(Color.blue).cornerRadius(5).foregroundColor(.white).padding()
+			
+			Text("Version: " + version).padding()
+			Text("SHA 256 Hash (oid sha256): \n" + hash).padding()
+			Text("Size (in bytes): " + size)
 		}
     }
 }

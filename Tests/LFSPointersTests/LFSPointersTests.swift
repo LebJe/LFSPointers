@@ -4,14 +4,13 @@ import Files
 
 final class LFSPointersTests: XCTestCase {
 	#warning("When running tests, make sure your working directory is at the root of this project.")
-	
 	let resources = try! Folder.current.subfolder(named: "Resources")
 	
 	func testConvertFileToPointer() throws {
 		let pointer = try LFSPointer.pointer(forFile: resources.file(named: "foo.txt").url)
 		
-		XCTAssertEqual(915616, pointer.size)
-		XCTAssertEqual("7460be75572755e82af8be291eb5113bcfe4a5e929578f1a4690c8b364f83207", pointer.oid)
+		XCTAssertEqual(667684, pointer.size)
+		XCTAssertEqual("802cd848ada6f6f7177bc4bd0952e2c3a5c7378757899b1ed16c0f1a243eb930", pointer.oid)
     }
 	
 	func testRecursivelyGeneratePointersForFilesInSubdirectories() throws {
@@ -28,8 +27,6 @@ final class LFSPointersTests: XCTestCase {
 		let foo = try fooFile.readAsString()
 		let bar = try barFile.readAsString()
 		
-		XCTAssertNoThrow(try LFSPointer.pointers(forDirectory: resources.url, searchType: .all, recursive: true))
-		
 		// Get a list of pointers.
 		let pointers = try LFSPointer.pointers(forDirectory: resources.url, searchType: .regex(try NSRegularExpression(pattern: "^*$")), recursive: true)
 		
@@ -37,24 +34,20 @@ final class LFSPointersTests: XCTestCase {
 		XCTAssertEqual(2, pointers.count)
 		
 		// Try writing the pointer to "foo.txt".
-		XCTAssertNoThrow(try pointers[0].pointer.write(toFile: fooFile.url, shouldAppend: false))
+		try pointers[0].pointer.write(toFile: fooFile.url, shouldAppend: false)
 		
 		// Try writing the pointer to "recursive/bar.txt".
-		XCTAssertNoThrow(try pointers[1].pointer.write(toFile: barFile.url, shouldAppend: false))
+		try pointers[1].pointer.write(toFile: barFile.url, shouldAppend: false)
 		
 		// Restore the contents of "foo.txt".
-		XCTAssertNoThrow(try foo.write(to: fooFile.url, atomically: false, encoding: .utf8))
+		try foo.write(to: fooFile.url, atomically: false, encoding: .utf8)
 		
 		// Restore the contents of "recursive/bar.txt".
-		XCTAssertNoThrow(try bar.write(to: barFile.url, atomically: false, encoding: .utf8))
+		try bar.write(to: barFile.url, atomically: false, encoding: .utf8)
 	}
 	
 	// MARK: - Test search types.
 	func testSearchTypeAll() throws {
-		
-		// Make sure LFSPointer.pointers(...) doesn't throw.
-		XCTAssertNoThrow(try LFSPointer.pointers(forDirectory: resources.url, searchType: .all, recursive: true))
-		
 		// Get a list of pointers.
 		let pointers = try LFSPointer.pointers(forDirectory: resources.url, searchType: .all, recursive: true)
 		
@@ -65,9 +58,6 @@ final class LFSPointersTests: XCTestCase {
 	func testSearchTypeRegex() throws {
 		let regex = try NSRegularExpression(pattern: "^*.txt$")
 		
-		// Make sure LFSPointer.pointers(...) doesn't throw.
-		XCTAssertNoThrow(try LFSPointer.pointers(forDirectory: resources.url, searchType: .regex(regex), recursive: true))
-		
 		// Get a list of pointers.
 		let pointers = try LFSPointer.pointers(forDirectory: resources.url, searchType: .regex(regex), recursive: true)
 		
@@ -77,9 +67,6 @@ final class LFSPointersTests: XCTestCase {
 	
 	func testSearchTypeFilenames() throws {
 		let filenames = ["bar.txt"]
-		
-		// Make sure LFSPointer.pointers(...) doesn't throw.
-		XCTAssertNoThrow(try LFSPointer.pointers(forDirectory: resources.url, searchType: .fileNames(filenames), recursive: true))
 		
 		// Get a list of pointers.
 		let pointers = try LFSPointer.pointers(forDirectory: resources.url, searchType: .fileNames(filenames), recursive: true)

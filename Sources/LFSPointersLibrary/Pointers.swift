@@ -202,7 +202,6 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 	/// Generates a LFS pointer for a file.
 	/// - Parameters:
 	///   - path: The path to the file.
-	///   - statusClosure: Use this closure to determine the status of this function. It will be passed the `URL` of the file or folder being operated on, as well as an enum representing the status of this function.
 	/// - Throws: `GitLFSError` if an error occurred while generating pointers, `LocationError` if the file path is invalid, or `ReadError` if the file could not be read.
 	/// - Returns: A `LFSPointer`.
 	public static func pointer(forFile path: URL) throws -> LFSPointer {
@@ -210,13 +209,13 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 
 		let version = "https://git-lfs.github.com/spec/v1"
 		
-		let hash = try file.read().sha256()
+		let hash = try String(contentsOfFile: file.path).sha256()
 		
 		let attr = try FileManager.default.attributesOfItem(atPath: file.path)
 		
-		let size = attr[.size]
+		let size = attr[.size] as! Int
 		
-		let pointer = LFSPointer(version: version, oid: hash.toHexString(), size: size as! Int)
+		let pointer = LFSPointer(version: version, oid: hash, size: size)
 		
 		return pointer
 	}
