@@ -58,7 +58,7 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 	/// - Parameters:
 	///   - path: The path to the file.
 	/// - Throws: `LocationError` if the file path is invalid.
-	init(forFile path: URL) throws {
+	public init(fromFile path: URL) throws {
 		let file = try File(path: path.path)
 		
 		self.version = "https://git-lfs.github.com/spec/v1"
@@ -104,7 +104,7 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 							if status != nil { status!(file.url, .generating) }
 							
 							do {
-								let pointer = try self.init(forFile: file.url)
+								let pointer = try self.init(fromFile: file.url)
 								
 								pointers.append((file.name, file.url, pointer))
 							} catch let error {
@@ -122,7 +122,7 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 							if status != nil { status!(file.url, .generating) }
 						
 							do {
-								let pointer = try self.init(forFile: file.url)
+								let pointer = try self.init(fromFile: file.url)
 								
 								pointers.append((file.name, file.url, pointer))
 								
@@ -142,7 +142,7 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 						
 						do {
 							
-							let pointer = try self.init(forFile: file.url)
+							let pointer = try self.init(fromFile: file.url)
 							
 							pointers.append((file.name, file.url, pointer))
 							
@@ -164,7 +164,7 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 							if status != nil { status!(file.url, .generating) }
 							
 							do {
-								let pointer = try self.init(forFile: file.url)
+								let pointer = try self.init(fromFile: file.url)
 								
 								pointers.append((file.name, file.url, pointer))
 							} catch let error {
@@ -182,7 +182,7 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 							do {
 								if status != nil { status!(file.url, .generating) }
 								
-								let pointer = try self.init(forFile: file.url)
+								let pointer = try self.init(fromFile: file.url)
 								
 								pointers.append((file.name, file.url, pointer))
 							} catch let error {
@@ -199,7 +199,7 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 						do {
 							if status != nil { status!(file.url, .generating) }
 							
-							let pointer = try self.init(forFile: file.url)
+							let pointer = try self.init(fromFile: file.url)
 							
 							pointers.append((file.name, file.url, pointer))
 							

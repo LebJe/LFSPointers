@@ -372,8 +372,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:LebJe/LFSPointers.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.11.2;
+				kind = upToNextMinorVersion;
+				minimumVersion = 0.11.3;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

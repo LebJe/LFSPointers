@@ -60,7 +60,7 @@ import LFSPointersLibrary
 #### File Conversion
 To convert a file to a pointer you could write:
 ```swift
-let pointer = try LFSPointer(forFile: URL(fileURLWithPath: "path/to/file"))
+let pointer = try LFSPointer(fromFile: URL(fileURLWithPath: "path/to/file"))
 ```
 
 The pointer is represented as a Swift struct.
