@@ -10,7 +10,34 @@
 	<a href="https://github.com/LebJe/LFSPointers/releases"><img src="https://img.shields.io/github/v/tag/LebJe/LFSPointers" alt=""></a>
 </p>
 
-
+## Table Of Contents
+- [LFS Pointers](#lfs-pointers)
+	- [Table Of Contents](#table-of-contents)
+	- [Prerequisites](#prerequisites)
+		- [Git](#git)
+		- [Git-LFS](#git-lfs)
+	- [Install Program](#install-program)
+		- [Mint](#mint)
+		- [Homebrew](#homebrew)
+		- [Manually](#manually)
+	- [Install Library](#install-library)
+		- [Swift Package Manager](#swift-package-manager)
+	- [Usage](#usage)
+		- [Library](#library)
+			- [Import](#import)
+			- [File Conversion](#file-conversion)
+			- [Folder Conversion](#folder-conversion)
+			- [Writing Pointers](#writing-pointers)
+			- [Generating JSON](#generating-json)
+		- [Command Line](#command-line)
+	- [Dependencies](#dependencies)
+	- [More Information](#more-information)
+	- [Tested Platforms](#tested-platforms)
+		- [Mac](#mac)
+		- [Linux](#linux)
+	- [iOS, watchOS, tvOS](#ios-watchos-tvos)
+	- [JSON Structure for LFSPointer Array](#json-structure-for-lfspointer-array)
+	- [JSON Structure for Single LFSPointer](#json-structure-for-single-lfspointer)
 
 ## Prerequisites
 ### [Git](https://git-scm.com)
@@ -32,10 +59,10 @@ It it recommended that you read [https://git-lfs.github.com](https://git-lfs.git
 `$ brew install LebJe/formulae/lfs-pointers`
 
 ### Manually
-Install [Swift 5.2.2](https://swift.org) at [https://swift.org/download/](https://swift.org/download/), then run:
+Install [Swift 5.2.2](https://swift.org) at [https://swift.org/download/](https://swift.org/download/), make sure `swift` is in your `PATH`, then run:
 
 ```bash
-path/to/LFSPointers $ swift build -c release && cp .build/release/LFSPointers ~/usr/bin/local
+path/to/LFSPointers $ swift build -c release && cp .build/release/LFSPointers ~/usr/local/bin
 ```
 
 ## Install Library
