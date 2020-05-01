@@ -39,18 +39,7 @@
 	- [JSON Structure for LFSPointer Array](#json-structure-for-lfspointer-array)
 	- [JSON Structure for Single LFSPointer](#json-structure-for-single-lfspointer)
 
-## Prerequisites
-### [Git](https://git-scm.com)
-Install Git at [https://git-scm.com](https://git-scm.com).
-
-### [Git-LFS](https://git-lfs.github.com)
-Install Git-LFS at [https://git-lfs.github.com](https://git-lfs.github.com), then run:
-
-```bash
-$ git lfs install
-```
-
-It it recommended that you read [https://git-lfs.github.com](https://git-lfs.github.com) before continuing.
+It it recommended that you read the [Git-LFS Homepage](https://git-lfs.github.com) before continuing.
 
 ## Install Program
 ### [Mint](https://github.com/yonaskolb/mint)
