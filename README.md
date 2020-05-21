@@ -12,10 +12,6 @@
 
 ## Table Of Contents
 - [LFS Pointers](#lfs-pointers)
-	- [Table Of Contents](#table-of-contents)
-	- [Prerequisites](#prerequisites)
-		- [Git](#git)
-		- [Git-LFS](#git-lfs)
 	- [Install Program](#install-program)
 		- [Mint](#mint)
 		- [Homebrew](#homebrew)
@@ -62,6 +58,7 @@ Add this to the `dependencies` array in `Package.swift`:
 .package(url: "https://github.com/LebJe/LFSPointers.git", .upToNextMinor(from: "0.12.3"))
 ```
 . Also add this to the `targets` array in the aforementioned file:
+
 ```swift
 .product(name: "LFSPointersLib", package: "LFSPointers")
 ```
@@ -75,11 +72,13 @@ import LFSPointersLibrary
 
 #### File Conversion
 To convert a file to a pointer you could write:
+
 ```swift
 let pointer = try LFSPointer(fromFile: URL(fileURLWithPath: "path/to/file"))
 ```
 
 The pointer is represented as a Swift struct.
+
 ```swift
 public struct LFSPointer {
 	/// The version of the pointer. Example: "https://git-lfs.github.com/spec/v1".
@@ -101,11 +100,13 @@ public struct LFSPointer {
 
 #### Folder Conversion
 To convert a folder of files to pointers, you could write: 
+
 ```swift
 let pointers = try LFSPointer.pointers(forDirectory: URL(fileURLWithPath: "path/to/folder"), searchType: .filenames(["foo.java", "bar.js", "baz.py"]))
 ```
 
 The search types available are:
+
 ```swift
 // Array of filenames.
 .fileNames(["foo.java", "bar.js", "baz.py"])
@@ -118,12 +119,14 @@ The search types available are:
 ```
 
 This returns an array of tuples, that each contain the filename, file path, and `LFSPointer`: 
+
 ```swift
 (filename: String, filePath: URL, pointer: LFSPointer)
 ```
 
 #### Writing Pointers
 After you generate a pointer, write it to a file using:
+
 ```swift
 let pointer = try LFSPointer(...)
 try pointer.write(toFile: URL(fileURLWithPath: "path/to/file"), shouldAppend: false)
@@ -148,19 +151,24 @@ The JSON for the `LFSPointer` array will be structured as shown [here](#json-str
 
 ### Command Line
 Let's imagine you have a directory of large `png` and `jpg` files called `Project Logos`. If you wanted to convert the files with the extension `png` to LFS pointers, you could run 
+
 ```bash
 $ LFSPointers path/to/Project\ Logos *.png
 ```
+
 . The first argument is the path to the directory, and the second argument is a regular expression used to search for `png` files that your shell will convert to a list of filenames.\
 But wait! It's not safe to run random programs on your computer! To backup your files just in case something goes wrong, add `-b path/to/backup-directory` to the previous command, like this:
+
 ```bash
 $ LFSPointers -b path/to/backup-directory path/to/Project\ Logos *.png
 ```
 
 If you want to generate JSON output instead, do:
+
 ```bash
 $ LFSPointers --json path/to/Project\ Logos *.png
 ```
+
 The JSON will be structured as shown [here](#json-structure-for-lfspointer-array).
 
 ## Dependencies
@@ -181,6 +189,7 @@ Tested on Ubuntu 18.04.4 LTS (Bionic Beaver), also using Swift 5.2.2.
 These platforms have not been tested on yet, although, at the time of writing the iOS project in the `Samples/FileToPointer` directory is currently working.
 
 ## JSON Structure for LFSPointer Array
+
 ```json
 [
 	{
@@ -205,6 +214,7 @@ These platforms have not been tested on yet, although, at the time of writing th
 ```
 
 ## JSON Structure for Single LFSPointer
+
 ```json
 {
 	"version": "https://git-lfs.github.com/spec/v1",
