@@ -47,8 +47,11 @@ It it recommended that you read the [Git-LFS Homepage](https://git-lfs.github.co
 Install [Swift 5.2.2](https://swift.org) at [https://swift.org/download/](https://swift.org/download/), make sure `swift` is in your `PATH`, then run:
 
 ```bash
-path/to/LFSPointers $ swift build -c release && cp .build/release/LFSPointers ~/usr/local/bin
+path/to/LFSPointers $ swift build -c release && cp .build/release/LFSPointers /usr/local/bin
 ```
+
+this will build the program, then copy it into `/usr/local/bin`.
+
 
 ## Install Library
 ### Swift Package Manager
