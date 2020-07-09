@@ -1,5 +1,3 @@
-#!/bin/bash
-
 SWIFT_VER="5.2.2"
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
