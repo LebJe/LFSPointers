@@ -5,10 +5,12 @@
 <p align="center">
 	<a href="https://swift.org"><img src="https://img.shields.io/badge/Swift-5.2-brightgreen.svg" alt="Swift 5.2"></a>
 	<a href="https://swift.org/package-manager"><img src="https://img.shields.io/badge/SPM-compatible-brightgreen.svg" alt="SPM Compatible"></a>
-	<a href="https://travis-ci.org/github/LebJe/LFSPointers"><img src="https://travis-ci.org/LebJe/LFSPointers.svg?branch=master" alt="Build Status"></a>
+	
 	<a href="https://img.shields.io/badge/Platforms-MacOS%20%7C%20Linux-lightgrey"><img src="https://img.shields.io/badge/Platforms-MacOS%20%7C%20Linux-lightgrey" alt="Platforms: MacOS | Linux"></a>
 	<a href="https://github.com/LebJe/LFSPointers/releases"><img src="https://img.shields.io/github/v/tag/LebJe/LFSPointers" alt=""></a>
 </p>
+
+![Swift](https://github.com/LebJe/LFSPointers/workflows/Swift/badge.svg)
 
 ## Table Of Contents
 - [LFS Pointers](#lfs-pointers)
