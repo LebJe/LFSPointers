@@ -17,6 +17,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build
-      run: sh Scripts/install.sh
+      run: bash Scripts/install.sh
     - name: Run tests
-      run: sh Scripts/script.sh
+      run: bash Scripts/script.sh
