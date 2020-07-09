@@ -2,17 +2,11 @@
 
 <p align="center"><strong>A command line tool and SPM package that allows you to convert a Git repository directory of large files to Git LFS pointers.</strong></p>
 
-<p align="center">
-	<a href="https://swift.org"><img src="https://img.shields.io/badge/Swift-5.2-brightgreen.svg" alt="Swift 5.2"></a>
-	
-	<a href="https://swift.org/package-manager"><img src="https://img.shields.io/badge/SPM-compatible-brightgreen.svg" alt="SPM Compatible"></a>
-	
-	<a href="https://github.com/LebJe/LFSPointers/workflows/Swift/badge.svg"><img src="https://github.com/LebJe/LFSPointers/workflows/Swift/badge.svg" alt="Run Swift Tests"></a>
-	
-	<a href="https://img.shields.io/badge/Platforms-MacOS%20%7C%20Linux-lightgrey"><img src="https://img.shields.io/badge/Platforms-MacOS%20%7C%20Linux-lightgrey" alt="Platforms: MacOS | Linux"></a>
-	
-	<a href="https://github.com/LebJe/LFSPointers/releases"><img src="https://img.shields.io/github/v/tag/LebJe/LFSPointers" alt=""></a>
-</p>
+[![Swift 5.2](https://img.shields.io/badge/Swift-5.2-brightgreen.svg))](https://swift.org)
+[![SPM Compatible](https://img.shields.io/badge/SPM-compatible-brightgreen.svg)](https://swift.org/package-manager)
+[![https://img.shields.io/badge/Platforms-MacOS%20%7C%20Linux-lightgrey](https://img.shields.io/badge/Platforms-MacOS%20%7C%20Linux-lightgrey)](https://img.shields.io/badge/Platforms-MacOS%20%7C%20Linux-lightgrey)
+[![](https://img.shields.io/github/v/tag/LebJe/LFSPointers)](https://github.com/LebJe/LFSPointers/releases)
+[![Swift Tests](https://github.com/LebJe/LFSPointers/workflows/Swift/badge.svg)](https://github.com/LebJe/LFSPointers/actions?query=workflow%3ASwift)
 
 ## Table Of Contents
 - [LFS Pointers](#lfs-pointers)
@@ -203,19 +197,19 @@ These platforms have not been tested on yet, although, at the time of writing th
 		"filename": "foo.txt",
 		"filePath": "/path/to/foo.txt",
 		"pointer": {
-						"version": "https://git-lfs.github.com/spec/v1",
-						"oid": "10b2cd328e193dd4b81d921dbe91bda74bda704c37bca43f1e15f41fcd20ac2a",
-						"size": 1455
-					}
+			"version": "https://git-lfs.github.com/spec/v1",
+			"oid": "10b2cd328e193dd4b81d921dbe91bda74bda704c37bca43f1e15f41fcd20ac2a",
+			"size": 1455
+		}
 	},
 	{
 		"filename": "bar.txt",
 		"filePath": "/path/to/bar.txt",
 		"pointer": {
-						"version": "https://git-lfs.github.com/spec/v1",
-						"oid": "601952b2d85214ea602104a4784728ffa6b323b3a6131a124044fa5bfc2f7bf2",
-						"size": 1285200
-					}
+			"version": "https://git-lfs.github.com/spec/v1",
+			"oid": "601952b2d85214ea602104a4784728ffa6b323b3a6131a124044fa5bfc2f7bf2",
+			"size": 1285200
+		}
 	}
 ]
 ```
