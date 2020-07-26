@@ -18,9 +18,12 @@ import CryptoSwift
 /// size 1455", would look like this:
 ///
 /// ```
-/// let pointer = LFSPointer(version: "https://git-lfs.github.com/spec/v1", oid: "10b2cd328e193dd4b81d921dbe91bda74bda704c37bca43f1e15f41fcd20ac2a", size: 1455)
-/// ```
+/// let pointer = LFSPointer(
+/// 	version: "https://git-lfs.github.com/spec/v1",
+///  	oid: "10b2cd328e193dd4b81d921dbe91bda74bda704c37bca43f1e15f41fcd20ac2a", size: 1455
+/// )
 ///
+/// ```
 public struct LFSPointer: Codable, Equatable, Hashable {
 	/// The version of the pointer. Example: "https://git-lfs.github.com/spec/v1".
 	public let version: String
@@ -80,10 +83,12 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 	///   - statusClosure: Use this closure to determine the status of this function. It will be passed the `URL` of the file or folder being operated on, as well as an enum representing the status of this function.
 	/// - Throws: `GitLFSError` if an error occurred while generating pointers, or `LocationError` if the directory path is invalid.
 	/// - Returns: An array of tuples that contain the filename, file path, and `LFSPointer`.
-	public static func pointers(forDirectory directory: URL,
-								searchType type: SearchTypes,
-								recursive: Bool = false,
-								statusClosure status: ((URL, Status) -> Void)? = nil) throws -> [(filename: String, filePath: URL, pointer: LFSPointer)] {
+	public static func pointers(
+		forDirectory directory: URL,
+		searchType type: SearchTypes,
+		recursive: Bool = false,
+		statusClosure status: ((URL, Status) -> Void)? = nil) throws -> [(filename: String, filePath: URL, pointer: LFSPointer)]
+	{
 		var pointers: [(filename: String, filePath: URL, pointer: LFSPointer)] = []
 		
 		let folder = try Folder(path: directory.path)
@@ -223,9 +228,11 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 	///   - printOutput: Whether output should be printed.
 	///   - printVerboseOutput: Whether verbose output should be printed.
 	/// - Throws: `LocationError` if the file path is invalid, or `WriteError` if the file could not be written.
-	public func write(toFile file: URL,
-					  shouldAppend: Bool = false,
-					  statusClosure status: ((URL, Status) -> Void)? = nil) throws {
+	public func write(
+		toFile file: URL,
+		shouldAppend: Bool = false,
+		statusClosure status: ((URL, Status) -> Void)? = nil
+	) throws {
 		
 		let file = try File(path: file.path)
 		
@@ -258,7 +265,17 @@ public func toJSON(array: [(filename: String, filePath: URL, pointer: LFSPointer
 	var arrayOfDict: [[String: Any]] = []
 	
 	for val in array {
-		arrayOfDict.append(["filename": val.filename, "filePath": val.filePath.path, "pointer": ["version": val.pointer.version, "oid": val.pointer.oid, "size": val.pointer.size]])
+		arrayOfDict.append(
+			[
+				"filename": val.filename,
+				"filePath": val.filePath.path,
+				"pointer": [
+					"version": val.pointer.version,
+					"oid": val.pointer.oid,
+					"size": val.pointer.size
+				]
+			]
+		)
 	}
 	
 	let json = JSON(arrayOfDict)

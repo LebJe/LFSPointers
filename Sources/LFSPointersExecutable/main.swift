@@ -10,19 +10,19 @@ let jsonStructure = """
 		"filename": "foo.txt",
 		"filePath": "/path/to/foo.txt",
 		"pointer": {
-					"version": "https://git-lfs.github.com/spec/v1",
-					"oid": "10b2cd328e193dd4b81d921dbe91bda74bda704c37bca43f1e15f41fcd20ac2a",
-					"size": 1455
-				   }
+			"version": "https://git-lfs.github.com/spec/v1",
+			"oid": "10b2cd328e193dd4b81d921dbe91bda74bda704c37bca43f1e15f41fcd20ac2a",
+			"size": 1455
+		}
 	},
 	{
 		"filename": "bar.txt",
 		"filePath": "/path/to/bar.txt",
 		"pointer": {
-					"version": "https://git-lfs.github.com/spec/v1",
-					"oid": "601952b2d85214ea602104a4784728ffa6b323b3a6131a124044fa5bfc2f7bf2",
-					"size": 1285200
-				   }
+			"version": "https://git-lfs.github.com/spec/v1",
+			"oid": "601952b2d85214ea602104a4784728ffa6b323b3a6131a124044fa5bfc2f7bf2",
+			"size": 1285200
+		}
 	}
 ]
 """
@@ -53,13 +53,25 @@ struct LFSPointersCommand: ParsableCommand {
 	@Flag(name: .long, inversion: .prefixedEnableDisable, help: "Whether to send colorized output to the terminal or not.")
 	var color: Bool = true
 	
-	@Option(name: .shortAndLong, help: "The directory files will be copied to before being processed. Will be created if it does not exist. If no directory is specified, no files will be copied.", completion: .directory, transform: URL.init(fileURLWithPath:))
+	@Option(
+		name: .shortAndLong,
+		help: "The directory files will be copied to before being processed. Will be created if it does not exist. If no directory is specified, no files will be copied.",
+		completion: .directory,
+		transform: URL.init(fileURLWithPath:)
+	)
 	var backupDirectory: URL? = nil
 	
-	@Argument(help: "The directory which contains the files you want to convert to LFS pointers.", completion: .directory, transform: URL.init(fileURLWithPath:))
+	@Argument(
+		help: "The directory which contains the files you want to convert to LFS pointers.",
+		completion: .directory,
+		transform: URL.init(fileURLWithPath:)
+	)
 	var directory: URL
 	
-	@Argument(help: "A list of filenames that represent files to be converted. You can use your shell's regular expression support to pass in a list of files.", completion: .file())
+	@Argument(
+		help: "A list of filenames that represent files to be converted. You can use your shell's regular expression support to pass in a list of files.",
+		completion: .file()
+	)
 	var files: [String] = []
 	
 	mutating func validate() throws {
@@ -156,7 +168,10 @@ struct LFSPointersCommand: ParsableCommand {
 					try Folder(path: directory.path).copy(to: Folder(path: bd.path))
 				} catch {
 					if !silent {
-						fputs("Unable to copy the contents of the target directory to the backup directory. Check the folder permissions and check that both folders exist.".red, stderr)
+						fputs(
+							"Unable to copy the contents of the target directory to the backup directory. Check the folder permissions and check that both folders exist.".red,
+							stderr
+						)
 					}
 					
 					Foundation.exit(4)
@@ -164,7 +179,12 @@ struct LFSPointersCommand: ParsableCommand {
 			}
 			
 			if all {
-				let pointers = try LFSPointer.pointers(forDirectory: directory, searchType: .all, recursive: recursive, statusClosure: printClosure)
+				let pointers = try LFSPointer.pointers(
+					forDirectory: directory,
+					searchType: .all,
+					recursive: recursive,
+					statusClosure: printClosure
+				)
 				
 				if !json {
 					pointers.forEach({ (filename: String, filePath: URL, pointer: LFSPointer) in
@@ -187,7 +207,12 @@ struct LFSPointersCommand: ParsableCommand {
 				}
 
 			} else {
-				let pointers = try LFSPointer.pointers(forDirectory: directory, searchType: .fileNames(files), recursive: recursive, statusClosure: printClosure)
+				let pointers = try LFSPointer.pointers(
+					forDirectory: directory,
+					searchType: .fileNames(files),
+					recursive: recursive,
+					statusClosure: printClosure
+				)
 				
 				if !json {
 					pointers.forEach({ (filename: String, filePath: URL, pointer: LFSPointer) in
