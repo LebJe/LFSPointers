@@ -28,42 +28,44 @@ let jsonStructure = """
 """
 
 struct LFSPointersCommand: ParsableCommand {
-	static let configuration = CommandConfiguration(commandName: "LFSPointers",
-													abstract: "Replaces large files in a Git repository directory with Git LFS pointers.",
-													discussion: "JSON STRUCTURE:\n\(jsonStructure)",
-													version: "0.12.3")
+	static let configuration = CommandConfiguration(
+		commandName: "LFSPointers",
+		abstract: "Replaces large files in a Git repository directory with Git LFS pointers.",
+		discussion: "JSON STRUCTURE:\n\(jsonStructure)",
+		version: "0.12.3"
+	)
 	
 	@Flag(name: .shortAndLong, help: "Whether to display verbose output.")
-	var verbose: Bool
+	var verbose: Bool = false
 	
 	@Flag(name: .customLong("silent"), help: "Don't print to standard output or standard error.")
-	var s: Bool
+	var s: Bool = false
 	
 	@Flag(name: .shortAndLong, help: "Repeat this process in all directories.")
-	var recursive: Bool
+	var recursive: Bool = false
 	
 	@Flag(name: .shortAndLong, help: "Convert all files to pointers (USE WITH CAUTION!).")
-	var all: Bool
+	var all: Bool = false
 	
 	@Flag(name: .long, help: "Sends JSON to standard output. The JSON is structured as shown above. This will automatically enable --silent.")
-	var json: Bool
+	var json: Bool = false
 	
-	@Flag(name: .long, default: true, inversion: .prefixedEnableDisable, help: "Whether to send colorized output to the terminal or not.")
-	var color: Bool
+	@Flag(name: .long, inversion: .prefixedEnableDisable, help: "Whether to send colorized output to the terminal or not.")
+	var color: Bool = true
 	
-	@Option(name: .shortAndLong, default: nil, help: "The directory files will be copied to before being processed. Will be created if it does not exist. If no directory is specified, no files will be copied.", transform: URL.init(fileURLWithPath:))
-	var backupDirectory: URL?
+	@Option(name: .shortAndLong, help: "The directory files will be copied to before being processed. Will be created if it does not exist. If no directory is specified, no files will be copied.", completion: .directory, transform: URL.init(fileURLWithPath:))
+	var backupDirectory: URL? = nil
 	
-	@Argument(help: "The directory which contains the files you want to convert to LFS pointers.", transform: URL.init(fileURLWithPath:))
+	@Argument(help: "The directory which contains the files you want to convert to LFS pointers.", completion: .directory, transform: URL.init(fileURLWithPath:))
 	var directory: URL
 	
-	@Argument(help: "A list of filenames that represent files to be converted. You can use your shell's regular expression support to pass in a list of files.")
-	var files: [String]
+	@Argument(help: "A list of filenames that represent files to be converted. You can use your shell's regular expression support to pass in a list of files.", completion: .file())
+	var files: [String] = []
 	
 	mutating func validate() throws {
 		// Verify the directory actually exists.
 		guard FileManager().fileExists(atPath: directory.path) else {
-			throw ValidationError("Directory does not exist at \(directory.path).".red)
+			throw ValidationError("Directory does not exist at \"\(directory.path)\".".red)
 		}
 	}
 	
@@ -131,6 +133,18 @@ struct LFSPointersCommand: ParsableCommand {
 		}
 		
 		do {
+
+			if all {
+				print("Are you sure? [Y\\N] ")
+				let answer = readLine() ?? ""
+
+				switch answer.lowercased() {
+					case "y":
+						break
+					default:
+						Foundation.exit(0)
+				}
+			}
 			
 			if let bd = backupDirectory {
 				do {

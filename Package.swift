@@ -12,7 +12,8 @@ let package = Package(
     dependencies: [
         // Dependencies declare other packages that this package depends on.
 		.package(url: "https://github.com/krzyzanowskim/CryptoSwift", from: "1.3.1"),
-		.package(url: "https://github.com/apple/swift-argument-parser.git", .upToNextMinor(from: "0.0.5")),
+		.package(url: "https://github.com/apple/swift-argument-parser.git", .branch("nate/you_had_me_at_hello")),
+	//	.package(url: "https://github.com/apple/swift-argument-parser.git", from: "0.2.0"),
 		.package(url: "https://github.com/onevcat/Rainbow", from: "3.1.5"),
 		.package(url: "https://github.com/JohnSundell/Files", from: "4.1.1")
     ],
@@ -24,7 +25,13 @@ let package = Package(
 			dependencies: ["Files", "CryptoSwift"]),
 		.target(
 			name: "LFSPointersExecutable",
-			dependencies: [.product(name: "ArgumentParser", package: "swift-argument-parser"), "Rainbow", "Files", "LFSPointersLibrary"]),
+			dependencies: [
+				.product(name: "ArgumentParser", package: "swift-argument-parser"), 
+				"Rainbow",
+				"Files", 
+				"LFSPointersLibrary"
+			]
+		),
         .testTarget(
             name: "LFSPointersTests",
             dependencies: ["LFSPointersLibrary"])
