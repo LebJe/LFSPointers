@@ -2,7 +2,7 @@
 
 <p align="center"><strong>A command line tool and SPM package that allows you to convert a Git repository directory of large files to Git LFS pointers.</strong></p>
 
-[![Swift 5.2](https://img.shields.io/badge/Swift-5.2-brightgreen.svg))](https://swift.org)
+[![Swift 5.2](https://img.shields.io/badge/Swift-5.2-brightgreen.svg)](https://swift.org)
 [![SPM Compatible](https://img.shields.io/badge/SPM-compatible-brightgreen.svg)](https://swift.org/package-manager)
 [![https://img.shields.io/badge/Platforms-MacOS%20%7C%20Linux-lightgrey](https://img.shields.io/badge/Platforms-MacOS%20%7C%20Linux-lightgrey)](https://img.shields.io/badge/Platforms-MacOS%20%7C%20Linux-lightgrey)
 [![](https://img.shields.io/github/v/tag/LebJe/LFSPointers)](https://github.com/LebJe/LFSPointers/releases)
@@ -14,6 +14,7 @@
 		- [Mint](#mint)
 		- [Homebrew](#homebrew)
 		- [Manually](#manually)
+		- [Setup Shell Completions](#setup-shell-completions)
 	- [Install Library](#install-library)
 		- [Swift Package Manager](#swift-package-manager)
 	- [Usage](#usage)
@@ -50,13 +51,48 @@ path/to/LFSPointers $ swift build -c release && cp .build/release/LFSPointers /u
 
 this will build the program, then copy it into `/usr/local/bin`.
 
+### Setup Shell Completions
+#### ZSH
+##### Oh My ZSH
+Create a file called `~/.oh-my-zsh/completions/_LFSPointers`, then run:
+
+```zsh
+% LFSPointers --generate-completion-script zsh > ~/.oh-my-zsh/completions/_LFSPointers
+```
+##### Without Oh My ZSH
+Add 
+
+```zsh
+fpath=(~/.zsh/completion $fpath)
+autoload -U compinit
+compinit
+```
+
+to your .zshrc, then create `~/.zsh/completion`, and run:
+
+```zsh
+% LFSPointers --generate-completion-script zsh > ~/.zsh/completion/_LFSPointers
+```
+
+#### Bash
+##### Bash Completion
+Create a directory to store Bash completions, for example: `mkdir ~/.bash_completions/`, add this to your `.bashrc` or `.bash_profile`:
+
+```bash
+source ~/.bash_completions/LFSPointers.bash
+```
+
+, then run:
+```bash
+$ LFSPointers --generate-completion-script bash > ~/.bash_completions/LFSPointers.bash
+```
 
 ## Install Library
 ### Swift Package Manager
 Add this to the `dependencies` array in `Package.swift`:
 
 ```swift
-.package(url: "https://github.com/LebJe/LFSPointers.git", .upToNextMinor(from: "0.12.3"))
+.package(url: "https://github.com/LebJe/LFSPointers.git", from: "0.12.3")
 ```
 . Also add this to the `targets` array in the aforementioned file:
 
