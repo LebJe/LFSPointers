@@ -75,7 +75,6 @@ to your .zshrc, then create `~/.zsh/completion`, and run:
 ```
 
 #### Bash
-##### Bash Completion
 Create a directory to store Bash completions, for example: `mkdir ~/.bash_completions/`, add this to your `.bashrc` or `.bash_profile`:
 
 ```bash
@@ -92,7 +91,7 @@ $ LFSPointers --generate-completion-script bash > ~/.bash_completions/LFSPointer
 Add this to the `dependencies` array in `Package.swift`:
 
 ```swift
-.package(url: "https://github.com/LebJe/LFSPointers.git", from: "0.12.3")
+.package(url: "https://github.com/LebJe/LFSPointers.git", from: "0.12.5")
 ```
 . Also add this to the `targets` array in the aforementioned file:
 
