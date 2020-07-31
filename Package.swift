@@ -12,9 +12,7 @@ let package = Package(
     dependencies: [
         // Dependencies declare other packages that this package depends on.
 		.package(url: "https://github.com/krzyzanowskim/CryptoSwift", from: "1.3.1"),
-		// Enable ZSH and Bash completions.
-		.package(url: "https://github.com/apple/swift-argument-parser.git", .branch("master")),
-	//	.package(url: "https://github.com/apple/swift-argument-parser.git", from: "0.2.0"),
+		.package(url: "https://github.com/apple/swift-argument-parser.git", from: "0.2.1"),
 		.package(url: "https://github.com/onevcat/Rainbow", from: "3.1.5"),
 		.package(url: "https://github.com/JohnSundell/Files", from: "4.1.1")
     ],
@@ -23,7 +21,8 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
             name: "LFSPointersLibrary",
-			dependencies: ["Files", "CryptoSwift"]),
+			dependencies: ["Files", "CryptoSwift"]
+		),
 		.target(
 			name: "LFSPointersExecutable",
 			dependencies: [
@@ -35,7 +34,8 @@ let package = Package(
 		),
         .testTarget(
             name: "LFSPointersTests",
-            dependencies: ["LFSPointersLibrary"])
+            dependencies: ["LFSPointersLibrary"]
+		)
     ]
 )
 
