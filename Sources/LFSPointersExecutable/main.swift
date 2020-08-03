@@ -109,14 +109,14 @@ struct LFSPointersCommand: ParsableCommand {
 					let file = try! File(path: url.path)
 					
 					if self.verbose && !silent {
-						if color {
+						if self.color {
 							fputs("Could not convert \"\(file.name)\" to a pointer.\n Git LFS error: \(error)\n".red, stderr)
 						} else {
 							fputs("Could not convert \"\(file.name)\" to a pointer.\n Git LFS error: \(error)\n", stderr)
 						}
 						
 					} else if !silent {
-						if color {
+						if self.color {
 							fputs("Could not convert \"\(file.name)\" to a pointer.".red, stderr)
 						} else {
 							fputs("Could not convert \"\(file.name)\" to a pointer.", stderr)
@@ -130,7 +130,7 @@ struct LFSPointersCommand: ParsableCommand {
 					if !silent && self.verbose {
 						print("Converting \"\(file.name)\" to pointer...\n")
 
-						if color {
+						if self.color {
 							print("git lfs pointer --file=\(file.name)".blue)
 						} else {
 							print("git lfs pointer --file=\(file.name)")
@@ -181,7 +181,7 @@ struct LFSPointersCommand: ParsableCommand {
 				} catch {
 					if !silent {
 
-						if color {
+						if self.color {
 							fputs(
 								"Unable to copy the contents of the target directory to the backup directory. Check the folder permissions and check that both folders exist.".red,
 								stderr
@@ -214,7 +214,7 @@ struct LFSPointersCommand: ParsableCommand {
 						} catch is LocationError {
 							if !silent {
 
-								if color {
+								if self.color {
 									fputs("Unable to overwrite file \"\(filename)\". Check the file permissions and check that the file exists.".red, stderr)
 								} else {
 									fputs("Unable to overwrite file \"\(filename)\". Check the file permissions and check that the file exists.", stderr)
@@ -247,7 +247,7 @@ struct LFSPointersCommand: ParsableCommand {
 						} catch is LocationError {
 							if !silent {
 
-								if color {
+								if self.color {
 									fputs("Unable to overwrite file \"\(filename)\". Check the file permissions and check that the file exists.".red, stderr)
 								} else {
 									fputs("Unable to overwrite file \"\(filename)\". Check the file permissions and check that the file exists.", stderr)
@@ -270,7 +270,7 @@ struct LFSPointersCommand: ParsableCommand {
 		} catch let error {
 			if !silent {
 
-				if color {
+				if self.color {
 					fputs("An error occurred: \(error)".red, stderr)
 				} else {
 					fputs("An error occurred: \(error)", stderr)
@@ -283,7 +283,7 @@ struct LFSPointersCommand: ParsableCommand {
 		
 		if !silent {
 
-			if color {
+			if self.color {
 				print("Done!".green)
 			} else {
 				print("Done!")
