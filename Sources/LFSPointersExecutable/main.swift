@@ -29,10 +29,9 @@ let jsonStructure = """
 
 struct LFSPointersCommand: ParsableCommand {
 	static let configuration = CommandConfiguration(
-		commandName: "LFSPointers",
 		abstract: "Replaces large files in a Git repository directory with Git LFS pointers.",
 		discussion: "JSON STRUCTURE:\n\(jsonStructure)",
-		version: "0.12.3"
+		version: "0.12.6"
 	)
 	
 	@Flag(name: .shortAndLong, help: "Whether to display verbose output.")
@@ -110,10 +109,18 @@ struct LFSPointersCommand: ParsableCommand {
 					let file = try! File(path: url.path)
 					
 					if self.verbose && !silent {
-						fputs("Could not convert \"\(file.name)\" to a pointer.\n Git LFS error: \(error)\n".red, stderr)
+						if color {
+							fputs("Could not convert \"\(file.name)\" to a pointer.\n Git LFS error: \(error)\n".red, stderr)
+						} else {
+							fputs("Could not convert \"\(file.name)\" to a pointer.\n Git LFS error: \(error)\n", stderr)
+						}
 						
 					} else if !silent {
-						fputs("Could not convert \"\(file.name)\" to a pointer.".red, stderr)
+						if color {
+							fputs("Could not convert \"\(file.name)\" to a pointer.".red, stderr)
+						} else {
+							fputs("Could not convert \"\(file.name)\" to a pointer.", stderr)
+						}
 					}
 				break
 				
@@ -122,7 +129,12 @@ struct LFSPointersCommand: ParsableCommand {
 					
 					if !silent && self.verbose {
 						print("Converting \"\(file.name)\" to pointer...\n")
-						print("git lfs pointer --file=\(file.name)".blue)
+
+						if color {
+							print("git lfs pointer --file=\(file.name)".blue)
+						} else {
+							print("git lfs pointer --file=\(file.name)")
+						}
 					} else if !silent {
 						print("Converting \"\(file.name)\" to pointer...\n")
 					}
@@ -168,10 +180,18 @@ struct LFSPointersCommand: ParsableCommand {
 					try Folder(path: directory.path).copy(to: Folder(path: bd.path))
 				} catch {
 					if !silent {
-						fputs(
-							"Unable to copy the contents of the target directory to the backup directory. Check the folder permissions and check that both folders exist.".red,
-							stderr
-						)
+
+						if color {
+							fputs(
+								"Unable to copy the contents of the target directory to the backup directory. Check the folder permissions and check that both folders exist.".red,
+								stderr
+							)
+						} else {
+							fputs(
+								"Unable to copy the contents of the target directory to the backup directory. Check the folder permissions and check that both folders exist.",
+								stderr
+							)
+						}
 					}
 					
 					Foundation.exit(4)
@@ -193,7 +213,12 @@ struct LFSPointersCommand: ParsableCommand {
 							try pointer.write(toFile: filePath, statusClosure: printClosure)
 						} catch is LocationError {
 							if !silent {
-								fputs("Unable to overwrite file \"\(filename)\". Check the file permissions and check that the file exists.".red, stderr)
+
+								if color {
+									fputs("Unable to overwrite file \"\(filename)\". Check the file permissions and check that the file exists.".red, stderr)
+								} else {
+									fputs("Unable to overwrite file \"\(filename)\". Check the file permissions and check that the file exists.", stderr)
+								}
 							}
 						} catch let error {
 							if !silent {
@@ -221,7 +246,13 @@ struct LFSPointersCommand: ParsableCommand {
 							try pointer.write(toFile: filePath, statusClosure: printClosure)
 						} catch is LocationError {
 							if !silent {
-								fputs("Unable to overwrite file \"\(filename)\". Check the file permissions and check that the file exists.".red, stderr)
+
+								if color {
+									fputs("Unable to overwrite file \"\(filename)\". Check the file permissions and check that the file exists.".red, stderr)
+								} else {
+									fputs("Unable to overwrite file \"\(filename)\". Check the file permissions and check that the file exists.", stderr)
+								}
+
 							}
 						} catch let error {
 							if !silent {
@@ -238,14 +269,25 @@ struct LFSPointersCommand: ParsableCommand {
 			
 		} catch let error {
 			if !silent {
-				fputs("An error occurred: \(error)".red, stderr)
+
+				if color {
+					fputs("An error occurred: \(error)".red, stderr)
+				} else {
+					fputs("An error occurred: \(error)", stderr)
+				}
+
 			}
 			
 			Foundation.exit(2)
 		}
 		
 		if !silent {
-			print("Done!".green)
+
+			if color {
+				print("Done!".green)
+			} else {
+				print("Done!")
+			}
 		}
 	}
 }

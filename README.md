@@ -68,7 +68,7 @@ autoload -U compinit
 compinit
 ```
 
-to your .zshrc, then create `~/.zsh/completion`, and run:
+to your `.zshrc`, then create `~/.zsh/completion`, and run:
 
 ```zsh
 % LFSPointers --generate-completion-script zsh > ~/.zsh/completion/_LFSPointers
@@ -91,7 +91,7 @@ $ LFSPointers --generate-completion-script bash > ~/.bash_completions/LFSPointer
 Add this to the `dependencies` array in `Package.swift`:
 
 ```swift
-.package(url: "https://github.com/LebJe/LFSPointers.git", from: "0.12.5")
+.package(url: "https://github.com/LebJe/LFSPointers.git", from: "0.12.6")
 ```
 . Also add this to the `targets` array in the aforementioned file:
 
