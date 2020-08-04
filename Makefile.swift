@@ -158,7 +158,7 @@ public func release(version: String) {
 	print("git add .".blue)
 	print(try! shellOut(to: "git", arguments: ["add", "."]).blue)
 	
-	print("git commit -m \(message)\n".blue)
+	print("git commit -m \"\(message)\"\n".blue)
 	print(try! shellOut(to: "git", arguments: ["commit", "-m", "\(message)"]).blue)
 	
 	// Tag latest commit.
