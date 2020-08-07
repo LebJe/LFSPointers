@@ -25,7 +25,7 @@ jobs:
 
               apt update -q
               
-              apt install -q -y curl git sudo
+              apt install -q -y curl sudo
 
               curl -s https://packagecloud.io/install/repositories/swift-arm/release/script.deb.sh | sudo bash
               
