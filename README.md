@@ -218,9 +218,9 @@ Run `$ LFSPointers --help`.
 
 ## Tested Platforms
 ### Mac
-Tested on MacOS Catalina 10.15.4 (19E287), using Swift 5.2.2.
+Tested on MacOS 10.15, using Swift 5.2.
 ### Linux
-Tested on Ubuntu 18.04.4 LTS (Bionic Beaver), also using Swift 5.2.2.
+Tested on Ubuntu 18.04 (`x86_64` and `aarch64`), also using Swift 5.2.
 ## iOS, watchOS, tvOS
 These platforms have not been tested on yet, although, at the time of writing the iOS project in the `Samples/FileToPointer` directory is currently working.
 
