@@ -35,7 +35,7 @@ jobs:
               
               apt update -q -y
 
-              swift build -c release
+              swift build
               swift test
 
   TestOnUbuntu-x86_64:
