@@ -6,7 +6,7 @@
 [![SPM Compatible](https://img.shields.io/badge/SPM-compatible-brightgreen.svg)](https://swift.org/package-manager)
 [![https://img.shields.io/badge/Platforms-MacOS%20%7C%20Linux-lightgrey](https://img.shields.io/badge/Platforms-MacOS%20%7C%20Linux-lightgrey)](https://img.shields.io/badge/Platforms-MacOS%20%7C%20Linux-lightgrey)
 [![](https://img.shields.io/github/v/tag/LebJe/LFSPointers)](https://github.com/LebJe/LFSPointers/releases)
-[![Swift Tests](https://github.com/LebJe/LFSPointers/workflows/Swift/badge.svg)](https://github.com/LebJe/LFSPointers/actions?query=workflow%3ASwift)
+[![Build and Test](https://github.com/LebJe/LFSPointers/workflows/Build%20and%20Test/badge.svg)](https://github.com/LebJe/LFSPointers/actions?query=workflow%3ASwift)
 
 ## Table Of Contents
 - [LFS Pointers](#lfs-pointers)
