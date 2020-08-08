@@ -39,11 +39,22 @@ It it recommended that you read the [Git-LFS Homepage](https://git-lfs.github.co
 ## Install Program
 ### [Mint](https://github.com/yonaskolb/mint)
 `$ mint install LebJe/LFSPointers`
+
 ### [Homebrew](https://brew.sh)
-`$ brew install LebJe/formulae/lfs-pointers`
+Install Swift, as described [here](#manually),
+then run:
+
+```
+$ brew install LebJe/formulae/lfs-pointers
+```
 
 ### Manually
-Install [Swift](https://swift.org/download/), make sure `swift` is in your `PATH`, then run:
+If on Linux, download [the Swift toolchain](https://swift.org/download/), then scroll down until you reach the section whose header reads "Linux", then follow the instructions below the header.
+If your CPU is based on `aarch64`/`arm64`, then install Swift from [here](https://github.com/futurejones/swift-arm64).
+
+If on Mac, then install [Xcode](https://apps.apple.com/us/app/xcode/id497799835?mt=12).
+
+Once Swift is installed, run:
 
 ```bash
 path/to/LFSPointers $ swift build -c release && cp .build/release/LFSPointers /usr/local/bin
