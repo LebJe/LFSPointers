@@ -6,7 +6,7 @@
 [![SPM Compatible](https://img.shields.io/badge/SPM-compatible-brightgreen.svg)](https://swift.org/package-manager)
 [![https://img.shields.io/badge/Platforms-MacOS%20%7C%20Linux-lightgrey](https://img.shields.io/badge/Platforms-MacOS%20%7C%20Linux-lightgrey)](https://img.shields.io/badge/Platforms-MacOS%20%7C%20Linux-lightgrey)
 [![](https://img.shields.io/github/v/tag/LebJe/LFSPointers)](https://github.com/LebJe/LFSPointers/releases)
-[![Swift Tests](https://github.com/LebJe/LFSPointers/workflows/Swift/badge.svg)](https://github.com/LebJe/LFSPointers/actions?query=workflow%3ASwift)
+[![Build and Test](https://github.com/LebJe/LFSPointers/workflows/Build%20and%20Test/badge.svg)](https://github.com/LebJe/LFSPointers/actions)
 
 ## Table Of Contents
 - [LFS Pointers](#lfs-pointers)
@@ -229,9 +229,9 @@ Run `$ LFSPointers --help`.
 
 ## Tested Platforms
 ### Mac
-Tested on MacOS Catalina 10.15.4 (19E287), using Swift 5.2.2.
+Tested on MacOS 10.15, using Swift 5.2.
 ### Linux
-Tested on Ubuntu 18.04.4 LTS (Bionic Beaver), also using Swift 5.2.2.
+Tested on Ubuntu 18.04 (`x86_64` and `aarch64`), also using Swift 5.2.
 ## iOS, watchOS, tvOS
 These platforms have not been tested on yet, although, at the time of writing the iOS project in the `Samples/FileToPointer` directory is currently working.
 
