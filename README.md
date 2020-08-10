@@ -8,40 +8,18 @@
 [![](https://img.shields.io/github/v/tag/LebJe/LFSPointers)](https://github.com/LebJe/LFSPointers/releases)
 [![Build and Test](https://github.com/LebJe/LFSPointers/workflows/Build%20and%20Test/badge.svg)](https://github.com/LebJe/LFSPointers/actions)
 
-## Table Of Contents
-- [LFS Pointers](#lfs-pointers)
-	- [Install Program](#install-program)
-		- [Mint](#mint)
-		- [Homebrew](#homebrew)
-		- [Manually](#manually)
-		- [Setup Shell Completions](#setup-shell-completions)
-	- [Install Library](#install-library)
-		- [Swift Package Manager](#swift-package-manager)
-	- [Usage](#usage)
-		- [Library](#library)
-			- [Import](#import)
-			- [File Conversion](#file-conversion)
-			- [Folder Conversion](#folder-conversion)
-			- [Writing Pointers](#writing-pointers)
-			- [Generating JSON](#generating-json)
-		- [Command Line](#command-line)
-	- [Dependencies](#dependencies)
-	- [More Information](#more-information)
-	- [Tested Platforms](#tested-platforms)
-		- [Mac](#mac)
-		- [Linux](#linux)
-	- [iOS, watchOS, tvOS](#ios-watchos-tvos)
-	- [JSON Structure for LFSPointer Array](#json-structure-for-lfspointer-array)
-	- [JSON Structure for Single LFSPointer](#json-structure-for-single-lfspointer)
+[TOC]
 
 It it recommended that you read the [Git-LFS Homepage](https://git-lfs.github.com) before continuing.
 
 ## Install Program
 ### [Mint](https://github.com/yonaskolb/mint)
+
 `$ mint install LebJe/LFSPointers`
 
 ### [Homebrew](https://brew.sh)
-Install Swift, as described [here](#manually),
+
+Install Swift, as described [here](#Install-Swift),
 then run:
 
 ```
@@ -49,22 +27,23 @@ $ brew install LebJe/formulae/lfs-pointers
 ```
 
 ### Manually
-If on Linux, download [the Swift toolchain](https://swift.org/download/), then scroll down until you reach the section whose header reads "Linux", then follow the instructions below the header.
-If your CPU is based on `aarch64`/`arm64`, then install Swift from [here](https://github.com/futurejones/swift-arm64).
 
-If on Mac, then install [Xcode](https://apps.apple.com/us/app/xcode/id497799835?mt=12).
-
-Once Swift is installed, run:
+[Install Swift](#Install-Swift), then:
 
 ```bash
 path/to/LFSPointers $ swift build -c release && cp .build/release/LFSPointers /usr/local/bin
 ```
 
-this will build the program, then copy it into `/usr/local/bin`.
+# this will build the program, then copy it into `/usr/local/bin`.
+
+
 
 ### Setup Shell Completions
+
 #### ZSH
+
 ##### Oh My ZSH
+
 Create a file called `~/.oh-my-zsh/completions/_LFSPointers`, then run:
 
 ```zsh
@@ -219,6 +198,7 @@ $ LFSPointers --json path/to/Project\ Logos *.png
 The JSON will be structured as shown [here](#json-structure-for-lfspointer-array).
 
 ## Dependencies
+
 - [Files](https://github.com/JohnSundell/Files)
 - [Rainbow](https://github.com/onevcat/Rainbow)
 - [Swift Argument Parser](https://github.com/apple/swift-argument-parser)
@@ -269,3 +249,121 @@ These platforms have not been tested on yet, although, at the time of writing th
 	"size": 1455
 }
 ```
+
+
+
+## Install [Swift](https://swift.org/download/)
+
+
+
+### MacOS
+
+Install [Xcode](https://apps.apple.com/us/app/xcode/id497799835?mt=12), or:
+
+```bash
+$ sudo xcode-select --install
+```
+
+
+
+### Linux (`x86_64`)
+
+#### Ubuntu 20.04
+
+```bash
+$ # Install Dependencies
+apt install \
+          binutils \
+          git \
+          gnupg2 \
+          libc6-dev \
+          libcurl4 \
+          libedit2 \
+          libgcc-9-dev \
+          libpython2.7 \
+          libsqlite3-0 \
+          libstdc++-9-dev \
+          libxml2 \
+          libz3-dev \
+          pkg-config \
+          tzdata \
+          zlib1g-dev
+# Download Swift
+wget https://swift.org/builds/swift-5.2.5-release/ubuntu2004/swift-5.2.5-RELEASE/swift-5.2.5-RELEASE-ubuntu20.04.tar.gz
+
+tar -zxvf swift-5.2.5-RELEASE-ubuntu20.04.tar.gz
+
+export PATH="usr/bin:$PATH"
+```
+
+
+
+#### Ubuntu 18.04
+
+```bash
+$ # Install Dependencies
+apt install \
+          binutils \
+          git \
+          libc6-dev \
+          libcurl4 \
+          libedit2 \
+          libgcc-5-dev \
+          libpython2.7 \
+          libsqlite3-0 \
+          libstdc++-5-dev \
+          libxml2 \
+          pkg-config \
+          tzdata \
+          zlib1g-dev
+# Download Swift
+wget https://swift.org/builds/swift-5.2.5-release/ubuntu1804/swift-5.2.5-RELEASE/swift-5.2.5-RELEASE-ubuntu18.04.tar.gz
+
+tar -zxvf swift-5.2.5-RELEASE-ubuntu18.04.tar.gz
+
+export PATH="usr/bin:$PATH"
+```
+
+
+
+#### Ubuntu 16.04
+
+```bash
+$ # Install Dependencies
+apt install \
+          binutils \
+          git \
+          libc6-dev \
+          libcurl3 \
+          libedit2 \
+          libgcc-5-dev \
+          libpython2.7 \
+          libsqlite3-0 \
+          libstdc++-5-dev \
+          libxml2 \
+          pkg-config \
+          tzdata \
+          zlib1g-dev
+# Download Swift
+wget https://swift.org/builds/swift-5.2.5-release/ubuntu1604/swift-5.2.5-RELEASE/swift-5.2.5-RELEASE-ubuntu16.04.tar.gz
+
+tar -zxvf swift-5.2.5-RELEASE-ubuntu16.04.tar.gz
+
+export PATH="usr/bin:$PATH"
+```
+
+
+
+
+
+### Linux (`aacrh64`)
+
+More information at [https://github.com/futurejones/swift-arm64](https://github.com/futurejones/swift-arm64)
+
+
+
+```bash
+$ curl -s https://packagecloud.io/install/repositories/swift-arm/release/script.deb.sh | sudo bash
+sudo apt install swift-lang
+```
+
