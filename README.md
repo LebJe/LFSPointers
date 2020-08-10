@@ -8,11 +8,46 @@
 [![](https://img.shields.io/github/v/tag/LebJe/LFSPointers)](https://github.com/LebJe/LFSPointers/releases)
 [![Build and Test](https://github.com/LebJe/LFSPointers/workflows/Build%20and%20Test/badge.svg)](https://github.com/LebJe/LFSPointers/actions)
 
-[TOC]
+* [LFS Pointers](#lfs-pointers)
+      * [Install Program](#install-program)
+         * [<a href="https://github.com/yonaskolb/mint">Mint</a>](#mint)
+         * [<a href="https://brew.sh" rel="nofollow">Homebrew</a>](#homebrew)
+         * [Manually](#manually)
+         * [Setup Shell Completions](#setup-shell-completions)
+            * [ZSH](#zsh)
+               * [Oh My ZSH](#oh-my-zsh)
+               * [Without Oh My ZSH](#without-oh-my-zsh)
+            * [Bash](#bash)
+          * [Install Library](#install-library)
+         * [Swift Package Manager](#swift-package-manager)
+          * [Usage](#usage)
+         * [Library](#library)
+            * [Import](#import)
+            * [File Conversion](#file-conversion)
+            * [Folder Conversion](#folder-conversion)
+            * [Writing Pointers](#writing-pointers)
+            * [Generating JSON](#generating-json)
+         * [Command Line](#command-line)
+          * [Dependencies](#dependencies)
+          * [More Information](#more-information)
+          * [Tested Platforms](#tested-platforms)
+         * [Mac](#mac)
+         * [Linux](#linux)
+          * [iOS, watchOS, tvOS](#ios-watchos-tvos)
+          * [JSON Structure for LFSPointer Array](#json-structure-for-lfspointer-array)
+          * [JSON Structure for Single LFSPointer](#json-structure-for-single-lfspointer)
+          * [Install <a href="https://swift.org/download/" rel="nofollow">Swift</a>](#install-swift)
+         * [MacOS](#macos)
+         * [Linux (x86_64)](#linux-x86_64)
+            * [Ubuntu 20.04](#ubuntu-2004)
+            * [Ubuntu 18.04](#ubuntu-1804)
+            * [Ubuntu 16.04](#ubuntu-1604)
+         * [Linux (aacrh64)](#linux-aacrh64)
 
 It it recommended that you read the [Git-LFS Homepage](https://git-lfs.github.com) before continuing.
 
 ## Install Program
+
 ### [Mint](https://github.com/yonaskolb/mint)
 
 `$ mint install LebJe/LFSPointers`
@@ -34,7 +69,7 @@ $ brew install LebJe/formulae/lfs-pointers
 path/to/LFSPointers $ swift build -c release && cp .build/release/LFSPointers /usr/local/bin
 ```
 
-# this will build the program, then copy it into `/usr/local/bin`.
+this will build the program, then copy it into `/usr/local/bin`.
 
 
 
