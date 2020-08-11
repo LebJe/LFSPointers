@@ -328,7 +328,7 @@ wget https://swift.org/builds/swift-5.2.5-release/ubuntu2004/swift-5.2.5-RELEASE
 
 tar -zxvf swift-5.2.5-RELEASE-ubuntu20.04.tar.gz
 
-export PATH="usr/bin:$PATH"
+export PATH="$HOME/swift-5.2.5-RELEASE-ubuntu20.04/usr/bin:$PATH"
 ```
 
 
@@ -356,7 +356,7 @@ wget https://swift.org/builds/swift-5.2.5-release/ubuntu1804/swift-5.2.5-RELEASE
 
 tar -zxvf swift-5.2.5-RELEASE-ubuntu18.04.tar.gz
 
-export PATH="usr/bin:$PATH"
+export PATH="$HOME/swift-5.2.5-RELEASE-ubuntu18.04.tar.gz/usr/bin:$PATH"
 ```
 
 
@@ -384,7 +384,7 @@ wget https://swift.org/builds/swift-5.2.5-release/ubuntu1604/swift-5.2.5-RELEASE
 
 tar -zxvf swift-5.2.5-RELEASE-ubuntu16.04.tar.gz
 
-export PATH="usr/bin:$PATH"
+export PATH="$HOME/swift-5.2.5-RELEASE-ubuntu16.04.tar.gz/usr/bin:$PATH"
 ```
 
 
