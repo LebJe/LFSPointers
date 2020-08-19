@@ -12,7 +12,7 @@ let package = Package(
     dependencies: [
         // Dependencies declare other packages that this package depends on.
 		.package(url: "https://github.com/krzyzanowskim/CryptoSwift", from: "1.3.1"),
-		.package(url: "https://github.com/apple/swift-argument-parser.git", from: "0.2.1"),
+		.package(url: "https://github.com/apple/swift-argument-parser.git", from: "0.3.0"),
 		.package(url: "https://github.com/onevcat/Rainbow", from: "3.1.5"),
 		.package(url: "https://github.com/JohnSundell/Files", from: "4.1.1")
     ],
