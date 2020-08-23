@@ -13,6 +13,7 @@
 		* [<a href="https://github.com/yonaskolb/mint">Mint</a>](#mint)
 		* [<a href="https://brew.sh" rel="nofollow">Homebrew</a>](#homebrew)
 		* [Manually](#manually)
+			* [From GitHub Release](#from-github-release)
 		* [Setup Shell Completions](#setup-shell-completions)
 			* [ZSH](#zsh)
 			* [Oh My ZSH](#oh-my-zsh)
