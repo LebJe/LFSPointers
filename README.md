@@ -42,7 +42,7 @@
 			* [Ubuntu 20.04](#ubuntu-2004)
 			* [Ubuntu 18.04](#ubuntu-1804)
 			* [Ubuntu 16.04](#ubuntu-1604)
-		* [Linux (aacrh64)](#linux-aacrh64)
+		* [Linux (aarch64)](#linux-aarch64)
 
 It it recommended that you read the [Git-LFS Homepage](https://git-lfs.github.com) before continuing.
 
@@ -71,7 +71,9 @@ path/to/LFSPointers $ swift build -c release && cp .build/release/LFSPointers /u
 
 this will build the program, then copy it into `/usr/local/bin`.
 
+### From GitHub Release
 
+[Install Swift](#Install-Swift), then download the appropriate file for your CPU architecture.
 
 ### Setup Shell Completions
 
@@ -100,6 +102,7 @@ to your `.zshrc`, then create `~/.zsh/completion`, and run:
 ```
 
 #### Bash
+
 Create a directory to store Bash completions, for example: `mkdir ~/.bash_completions/`, add this to your `.bashrc` or `.bash_profile`:
 
 ```bash
@@ -237,12 +240,12 @@ The JSON will be structured as shown [here](#json-structure-for-lfspointer-array
 - [Files](https://github.com/JohnSundell/Files)
 - [Rainbow](https://github.com/onevcat/Rainbow)
 - [Swift Argument Parser](https://github.com/apple/swift-argument-parser)
-- [SwiftShell](https://github.com/kareman/SwiftShell)
 
 ## More Information
 Run `$ LFSPointers --help`.
 
 ## Tested Platforms
+
 ### Mac
 Tested on MacOS 10.15, using Swift 5.2.
 ### Linux
@@ -289,7 +292,7 @@ These platforms have not been tested on yet, although, at the time of writing th
 
 ## Install [Swift](https://swift.org/download/)
 
-
+More information at [https://swift.org/download/](https://swift.org/download/).
 
 ### MacOS
 
@@ -391,11 +394,11 @@ export PATH="$HOME/swift-5.2.5-RELEASE-ubuntu16.04.tar.gz/usr/bin:$PATH"
 
 
 
-### Linux (`aacrh64`)
+### Linux (`aarch64`)
 
 More information at [https://github.com/futurejones/swift-arm64](https://github.com/futurejones/swift-arm64)
 
-
+#### Ubuntu
 
 ```bash
 $ curl -s https://packagecloud.io/install/repositories/swift-arm/release/script.deb.sh | sudo bash
