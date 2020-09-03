@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA0B158525015B2800BA8A42 /* LFSPointersKit in Frameworks */ = {isa = PBXBuildFile; productRef = DA0B158425015B2800BA8A42 /* LFSPointersKit */; };
 		DAB11EE8245A0AF1005E49BD /* bar.txt in Resources */ = {isa = PBXBuildFile; fileRef = DAB11EE6245A0AF1005E49BD /* bar.txt */; };
 		DAB11EE9245A0AF1005E49BD /* foo.txt in Resources */ = {isa = PBXBuildFile; fileRef = DAB11EE7245A0AF1005E49BD /* foo.txt */; };
 		DAF801902458B36300413161 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF8018F2458B36300413161 /* AppDelegate.swift */; };
@@ -15,7 +16,6 @@
 		DAF801962458B36400413161 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAF801952458B36400413161 /* Assets.xcassets */; };
 		DAF801992458B36400413161 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAF801982458B36400413161 /* Preview Assets.xcassets */; };
 		DAF8019C2458B36400413161 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAF8019A2458B36400413161 /* LaunchScreen.storyboard */; };
-		DAF801A52458B3A600413161 /* LFSPointersLib in Frameworks */ = {isa = PBXBuildFile; productRef = DAF801A42458B3A600413161 /* LFSPointersLib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,18 +36,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DAF801A52458B3A600413161 /* LFSPointersLib in Frameworks */,
+				DA0B158525015B2800BA8A42 /* LFSPointersKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DA0B158325015B2800BA8A42 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		DAF801832458B36300413161 = {
 			isa = PBXGroup;
 			children = (
 				DAF8018E2458B36300413161 /* FileToPointer-iOS */,
 				DAF8018D2458B36300413161 /* Products */,
+				DA0B158325015B2800BA8A42 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -108,7 +116,7 @@
 			);
 			name = "FileToPointer-iOS";
 			packageProductDependencies = (
-				DAF801A42458B3A600413161 /* LFSPointersLib */,
+				DA0B158425015B2800BA8A42 /* LFSPointersKit */,
 			);
 			productName = "FileToPointer-iOS";
 			productReference = DAF8018C2458B36300413161 /* FileToPointer-iOS.app */;
@@ -130,7 +138,7 @@
 				};
 			};
 			buildConfigurationList = DAF801872458B36300413161 /* Build configuration list for PBXProject "FileToPointer-iOS" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -373,16 +381,16 @@
 			repositoryURL = "git@github.com:LebJe/LFSPointers.git";
 			requirement = {
 				kind = upToNextMinorVersion;
-				minimumVersion = 0.12.1;
+				minimumVersion = 1.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		DAF801A42458B3A600413161 /* LFSPointersLib */ = {
+		DA0B158425015B2800BA8A42 /* LFSPointersKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DAF801A32458B3A600413161 /* XCRemoteSwiftPackageReference "LFSPointers" */;
-			productName = LFSPointersLib;
+			productName = LFSPointersKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

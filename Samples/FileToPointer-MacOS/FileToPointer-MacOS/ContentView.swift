@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import LFSPointersLibrary
+import LFSPointersKit
 
 struct ContentView: View {
 	@State private var url: URL? = nil
@@ -15,7 +15,11 @@ struct ContentView: View {
 	@State private var showAlert = false
 	
 	var alert: Alert {
-		Alert(title: Text("Error"), message: Text("Unable to generate pointer for the selected file."), dismissButton: .cancel(Text("OK")))
+		Alert(
+			title: Text("Error"),
+			message: Text("Unable to generate pointer for the selected file."),
+			dismissButton: .cancel(Text("OK"))
+		)
 	}
 	
     var body: some View {
@@ -34,16 +38,17 @@ struct ContentView: View {
 					self.url = openPanel.url
 				
 					if let url = self.url {
-						do {
-							
-							let pointer = try LFSPointer(fromFile: url)
-							self.text = pointer.stringRep
-							
-							
-						} catch let error {
-							print(error)
-							self.showAlert.toggle()
-						}
+
+						DispatchQueue.global(qos: .utility).async {
+							do {
+								let pointer = try LFSPointer(fromFile: url)
+								self.text = pointer.stringRep
+							} catch let error {
+								print(error)
+								self.showAlert.toggle()
+							}
+						}							
+						
 					}
 				}
 			}.padding()

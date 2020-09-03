@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import LFSPointersLibrary
+import LFSPointersKit
 
 struct ContentView: View {
 	@State private var selection: Int = 0
