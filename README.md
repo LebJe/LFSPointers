@@ -74,7 +74,9 @@ this will build the program, then copy it into `/usr/local/bin`.
 
 ### From GitHub Release
 
-[Install Swift](#Install-Swift), then download the appropriate file for your CPU architecture.
+[Install Swift](#Install-Swift), then download the release asset.
+
+Currently you can't download a pre-built binary for Linux since [Swift can't build a statically linked executable.](https://bugs.swift.org/browse/SR-648)
 
 ### Setup Shell Completions
 
@@ -120,19 +122,19 @@ $ LFSPointers --generate-completion-script bash > ~/.bash_completions/LFSPointer
 Add this to the `dependencies` array in `Package.swift`:
 
 ```swift
-.package(url: "https://github.com/LebJe/LFSPointers.git", from: "0.12.7")
+.package(url: "https://github.com/LebJe/LFSPointers.git", from: "1.0.0")
 ```
 . Also add this to the `targets` array in the aforementioned file:
 
 ```swift
-.product(name: "LFSPointersLib", package: "LFSPointers")
+.product(name: "LFSPointersKit", package: "LFSPointers")
 ```
 
 ## Usage
 ### Library
 #### Import
 ```swift
-import LFSPointersLibrary
+import LFSPointersKit
 ```
 
 #### File Conversion
@@ -142,7 +144,7 @@ To convert a file to a pointer you could write:
 let pointer = try LFSPointer(fromFile: URL(fileURLWithPath: "path/to/file"))
 ```
 
-The pointer is represented as a Swift struct.
+The pointer is represented as a Swift `struct`.
 
 ```swift
 public struct LFSPointer {
@@ -164,6 +166,7 @@ public struct LFSPointer {
 ```
 
 #### Folder Conversion
+
 To convert a folder of files to pointers, you could write: 
 
 ```swift
@@ -183,10 +186,14 @@ The search types available are:
 .all
 ```
 
-This returns an array of tuples, that each contain the filename, file path, and `LFSPointer`: 
+This returns an array of `JSONPointer` that each contain the filename, file path, and `LFSPointer`: 
 
 ```swift
-(filename: String, filePath: URL, pointer: LFSPointer)
+public struct JSONPointer: Codable {
+	public let filename: String
+	public let filePath: String
+	public let pointer: LFSPointer
+}
 ```
 
 #### Writing Pointers
@@ -209,7 +216,7 @@ and to convert an array of tuples consisting of filename, file path, and pointer
 
 ```swift
 let pointers = try LFSPointer.pointers(...)
-toJSON(pointers)
+toJSON(array: pointers)
 ```
 
 The JSON for the `LFSPointer` array will be structured as shown [here](#json-structure-for-lfspointer-array), and the JSON for the single `LFSPointer` will be structured as shown [here](#json-structure-for-single-lfspointer).

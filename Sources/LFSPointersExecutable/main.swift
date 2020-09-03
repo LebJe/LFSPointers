@@ -2,7 +2,7 @@ import Foundation
 import ArgumentParser
 import Rainbow
 import Files
-import LFSPointersLibrary
+import LFSPointersKit
 
 let jsonStructure = """
 [
@@ -32,7 +32,7 @@ struct LFSPointersCommand: ParsableCommand {
 		commandName: "LFSPointers",
 		abstract: "Replaces large files in a Git repository directory with Git LFS pointers.",
 		discussion: "JSON STRUCTURE:\n\(jsonStructure)",
-		version: "0.12.7"
+		version: "1.0.0"
 	)
 	
 	@Flag(name: .shortAndLong, help: "Whether to display verbose output.")
@@ -60,6 +60,12 @@ struct LFSPointersCommand: ParsableCommand {
 		transform: URL.init(fileURLWithPath:)
 	)
 	var backupDirectory: URL? = nil
+
+	@Option(
+		name: .long,
+		help: "The format in which JSON is printed."
+	)
+	var jsonFormat: JSONFormat = .compact
 	
 	@Argument(
 		help: "The directory which contains the files you want to convert to LFS pointers.",
@@ -208,28 +214,28 @@ struct LFSPointersCommand: ParsableCommand {
 				)
 				
 				if !json {
-					pointers.forEach({ (filename: String, filePath: URL, pointer: LFSPointer) in
+					pointers.forEach({ jsonPointer in
 						
 						do {
-							try pointer.write(toFile: filePath, statusClosure: printClosure)
+							try jsonPointer.pointer.write(toFile: URL(fileURLWithPath: jsonPointer.filePath), statusClosure: printClosure)
 						} catch is LocationError {
 							if !silent {
 
 								if self.color {
-									fputs("Unable to overwrite file \"\(filename)\". Check the file permissions and check that the file exists.".red, stderr)
+									fputs("Unable to overwrite file \"\(jsonPointer.filename)\". Check the file permissions and check that the file exists.".red, stderr)
 								} else {
-									fputs("Unable to overwrite file \"\(filename)\". Check the file permissions and check that the file exists.", stderr)
+									fputs("Unable to overwrite file \"\(jsonPointer.filename)\". Check the file permissions and check that the file exists.", stderr)
 								}
 							}
 						} catch let error {
 							if !silent {
-								fputs("Unable to overwrite file \"\(filename)\". Error: \(error)", stderr)
+								fputs("Unable to overwrite file \"\(jsonPointer.filename)\". Error: \(error)", stderr)
 							}
 						}
 						
 					})
 				} else {
-					print(toJSON(array: pointers))
+					print(toJSON(array: pointers, jsonFormat: jsonFormat == .compact ? .init() : .prettyPrinted))
 				}
 
 			} else {
@@ -241,29 +247,29 @@ struct LFSPointersCommand: ParsableCommand {
 				)
 				
 				if !json {
-					pointers.forEach({ (filename: String, filePath: URL, pointer: LFSPointer) in
+					pointers.forEach({ jsonPointer in
 						
 						do {
-							try pointer.write(toFile: filePath, statusClosure: printClosure)
+							try jsonPointer.pointer.write(toFile: URL(fileURLWithPath: jsonPointer.filePath), statusClosure: printClosure)
 						} catch is LocationError {
 							if !silent {
 
 								if self.color {
-									fputs("Unable to overwrite file \"\(filename)\". Check the file permissions and check that the file exists.".red, stderr)
+									fputs("Unable to overwrite file \"\(jsonPointer.filename)\". Check the file permissions and check that the file exists.".red, stderr)
 								} else {
-									fputs("Unable to overwrite file \"\(filename)\". Check the file permissions and check that the file exists.", stderr)
+									fputs("Unable to overwrite file \"\(jsonPointer.filename)\". Check the file permissions and check that the file exists.", stderr)
 								}
 
 							}
 						} catch let error {
 							if !silent {
-								fputs("Unable to overwrite file \"\(filename)\". Error: \(error)", stderr)
+								fputs("Unable to overwrite file \"\(jsonPointer.filename)\". Error: \(error)", stderr)
 							}
 						}
 						
 					})
 				} else {
-					print(toJSON(array: pointers))
+					print(toJSON(array: pointers, jsonFormat: jsonFormat == .compact ? .init() : .prettyPrinted))
 				}
 
 			}
@@ -290,6 +296,11 @@ struct LFSPointersCommand: ParsableCommand {
 				print("Done!")
 			}
 		}
+	}
+
+
+	enum JSONFormat: String, CaseIterable, ExpressibleByArgument {
+		case formatted, compact
 	}
 }
 

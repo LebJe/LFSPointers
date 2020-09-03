@@ -24,60 +24,62 @@ jobs:
           overwrite: true
           body: ""
 
-  TestOnUbuntu-ARM:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: uraimo/run-on-arch-action@v1.1.0
-        with:
-            architecture: aarch64
-            distribution: ubuntu18.04
-            run: |
-              export DEBIAN_FRONTEND=noninteractive
-              apt update -q
-              apt install -q -y curl sudo
-              curl -s https://packagecloud.io/install/repositories/swift-arm/release/script.deb.sh | sudo bash
-
-              # Get Swift for ARM.
-              apt install -q -y swift-lang
-              apt update -q -y
-              swift build -c release
-              mkdir lfspointers-linux-aarch64
-              cp .build/release/LFSPointers lfspointers-linux-aarch64
-              tar -czf lfspointers-linux-aarch64.tar.gz lfspointers-linux-aarch64
-      - name: Upload Binaries
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: lfspointers-linux-aarch64.tar.gz
-          asset_name: lfspointers-linux-aarch64.tar.gz
-          tag: ${{ github.ref }}
-          overwrite: true
-          body: ""
-
-  PackageOnUbuntu-x86_64:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Build and Package
-        run: |
-          SWIFT_VER="5.2.2"
-          RELEASE_DOT=$(lsb_release -sr)
-          RELEASE_NUM=${RELEASE_DOT//[-._]/}
-          wget https://swift.org/builds/swift-${SWIFT_VER}-release/ubuntu${RELEASE_NUM}/swift-${SWIFT_VER}-RELEASE/swift-${SWIFT_VER}-RELEASE-ubuntu${RELEASE_DOT}.tar.gz
-          tar xzf swift-${SWIFT_VER}-RELEASE-ubuntu${RELEASE_DOT}.tar.gz
-          export PATH="${PWD}/swift-${SWIFT_VER}-RELEASE-ubuntu${RELEASE_NUM}/usr/bin:$PATH"
-          swift build -c release
-          mkdir lfspointers-linux-x86_64
-          cp .build/release/LFSPointers lfspointers-linux-x86_64
-          tar -czf lfspointers-linux-x86_64.tar.gz lfspointers-linux-x86_64
-      - name: Upload Binaries
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: lfspointers-linux-x86_64.tar.gz
-          asset_name: lfspointers-linux-x86_64.tar.gz
-          tag: ${{ github.ref }}
-          overwrite: true
-          body: ""
-
+# Swift can't build a statically linked binary for Linux: https://bugs.swift.org/browse/SR-648.
+#
+#  PackageOnUbuntu-ARM:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#      - uses: uraimo/run-on-arch-action@v1.1.0
+#        with:
+#            architecture: aarch64
+#            distribution: ubuntu18.04
+#            run: |
+#              export DEBIAN_FRONTEND=noninteractive
+#              apt update -q
+#              apt install -q -y curl sudo
+#              curl -s https://packagecloud.io/install/repositories/swift-arm/release/script.deb.sh | sudo bash
+#
+#              # Get Swift for ARM.
+#              apt install -q -y swift-lang
+#              apt update -q -y
+#              swift build -c release --static-swift-stdlib
+#              mkdir lfspointers-linux-aarch64
+#              cp .build/release/LFSPointers lfspointers-linux-aarch64
+#              tar -czf lfspointers-linux-aarch64.tar.gz lfspointers-linux-aarch64
+#      - name: Upload Binaries
+#        uses: svenstaro/upload-release-action@v2
+#        with:
+#          repo_token: ${{ secrets.GITHUB_TOKEN }}
+#          file: lfspointers-linux-aarch64.tar.gz
+#          asset_name: lfspointers-linux-aarch64.tar.gz
+#          tag: ${{ github.ref }}
+#          overwrite: true
+#          body: ""
+#
+#  PackageOnUbuntu-x86_64:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#      - name: Build and Package
+#        run: |
+#          SWIFT_VER="5.2.2"
+#          RELEASE_DOT=$(lsb_release -sr)
+#          RELEASE_NUM=${RELEASE_DOT//[-._]/}
+#          wget https://swift.org/builds/swift-${SWIFT_VER}-release/ubuntu${RELEASE_NUM}/swift-${SWIFT_VER}-RELEASE/swift-${SWIFT_VER}-RELEASE-ubuntu${RELEASE_DOT}.tar.gz
+#          tar xzf swift-${SWIFT_VER}-RELEASE-ubuntu${RELEASE_DOT}.tar.gz
+#          export PATH="${PWD}/swift-${SWIFT_VER}-RELEASE-ubuntu${RELEASE_NUM}/usr/bin:$PATH"
+#          swift build -c release --static-swift-stdlib
+#          mkdir lfspointers-linux-x86_64
+#          cp .build/release/LFSPointers lfspointers-linux-x86_64
+#          tar -czf lfspointers-linux-x86_64.tar.gz lfspointers-linux-x86_64
+#      - name: Upload Binaries
+#        uses: svenstaro/upload-release-action@v2
+#        with:
+#          repo_token: ${{ secrets.GITHUB_TOKEN }}
+#          file: lfspointers-linux-x86_64.tar.gz
+#          asset_name: lfspointers-linux-x86_64.tar.gz
+#          tag: ${{ github.ref }}
+#          overwrite: true
+#          body: ""
+#

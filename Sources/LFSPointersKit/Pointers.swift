@@ -7,7 +7,6 @@
 
 import Foundation
 import Files
-import SwiftyJSON
 import CryptoSwift
 
 /// Represents a Git LFS pointer for a file.
@@ -87,9 +86,9 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 		forDirectory directory: URL,
 		searchType type: SearchTypes,
 		recursive: Bool = false,
-		statusClosure status: ((URL, Status) -> Void)? = nil) throws -> [(filename: String, filePath: URL, pointer: LFSPointer)]
-	{
-		var pointers: [(filename: String, filePath: URL, pointer: LFSPointer)] = []
+		statusClosure status: ((URL, Status) -> Void)? = nil
+	) throws -> [JSONPointer] {
+		var pointers: [JSONPointer] = []
 		
 		let folder = try Folder(path: directory.path)
 		
@@ -111,7 +110,7 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 							do {
 								let pointer = try self.init(fromFile: file.url)
 								
-								pointers.append((file.name, file.url, pointer))
+								pointers.append(JSONPointer(filename: file.name, filePath: file.path, pointer: pointer))
 							} catch let error {
 								if status != nil { status!(file.url, .error(error)) }
 								
@@ -129,7 +128,7 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 							do {
 								let pointer = try self.init(fromFile: file.url)
 								
-								pointers.append((file.name, file.url, pointer))
+								pointers.append(JSONPointer(filename: file.name, filePath: file.path, pointer: pointer))
 								
 							} catch let error {
 								if status != nil { status!(file.url, .error(error)) }
@@ -149,7 +148,7 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 							
 							let pointer = try self.init(fromFile: file.url)
 							
-							pointers.append((file.name, file.url, pointer))
+							pointers.append(JSONPointer(filename: file.name, filePath: file.path, pointer: pointer))
 							
 						} catch let error {
 							if status != nil { status!(file.url, .error(error)) }
@@ -171,7 +170,7 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 							do {
 								let pointer = try self.init(fromFile: file.url)
 								
-								pointers.append((file.name, file.url, pointer))
+								pointers.append(JSONPointer(filename: file.name, filePath: file.path, pointer: pointer))
 							} catch let error {
 								if status != nil { status!(file.url, .error(error)) }
 								
@@ -189,7 +188,7 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 								
 								let pointer = try self.init(fromFile: file.url)
 								
-								pointers.append((file.name, file.url, pointer))
+								pointers.append(JSONPointer(filename: file.name, filePath: file.path, pointer: pointer))
 							} catch let error {
 								if status != nil { status!(file.url, .error(error)) }
 								
@@ -206,7 +205,7 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 							
 							let pointer = try self.init(fromFile: file.url)
 							
-							pointers.append((file.name, file.url, pointer))
+							pointers.append(JSONPointer(filename: file.name, filePath: file.path, pointer: pointer))
 							
 						} catch let error {
 							if status != nil { status!(file.url, .error(error)) }
@@ -258,27 +257,24 @@ extension LFSPointer: CustomDebugStringConvertible {
 	}
 }
 
+public struct JSONPointer: Codable {
+	public let filename: String
+	public let filePath: String
+	public let pointer: LFSPointer
+}
+
 /// Generates a string containing `JSON`.
 /// - Parameter array: No description.
 /// - Returns: A `String` containing `JSON`.
-public func toJSON(array: [(filename: String, filePath: URL, pointer: LFSPointer)]) -> String {
-	var arrayOfDict: [[String: Any]] = []
-	
-	for val in array {
-		arrayOfDict.append(
-			[
-				"filename": val.filename,
-				"filePath": val.filePath.path,
-				"pointer": [
-					"version": val.pointer.version,
-					"oid": val.pointer.oid,
-					"size": val.pointer.size
-				]
-			]
-		)
-	}
-	
-	let json = JSON(arrayOfDict)
-	
-	return json.description
+public func toJSON(array: [JSONPointer], jsonFormat: JSONEncoder.OutputFormatting = .init()) -> String {
+
+	let encoder = JSONEncoder()
+
+	encoder.outputFormatting = jsonFormat
+
+	let jsonBytes = (try? encoder.encode(array)) ?? Data()
+
+	let jsonString = String(data: jsonBytes, encoding: .utf8) ?? ""
+
+	return jsonString
 }

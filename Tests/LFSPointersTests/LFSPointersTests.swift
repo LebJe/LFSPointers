@@ -1,6 +1,6 @@
 import XCTest
 import Files
-@testable import LFSPointersLibrary
+@testable import LFSPointersKit
 
 final class LFSPointersTests: XCTestCase {
 	#warning("When running tests, make sure your working directory is at the root of this project.")
@@ -85,6 +85,7 @@ final class LFSPointersTests: XCTestCase {
 		
 		// Make sure these are equal.
 		XCTAssertEqual(p1, p2)
+
 	}
 
     static var allTests = [

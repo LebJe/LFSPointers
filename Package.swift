@@ -7,7 +7,7 @@ let package = Package(
     name: "LFSPointers",
 	products: [
 		.executable(name: "LFSPointers", targets: ["LFSPointersExecutable"]),
-		.library(name: "LFSPointersLib", targets: ["LFSPointersLibrary"])
+		.library(name: "LFSPointersKit", targets: ["LFSPointersKit"])
 	],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -20,7 +20,7 @@ let package = Package(
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
-            name: "LFSPointersLibrary",
+            name: "LFSPointersKit",
 			dependencies: ["Files", "CryptoSwift"]
 		),
 		.target(
@@ -29,22 +29,12 @@ let package = Package(
 				.product(name: "ArgumentParser", package: "swift-argument-parser"), 
 				"Rainbow",
 				"Files", 
-				"LFSPointersLibrary"
+				"LFSPointersKit"
 			]
 		),
         .testTarget(
             name: "LFSPointersTests",
-            dependencies: ["LFSPointersLibrary"]
+            dependencies: ["LFSPointersKit"]
 		)
     ]
 )
-
-#if os(Linux)
-// SwiftyJSON is not supported on Linux, so we need to use a fork from IBM-Swift that is supported.
-package.dependencies.append(.package(url: "https://github.com/IBM-Swift/SwiftyJSON.git", from: "17.0.5"))
-#elseif os(macOS)
-package.dependencies.append(.package(url: "https://github.com/SwiftyJSON/SwiftyJSON.git", from: "5.0.0"))
-#endif
-
-package.targets[0].dependencies.append("SwiftyJSON")
-package.targets[1].dependencies.append("SwiftyJSON")
