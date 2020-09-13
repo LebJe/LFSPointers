@@ -74,9 +74,9 @@ this will build the program, then copy it into `/usr/local/bin`.
 
 ### From GitHub Release
 
-[Install Swift](#Install-Swift), then download the release asset.
+Simply download the release asset. The binary is statically linked, so there is no need to install additional software.
 
-Currently you can't download a pre-built binary for Linux machine using the `aarch64` architecture since Swift 5.3 hasn’t been released.
+Currently you can't download a pre-built binary for a Linux machine using the `aarch64` architecture, since Swift 5.3 hasn’t been released.
 
 ### Setup Shell Completions
 
