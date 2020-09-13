@@ -24,7 +24,7 @@ jobs:
           overwrite: true
           body: ""
 
-# Swift can't build a statically linked binary for Linux: https://bugs.swift.org/browse/SR-648.
+# Swift 5.3 Developer Snapshots aren't available yet.
 #
 #  PackageOnUbuntu-ARM:
 #    runs-on: ubuntu-latest
@@ -57,29 +57,33 @@ jobs:
 #          overwrite: true
 #          body: ""
 #
-#  PackageOnUbuntu-x86_64:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v2
-#      - name: Build and Package
-#        run: |
-#          SWIFT_VER="5.2.2"
-#          RELEASE_DOT=$(lsb_release -sr)
-#          RELEASE_NUM=${RELEASE_DOT//[-._]/}
-#          wget https://swift.org/builds/swift-${SWIFT_VER}-release/ubuntu${RELEASE_NUM}/swift-${SWIFT_VER}-RELEASE/swift-${SWIFT_VER}-RELEASE-ubuntu${RELEASE_DOT}.tar.gz
-#          tar xzf swift-${SWIFT_VER}-RELEASE-ubuntu${RELEASE_DOT}.tar.gz
-#          export PATH="${PWD}/swift-${SWIFT_VER}-RELEASE-ubuntu${RELEASE_NUM}/usr/bin:$PATH"
-#          swift build -c release --static-swift-stdlib
-#          mkdir lfspointers-linux-x86_64
-#          cp .build/release/LFSPointers lfspointers-linux-x86_64
-#          tar -czf lfspointers-linux-x86_64.tar.gz lfspointers-linux-x86_64
-#      - name: Upload Binaries
-#        uses: svenstaro/upload-release-action@v2
-#        with:
-#          repo_token: ${{ secrets.GITHUB_TOKEN }}
-#          file: lfspointers-linux-x86_64.tar.gz
-#          asset_name: lfspointers-linux-x86_64.tar.gz
-#          tag: ${{ github.ref }}
-#          overwrite: true
-#          body: ""
-#
+  PackageOnUbuntu-x86_64:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build and Package
+        run: |
+          # We have to use a developer snapshot for now since Swift 5.3 has not been released.
+          wget https://swift.org/builds/swift-5.3-branch/ubuntu1804/swift-5.3-DEVELOPMENT-SNAPSHOT-2020-09-09-a/swift-5.3-DEVELOPMENT-SNAPSHOT-2020-09-09-a-ubuntu18.04.tar.gz
+          tar xzf swift-5.3-DEVELOPMENT-SNAPSHOT-2020-09-09-a-ubuntu18.04.tar.gz
+          export PATH="${PWD}/swift-5.3-DEVELOPMENT-SNAPSHOT-2020-09-09-a-ubuntu18.04/usr/bin:$PATH"
+          swift build -c release --enable-test-discovery -Xswiftc -static-stdlib -Xswiftc -static-executable
+          mkdir lfspointers-linux-x86_64
+          cp .build/release/LFSPointers lfspointers-linux-x86_64
+          tar -czf lfspointers-linux-x86_64.tar.gz lfspointers-linux-x86_64
+          #SWIFT_VER="5.3"
+          #RELEASE_DOT=$(lsb_release -sr)
+          #RELEASE_NUM=${RELEASE_DOT//[-._]/}
+          #wget https://swift.org/builds/swift-${SWIFT_VER}-release/ubuntu${RELEASE_NUM}/swift-${SWIFT_VER}-RELEASE/swift-${SWIFT_VER}-RELEASE-ubuntu${RELEASE_DOT}.tar.gz
+          #tar xzf swift-${SWIFT_VER}-RELEASE-ubuntu${RELEASE_DOT}.tar.gz
+          #export PATH="${PWD}/swift-${SWIFT_VER}-RELEASE-ubuntu${RELEASE_NUM}/usr/bin:$PATH"
+      - name: Upload Binaries
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: lfspointers-linux-x86_64.tar.gz
+          asset_name: lfspointers-linux-x86_64.tar.gz
+          tag: ${{ github.ref }}
+          overwrite: true
+          body: ""
+
