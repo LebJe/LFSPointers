@@ -48,7 +48,7 @@ jobs:
         run: bash Scripts/script.sh
         
   GenerateDocumentation:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
       - name: Generate Documentation
