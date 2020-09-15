@@ -60,7 +60,9 @@ jobs:
           format: html    
       - name: Change Permissions
         run: |
-          sudo chown -R $(id -u):$(id -g) Documentaion
+          ls -lah
+          sudo chown -R $(id -u):$(id -g) Documentation
+          ls -lah
           
       - name: Deploy to GitHub Pages
         if: success()
