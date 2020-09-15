@@ -55,9 +55,13 @@ jobs:
         uses: SwiftDocOrg/swift-doc@master
         with:
           inputs: "Sources"
-          module-name: OFSPointersKit
+          module-name:  LFSPointersKit
           output: "Documentation"
-          format: html
+          format: html    
+      - name: Change Permissions
+        run: |
+          sudo chown -R $(id -u):$(id -g) Documentaion
+          
       - name: Deploy to GitHub Pages
         if: success()
         uses: crazy-max/ghaction-github-pages@v2
