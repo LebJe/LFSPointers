@@ -46,6 +46,26 @@ jobs:
         run: bash Scripts/install.sh
       - name: Run tests
         run: bash Scripts/script.sh
+        
+  GenerateDocumentation:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Generate Documentation
+        uses: SwiftDocOrg/swift-doc@master
+        with:
+          inputs: "Sources"
+          module-name: OFSPointersKit
+          output: "Documentation"
+          format: html
+      - name: Deploy to GitHub Pages
+        if: success()
+        uses: crazy-max/ghaction-github-pages@v2
+        with:
+          target_branch: gh-pages
+          build_dir: Documentation
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   # Uncomment and update as needed when an Apple Silicon VM is available.
   #TestOnMacOS-ARM:
