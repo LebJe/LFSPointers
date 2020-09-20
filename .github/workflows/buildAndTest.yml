@@ -57,20 +57,16 @@ jobs:
           inputs: "Sources"
           module-name: LFSPointersKit
           base-url: "/LFSPointersKit"
-          output: "Documentation"
+          output: ./.build/documentation
           format: html    
       - name: Change Permissions
-        run: |
-          ls -lah
-          sudo chmod o+r -R Documentation
-          ls -lah
-          
+        run: sudo chmod o+r -R Documentation   
       - name: Deploy to GitHub Pages
         if: success()
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./Documentation
+          publish_dir: ./.build/documentation
 
   # Uncomment and update as needed when an Apple Silicon VM is available.
   #TestOnMacOS-ARM:
