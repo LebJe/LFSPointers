@@ -60,7 +60,7 @@ jobs:
           output: ./.build/documentation
           format: html    
       - name: Change Permissions
-        run: sudo chmod o+r -R Documentation   
+        run: sudo chmod o+r -R ./.build/documentation   
       - name: Deploy to GitHub Pages
         if: success()
         uses: peaceiris/actions-gh-pages@v3
