@@ -52,26 +52,25 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Generate Documentation
-        uses: SwiftDocOrg/swift-doc@master
+        uses:  MaxDesiatov/swift-doc@prebuilt-image
         with:
           inputs: "Sources"
-          module-name:  LFSPointersKit
+          module-name: LFSPointersKit
+          base-url: "/LFSPointersKit"
           output: "Documentation"
           format: html    
       - name: Change Permissions
         run: |
           ls -lah
-          sudo chown -R $(id -u):$(id -g) Documentation
+          sudo chmod o+r -R Documentation
           ls -lah
           
       - name: Deploy to GitHub Pages
         if: success()
-        uses: crazy-max/ghaction-github-pages@v2
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          target_branch: gh-pages
-          build_dir: Documentation
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./Documentation
 
   # Uncomment and update as needed when an Apple Silicon VM is available.
   #TestOnMacOS-ARM:
