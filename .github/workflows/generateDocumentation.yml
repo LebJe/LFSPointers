@@ -4,21 +4,22 @@ on: push
 
 jobs:
   GenerateDocumentation:
-  runs-on: ubuntu-latest
-  steps:
-    - uses: actions/checkout@v2
-    - name: Generate Documentation
-    - uses: MaxDesiatov/swift-doc@prebuilt-image
-      with:
-    	  inputs: "Sources"
-        module-name: LFSPointersKit
-        output: ./.build/documentation
-        format: html    
-    - name: Change Permissions
-      run: sudo chmod o+r -R ./.build/documentation   
-    - name: Deploy to GitHub Pages
-      if: success()
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-    	  github_token: ${{ secrets.GITHUB_TOKEN }}
-    	  publish_dir: ./.build/documentation
+   runs-on: ubuntu-latest
+   steps:
+     - uses: actions/checkout@v1
+     - name: Generate Documentation
+       uses:  MaxDesiatov/swift-doc@prebuilt-image
+       with:
+         inputs: "Sources"
+         module-name: LFSPointersKit
+         base-url: "/LFSPointersKit"
+         output: ./.build/documentation
+         format: html    
+     - name: Change Permissions
+       run: sudo chmod o+r -R ./.build/documentation   
+     - name: Deploy to GitHub Pages
+       if: success()
+       uses: peaceiris/actions-gh-pages@v3
+       with:
+         github_token: ${{ secrets.GITHUB_TOKEN }}
+         publish_dir: ./.build/documentation
