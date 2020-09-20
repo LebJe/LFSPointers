@@ -50,13 +50,12 @@ jobs:
   GenerateDocumentation:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: Generate Documentation
         uses:  MaxDesiatov/swift-doc@prebuilt-image
         with:
           inputs: "Sources"
           module-name: LFSPointersKit
-          base-url: "/LFSPointersKit"
           output: ./.build/documentation
           format: html    
       - name: Change Permissions
