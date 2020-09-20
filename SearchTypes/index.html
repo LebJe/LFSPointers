@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LFSPointersKit - SearchTypes</title>
+    <link rel="stylesheet" type="text/css" href="./all.css" media="all" />
+</head>
+<body>
+    <header>
+        <a href="./">
+            <strong>
+                LFSPointersKit
+            </strong>
+            <span>Documentation</span>
+        </a>
+        <sup>Beta</sup>
+    </header>
+
+    <!--
+    <form class="search">
+        <input type="search" placeholder="Search" />
+    </form>
+    -->
+
+    <nav>
+        <div class="wrapper">
+            <h2>On This Page</h2>
+            <ol><li><a href="#enumeration cases">Enumeration Cases</a><ul><li class="case"><a href="#searchtypes.filenames">file​Names</a></li><li class="case"><a href="#searchtypes.regex">regex</a></li><li class="case"><a href="#searchtypes.all">all</a></li></ul></li></ol>
+        </div>
+    </nav>
+
+    <main>
+        <article>
+            <h1>
+    <small>Enumeration</small>
+    <code class="name">Search​Types</code>
+</h1>
+
+<html><body><pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">enum</span> <span class="type">SearchTypes</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>The search types to use when filtering files.</p>
+
+</div>
+
+    <section id="enumeration cases">
+        <h2>Enumeration Cases</h2>
+
+        <div role="article" class="case" id="searchtypes.filenames">
+    <h3>
+        <code>file​Names</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">fileNames</span>(: [<span class="type">String</span>])</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Searches for all files that match any of the filenames in the array.</p>
+
+</div>
+</div>
+<div role="article" class="case" id="searchtypes.regex">
+    <h3>
+        <code>regex</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">regex</span>(: <span class="type">NSRegularExpression</span>)</code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Searches for all files whose name matches the regular expression.</p>
+
+</div>
+</div>
+<div role="article" class="case" id="searchtypes.all">
+    <h3>
+        <code>all</code>
+    </h3>
+    <html><body><pre class="highlight"><code><span class="keyword">case</span> <span class="variable">all</span></code></pre></body></html>
+<div class="summary" role="doc-abstract">
+    <p>Searches for all files.</p>
+
+</div>
+</div>
+    </section>
+
+
+
+        </article>
+    </main>
+
+    <footer>
+        <p>
+    Generated on <time datetime="2020-09-20T14:02:34+0000">September 20, 2020</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.4</span>.
+</p>
+    </footer>
+</body>
+</html>
