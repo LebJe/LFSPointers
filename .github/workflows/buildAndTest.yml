@@ -18,25 +18,25 @@ jobs:
       - uses: actions/checkout@v2
       - uses: uraimo/run-on-arch-action@v1.1.0
         with:
-            architecture: aarch64
-            distribution: ubuntu18.04
-            run: |
-              export DEBIAN_FRONTEND=noninteractive
+          architecture: aarch64
+          distribution: ubuntu18.04
+          run: |
+            export DEBIAN_FRONTEND=noninteractive
 
-              apt update -q
-              
-              apt install -q -y curl sudo
+            apt update -q
 
-              curl -s https://packagecloud.io/install/repositories/swift-arm/release/script.deb.sh | sudo bash
-              
-              # Get Swift for ARM.
-              
-              apt install -q -y swift-lang
-              
-              apt update -q -y
+            apt install -q -y curl sudo
 
-              swift build
-              swift test
+            curl -s https://packagecloud.io/install/repositories/swift-arm/release/script.deb.sh | sudo bash
+
+            # Get Swift for ARM.
+
+            apt install -q -y swift-lang
+
+            apt update -q -y
+
+            swift build
+            swift test
 
   TestOnUbuntu-x86_64:
     runs-on: ubuntu-latest
@@ -46,33 +46,11 @@ jobs:
         run: bash Scripts/install.sh
       - name: Run tests
         run: bash Scripts/script.sh
-        
-  GenerateDocumentation:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Generate Documentation
-        uses:  MaxDesiatov/swift-doc@prebuilt-image
-        with:
-          inputs: "Sources"
-          module-name: LFSPointersKit
-          output: ./.build/documentation
-          format: html    
-      - name: Change Permissions
-        run: sudo chmod o+r -R ./.build/documentation   
-      - name: Deploy to GitHub Pages
-        if: success()
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./.build/documentation
-
   # Uncomment and update as needed when an Apple Silicon VM is available.
   #TestOnMacOS-ARM:
-    #runs-on: macos-silicon-latest
-    #- uses: actions/checkout@v2
-    #- name: Build
-    #   run: bash Scripts/install.sh
-    # - name: Run tests
-    #   run: bash Scripts/script.sh
-
+  #runs-on: macos-silicon-latest
+  #- uses: actions/checkout@v2
+  #- name: Build
+  #   run: bash Scripts/install.sh
+  # - name: Run tests
+  #   run: bash Scripts/script.sh
