@@ -12,13 +12,12 @@ jobs:
        with:
          inputs: "Sources"
          module-name: LFSPointersKit
+         format: html
          base-url: "/LFSPointersKit"
-         output: ./.build/documentation
-         format: html    
+         output: ./.build/documentation    
      - name: Change Permissions
        run: sudo chmod o+r -R ./.build/documentation   
      - name: Deploy to GitHub Pages
-       if: success()
        uses: peaceiris/actions-gh-pages@v3
        with:
          github_token: ${{ secrets.GITHUB_TOKEN }}

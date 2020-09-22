@@ -63,12 +63,16 @@ jobs:
       - uses: actions/checkout@v2
       - name: Build and Package
         run: |
-          SWIFT_VER="5.3"
-          RELEASE_DOT=$(lsb_release -sr)
-          RELEASE_NUM=${RELEASE_DOT//[-._]/}
-          wget https://swift.org/builds/swift-${SWIFT_VER}-release/ubuntu${RELEASE_NUM}/swift-${SWIFT_VER}-RELEASE/swift-${SWIFT_VER}-RELEASE-ubuntu${RELEASE_DOT}.tar.gz
-          tar xzf swift-${SWIFT_VER}-RELEASE-ubuntu${RELEASE_DOT}.tar.gz
-          export PATH="${PWD}/swift-${SWIFT_VER}-RELEASE-ubuntu${RELEASE_NUM}/usr/bin:$PATH"
+          # SWIFT_VER="5.3"
+          # RELEASE_DOT=$(lsb_release -sr)
+          # RELEASE_NUM=${RELEASE_DOT//[-._]/}
+          # wget https://swift.org/builds/swift-${SWIFT_VER}-release/ubuntu${RELEASE_NUM}/swift-${SWIFT_VER}-RELEASE/swift-${SWIFT_VER}-RELEASE-ubuntu${RELEASE_DOT}.tar.gz
+          # tar xzf swift-${SWIFT_VER}-RELEASE-ubuntu${RELEASE_DOT}.tar.gz
+          # export PATH="${PWD}/swift-${SWIFT_VER}-RELEASE-ubuntu${RELEASE_NUM}/usr/bin:$PATH"
+          # We have to use a developer snapshot for now since Swift 5.3 has not been released.
+          wget https://swift.org/builds/swift-5.3-branch/ubuntu1804/swift-5.3-DEVELOPMENT-SNAPSHOT-2020-09-09-a/swift-5.3-DEVELOPMENT-SNAPSHOT-2020-09-09-a-ubuntu18.04.tar.gz
+          tar xzf swift-5.3-DEVELOPMENT-SNAPSHOT-2020-09-09-a-ubuntu18.04.tar.gz
+          export PATH="${PWD}/swift-5.3-DEVELOPMENT-SNAPSHOT-2020-09-09-a-ubuntu18.04/usr/bin:$PATH"
           swift build -c release --enable-test-discovery -Xswiftc -static-stdlib -Xswiftc -static-executable
           mkdir lfspointers-linux-x86_64
           cp .build/release/LFSPointers lfspointers-linux-x86_64
