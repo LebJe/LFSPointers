@@ -2,6 +2,10 @@ name: Build, Package, and Upload
 
 on:
   - release
+env:
+  APP_NAME: 'LFSPointers'
+  MAINTAINER: 'LebJe'
+  DESC: 'A command line tool and SPM package that allows you to convert a Git repository directory of large files to Git LFS pointers.'
 
 jobs:
   PackageOnMacOS-x86_64:
@@ -69,7 +73,7 @@ jobs:
           # wget https://swift.org/builds/swift-${SWIFT_VER}-release/ubuntu${RELEASE_NUM}/swift-${SWIFT_VER}-RELEASE/swift-${SWIFT_VER}-RELEASE-ubuntu${RELEASE_DOT}.tar.gz
           # tar xzf swift-${SWIFT_VER}-RELEASE-ubuntu${RELEASE_DOT}.tar.gz
           # export PATH="${PWD}/swift-${SWIFT_VER}-RELEASE-ubuntu${RELEASE_NUM}/usr/bin:$PATH"
-          # We have to use a developer snapshot for now since Swift 5.3 has not been released.
+          # We have to use a developer snapshot for now since Swift 5.3 still cannot build a static executable.
           wget https://swift.org/builds/swift-5.3-branch/ubuntu1804/swift-5.3-DEVELOPMENT-SNAPSHOT-2020-09-09-a/swift-5.3-DEVELOPMENT-SNAPSHOT-2020-09-09-a-ubuntu18.04.tar.gz
           tar xzf swift-5.3-DEVELOPMENT-SNAPSHOT-2020-09-09-a-ubuntu18.04.tar.gz
           export PATH="${PWD}/swift-5.3-DEVELOPMENT-SNAPSHOT-2020-09-09-a-ubuntu18.04/usr/bin:$PATH"
@@ -77,6 +81,24 @@ jobs:
           mkdir lfspointers-linux-x86_64
           cp .build/release/LFSPointers lfspointers-linux-x86_64
           tar -czf lfspointers-linux-x86_64.tar.gz lfspointers-linux-x86_64
+      - name: Create deb and rpm structure
+        run: |
+          mkdir -p .debpkg/usr/bin
+          echo mkdir
+          mkdir -p .rpmpkg/usr/bin
+          echo cp
+          cp .build/release/LFSPointers .debpkg/usr/bin/
+          echo cp
+          cp .build/release/LFSPointers .rpmpkg/usr/bin/
+          echo done
+      - uses: jiro4989/build-deb-action@v2
+        with:
+          package: ${{ env.APP_NAME }}
+          package_root: .debpkg
+          maintainer: ${{ env.MAINTAINER }}
+          version: ${{ github.ref }}
+          arch: 'amd64'
+          desc: '${{ env.DESC }}'
       - name: Upload Binaries
         uses: svenstaro/upload-release-action@v2
         with:
@@ -86,4 +108,13 @@ jobs:
           tag: ${{ github.ref }}
           overwrite: true
           body: ""
+      - name: Upload Deb
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ./*.deb
+          tag: ${{ github.ref }}
+          overwrite: true
+          body: ""
+          file_glob: true
 
