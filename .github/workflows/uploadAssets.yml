@@ -84,7 +84,7 @@ jobs:
           swift build -c release --enable-test-discovery -Xswiftc -static-stdlib -Xswiftc -static-executable
           mkdir LFSPonters-$TAG-linux-amd64
           cp .build/release/LFSPointers LFSPointers-$TAG-linux-amd64
-          tar -czf LFSPointers-$TAG-linux-amd64.tar.gz LFSPoniters-$TAG-linux-amd64
+          tar -czf LFSPointers-$TAG-linux-amd64.tar.gz LFSPointers-$TAG-linux-amd64
       - name: Create deb and rpm structure
         run: |
           mkdir -p .debpkg/usr/bin
