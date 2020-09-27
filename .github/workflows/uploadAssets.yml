@@ -83,8 +83,8 @@ jobs:
           export PATH="${PWD}/swift-5.3-DEVELOPMENT-SNAPSHOT-2020-09-09-a-ubuntu18.04/usr/bin:$PATH"
           swift build -c release --enable-test-discovery -Xswiftc -static-stdlib -Xswiftc -static-executable
           mkdir LFSPonters-$TAG-linux-amd64
-          cp .build/release/LFSPointers LFSPonters-$TAG-linux-amd64
-          tar -czf LFSPonters-$TAG-linux-amd64.tar.gz LFSPonters-$TAG-linux-amd64
+          cp .build/release/LFSPointers LFSPointers-$TAG-linux-amd64
+          tar -czf LFSPointers-$TAG-linux-amd64.tar.gz LFSPoniters-$TAG-linux-amd64
       - name: Create deb and rpm structure
         run: |
           mkdir -p .debpkg/usr/bin
@@ -107,8 +107,8 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: LFSPonters-${{ github.event.release.tag_name }}-linux-amd64.tar.gz
-          asset_name: LFSPonters-${{ github.event.release.tag_name }}-linux-amd64.tar.gz
+          file: LFSPointers-${{ github.event.release.tag_name }}-linux-amd64.tar.gz
+          asset_name: LFSPointers-${{ github.event.release.tag_name }}-linux-amd64.tar.gz
           tag: ${{ github.ref }}
           overwrite: true
           body: ""
