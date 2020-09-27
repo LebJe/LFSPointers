@@ -27,6 +27,10 @@ let jsonStructure = """
 ]
 """
 
+enum JSONFormat: String, CaseIterable, ExpressibleByArgument {
+	case formatted, compact
+}
+
 struct LFSPointersCommand: ParsableCommand {
 	static let configuration = CommandConfiguration(
 		commandName: "LFSPointers",
@@ -52,7 +56,16 @@ struct LFSPointersCommand: ParsableCommand {
 	
 	@Flag(name: .long, inversion: .prefixedEnableDisable, help: "Whether to send colorized output to the terminal or not.")
 	var color: Bool = true
-	
+
+	@Flag(name: .long, help: "Whether a newline should be added to the end of a pointer.")
+	var newline: Bool = false
+
+	@Option(
+		name: .long,
+		help: "The format in which JSON is printed."
+	)
+	var jsonFormat: JSONFormat = .compact
+
 	@Option(
 		name: .shortAndLong,
 		help: "The directory files will be copied to before being processed. Will be created if it does not exist. If no directory is specified, no files will be copied.",
@@ -60,12 +73,6 @@ struct LFSPointersCommand: ParsableCommand {
 		transform: URL.init(fileURLWithPath:)
 	)
 	var backupDirectory: URL? = nil
-
-	@Option(
-		name: .long,
-		help: "The format in which JSON is printed."
-	)
-	var jsonFormat: JSONFormat = .compact
 	
 	@Argument(
 		help: "The directory which contains the files you want to convert to LFS pointers.",
@@ -136,16 +143,9 @@ struct LFSPointersCommand: ParsableCommand {
 					
 					if !silent && self.verbose {
 						print("Converting \"\(file.name)\" to pointer...\n")
-
-						if self.color {
-							print("git lfs pointer --file=\(file.name)".blue)
-						} else {
-							print("git lfs pointer --file=\(file.name)")
-						}
 					} else if !silent {
 						print("Converting \"\(file.name)\" to pointer...\n")
 					}
-				
 				case let .regexDosentMatch(regex):
 					let file = try! File(path: url.path)
 					
@@ -217,7 +217,11 @@ struct LFSPointersCommand: ParsableCommand {
 					pointers.forEach({ jsonPointer in
 						
 						do {
-							try jsonPointer.pointer.write(toFile: URL(fileURLWithPath: jsonPointer.filePath), statusClosure: printClosure)
+							try jsonPointer.pointer.write(
+								toFile: URL(fileURLWithPath: jsonPointer.filePath),
+								withNewline: newline,
+								statusClosure: printClosure
+							)
 						} catch is LocationError {
 							if !silent {
 
@@ -250,7 +254,11 @@ struct LFSPointersCommand: ParsableCommand {
 					pointers.forEach({ jsonPointer in
 						
 						do {
-							try jsonPointer.pointer.write(toFile: URL(fileURLWithPath: jsonPointer.filePath), statusClosure: printClosure)
+							try jsonPointer.pointer.write(
+								toFile: URL(fileURLWithPath: jsonPointer.filePath),
+								withNewline: newline,
+								statusClosure: printClosure
+							)
 						} catch is LocationError {
 							if !silent {
 
@@ -298,10 +306,6 @@ struct LFSPointersCommand: ParsableCommand {
 		}
 	}
 
-
-	enum JSONFormat: String, CaseIterable, ExpressibleByArgument {
-		case formatted, compact
-	}
 }
 
 LFSPointersCommand.main()

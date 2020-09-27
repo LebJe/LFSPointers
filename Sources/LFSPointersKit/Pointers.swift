@@ -229,6 +229,7 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 	/// - Throws: `LocationError` if the file path is invalid, or `WriteError` if the file could not be written.
 	public func write(
 		toFile file: URL,
+		withNewline: Bool = false,
 		shouldAppend: Bool = false,
 		statusClosure status: ((URL, Status) -> Void)? = nil
 	) throws {
@@ -238,11 +239,11 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 		if shouldAppend {
 			if status != nil { status!(file.url, .appending(self)) }
 			
-			try file.append("version \(self.version)\noid sha256:\(self.oid)\nsize \(self.size)", encoding: .utf8)
+			try file.append("version \(self.version)\noid sha256:\(self.oid)\nsize \(self.size)\(withNewline ? "\n" : "")", encoding: .utf8)
 		} else {
 			if status != nil { status!(file.url, .writing(self)) }
 			
-			try file.write("version \(self.version)\noid sha256:\(self.oid)\nsize \(self.size)", encoding: .utf8)
+			try file.write("version \(self.version)\noid sha256:\(self.oid)\nsize \(self.size)\(withNewline ? "\n" : "")", encoding: .utf8)
 		}
 	}
 	
