@@ -82,7 +82,7 @@ jobs:
           tar xzf swift-5.3-DEVELOPMENT-SNAPSHOT-2020-09-09-a-ubuntu18.04.tar.gz
           export PATH="${PWD}/swift-5.3-DEVELOPMENT-SNAPSHOT-2020-09-09-a-ubuntu18.04/usr/bin:$PATH"
           swift build -c release --enable-test-discovery -Xswiftc -static-stdlib -Xswiftc -static-executable
-          mkdir LFSPonters-$TAG-linux-amd64
+          mkdir LFSPointers-$TAG-linux-amd64
           cp .build/release/LFSPointers LFSPointers-$TAG-linux-amd64
           tar -czf LFSPointers-$TAG-linux-amd64.tar.gz LFSPointers-$TAG-linux-amd64
       - name: Create deb and rpm structure
