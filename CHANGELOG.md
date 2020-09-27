@@ -1,6 +1,12 @@
 ##  (2020-09-27)
 
+
+
+
+## <small>1.0.5 (2020-09-27)</small>
+
 * Add an option to add a newline to the end of a pointer. ([ecf3a34](https://github.com/LebJe/LFSPointers/commit/ecf3a34))
+* Fix asset name. ([70841bc](https://github.com/LebJe/LFSPointers/commit/70841bc))
 
 
 
