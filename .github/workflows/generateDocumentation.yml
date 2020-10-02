@@ -8,7 +8,7 @@ jobs:
    steps:
      - uses: actions/checkout@v1
      - name: Generate Documentation
-       uses:  MaxDesiatov/swift-doc@prebuilt-image
+       uses: SwiftDocOrg/swift-doc@1.0.0-beta.5
        with:
          inputs: "Sources"
          module-name: LFSPointersKit
