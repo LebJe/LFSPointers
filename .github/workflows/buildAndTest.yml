@@ -7,10 +7,8 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Build
-        run: bash Scripts/install.sh
       - name: Run tests
-        run: bash Scripts/script.sh
+        run: swift test
 
   TestOnUbuntu-ARM:
     runs-on: ubuntu-latest
@@ -22,30 +20,20 @@ jobs:
           distribution: ubuntu18.04
           run: |
             export DEBIAN_FRONTEND=noninteractive
-
             apt update -q
-
             apt install -q -y curl sudo
-
             curl -s https://packagecloud.io/install/repositories/swift-arm/release/script.deb.sh | sudo bash
-
-            # Get Swift for ARM.
-
             apt install -q -y swift-lang
-
             apt update -q -y
-
-            swift build
             swift test
 
   TestOnUbuntu-x86_64:
     runs-on: ubuntu-latest
+    container: swift:5.3-focal
     steps:
       - uses: actions/checkout@v2
-      - name: Build
-        run: bash Scripts/install.sh
       - name: Run tests
-        run: bash Scripts/script.sh
+        run: swift test
   # Uncomment and update as needed when an Apple Silicon VM is available.
   #TestOnMacOS-ARM:
   #runs-on: macos-silicon-latest
