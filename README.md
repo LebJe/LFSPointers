@@ -64,10 +64,43 @@ $ brew install LebJe/formulae/lfs-pointers
 
 ### Manually
 
-[Install Swift](#Install-Swift), then:
+#### With [Docker](https://www.docker.com)
+If you are on Ubuntu 16.04, 18.04, 20.04, or CentOS 8, you can build `LFSPointers` using:
+
+##### Ubuntu 16.04
 
 ```bash
-path/to/LFSPointers $ swift build -c release && cp .build/release/LFSPointers /usr/local/bin
+$ docker run --rm -v $(pwd):/src -w /src swift:5.3-xenial swift build -c release
+````
+
+##### Ubuntu 18.04
+
+```bash
+$ docker run --rm -v $(pwd):/src -w /src swift:5.3-bionic swift build -c release
+````
+
+##### Ubuntu 20.04
+
+```bash
+$ docker run --rm -v $(pwd):/src -w /src swift:5.3-focal swift build -c release
+````
+
+##### CentOS 8
+
+```bash
+$ docker run --rm -v $(pwd):/src -w /src swift:5.3-centos8 swift build -c release
+````
+
+Then run `mv .build/release/LFSPointers .` to move the binary to your current
+directory.
+
+
+#### Without Docker
+
+If you don’t or can’t use Docker, you can [Install Swift](#Install-Swift), then run:
+
+```bash
+$ swift build -c release && cp .build/release/LFSPointers /usr/local/bin
 ```
 
 this will build the program, then copy it into `/usr/local/bin`.
