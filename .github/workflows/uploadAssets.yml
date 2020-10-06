@@ -79,13 +79,9 @@ jobs:
       - name: Create deb and rpm structure
         run: |
           mkdir -p .debpkg/usr/bin
-          echo mkdir
           mkdir -p .rpmpkg/usr/bin
-          echo cp
           cp .build/release/LFSPointers .debpkg/usr/bin/
-          echo cp
           cp .build/release/LFSPointers .rpmpkg/usr/bin/
-          echo done
       - uses: jiro4989/build-deb-action@v2
         with:
           package: ${{ env.APP_NAME }}
