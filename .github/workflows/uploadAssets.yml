@@ -31,38 +31,51 @@ jobs:
           body: ""
 
 # Swift 5.3 Developer Snapshots aren't available yet.
-#
-#  PackageOnUbuntu-ARM:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v2
-#      - uses: uraimo/run-on-arch-action@v1.1.0
-#        with:
-#            architecture: aarch64
-#            distribution: ubuntu18.04
-#            run: |
-#              export DEBIAN_FRONTEND=noninteractive
-#              apt update -q
-#              apt install -q -y curl sudo
-#              curl -s https://packagecloud.io/install/repositories/swift-arm/release/script.deb.sh | sudo bash
-#
-#              # Get Swift for ARM.
-#              apt install -q -y swift-lang
-#              apt update -q -y
-#              swift build -c release --static-swift-stdlib
-#              mkdir lfspointers-linux-aarch64
-#              cp .build/release/LFSPointers lfspointers-linux-aarch64
-#              tar -czf lfspointers-linux-aarch64.tar.gz lfspointers-linux-aarch64
-#      - name: Upload Binaries
-#        uses: svenstaro/upload-release-action@v2
-#        with:
-#          repo_token: ${{ secrets.GITHUB_TOKEN }}
-#          file: lfspointers-linux-aarch64.tar.gz
-#          asset_name: lfspointers-linux-aarch64.tar.gz
-#          tag: ${{ github.ref }}
-#          overwrite: true
-#          body: ""
-#
+
+ # PackageOnUbuntu-ARM:
+ #   runs-on: ubuntu-latest
+ #     steps:
+ #       - uses: actions/checkout@v2
+ #       - uses: uraimo/run-on-arch-action@v1.1.0
+ #         env:
+ #          TAG: ${{ github.event.release.tag_name }}
+ #         with:
+ #           architecture: aarch64
+ #           distribution: ubuntu18.04
+ #           run: |
+ #             export DEBIAN_FRONTEND=noninteractive
+ #             apt update -q
+ #             apt install -q -y curl sudo
+ #             curl -s https://packagecloud.io/install/repositories/swift-arm/release/script.deb.sh | sudo bash
+ #             apt install -q -y swift-lang
+ #             apt update -q -y
+ #             swift build -c release --enable-test-discovery --static-swift-stdlib -Xswiftc -static-executable
+ #             mkdir LFSPointers-$TAG-linux-arm64
+ #             cp .build/release/LFSPointers LFSPointers-$TAG-linux-arm64
+ #             tar -czf LFSPointers-$TAG-linux-arm64.tar.gz LFSPointers-$TAG-linux-arm64
+ #       - name: Upload Binaries
+ #         uses: svenstaro/upload-release-action@v2
+ #         with:
+ #           repo_token: ${{ secrets.GITHUB_TOKEN }}
+ #           file: LFSPointers-${{ github.event.release.tag_name }}-linux-arm64.tar.gz
+ #           asset_name: LFSPointers-${{ github.event.release.tag_name }}-linux-arm64.tar.gz
+ #           tag: ${{ github.ref }}
+ #           overwrite: true
+ #           body: ""
+ #       - name: Create deb and rpm structure
+ #         run: |
+ #           mkdir -p .arm-debpkg/usr/bin
+ #           mkdir -p .arm-rpmpkg/usr/bin
+ #           cp .build/release/LFSPointers .arm-debpkg/usr/bin/
+ #           cp .build/release/LFSPointers .arm-rpmpkg/usr/bin/
+ #       - uses: jiro4989/build-deb-action@v2
+ #         with:
+ #           package: ${{ env.APP_NAME }}
+ #           package_root: .arm-debpkg
+ #           maintainer: ${{ env.MAINTAINER }}
+ #           version: ${{ github.ref }}
+ #           arch: 'arm64'
+ #           desc: '${{ env.DESC }}'
   PackageOnUbuntu-x86_64:
     runs-on: ubuntu-latest
     container: swiftlang/swift:nightly-5.3-focal
