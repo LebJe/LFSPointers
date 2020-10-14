@@ -1,5 +1,24 @@
-##  (2020-09-27)
+##  (2020-10-14)
 
+* Fix “PackageOnUbuntu-ARM” ([d7aa74b](https://github.com/LebJe/LFSPointers/commit/d7aa74b))
+* Remove unnecessary `echo` statements ([bbc76c0](https://github.com/LebJe/LFSPointers/commit/bbc76c0))
+* Update help text. ([d438913](https://github.com/LebJe/LFSPointers/commit/d438913))
+* Update README, and use Docker container to build release assets. ([0bf40af](https://github.com/LebJe/LFSPointers/commit/0bf40af))
+* Use Docker image when testing on Linux, and remove unnecessary scripts ([7669a23](https://github.com/LebJe/LFSPointers/commit/7669a23))
+* Use SwiftDoc 1.0.0-beta.5 ([937648a](https://github.com/LebJe/LFSPointers/commit/937648a))
+
+
+
+## <small>1.0.7 (2020-09-27)</small>
+
+* Fix naming. ([f630923](https://github.com/LebJe/LFSPointers/commit/f630923))
+
+
+
+## <small>1.0.6 (2020-09-27)</small>
+
+* Fix naming. ([5b44b25](https://github.com/LebJe/LFSPointers/commit/5b44b25))
+* Update CHANGELOG ([8208c96](https://github.com/LebJe/LFSPointers/commit/8208c96))
 
 
 
