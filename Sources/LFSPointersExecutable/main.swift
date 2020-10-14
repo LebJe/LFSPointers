@@ -62,7 +62,7 @@ struct LFSPointersCommand: ParsableCommand {
 
 	@Option(
 		name: .long,
-		help: "The format in which JSON is printed."
+		help: "The format in which JSON is printed. You can choose either \"compact\" or \"formatted\"."
 	)
 	var jsonFormat: JSONFormat = .compact
 
