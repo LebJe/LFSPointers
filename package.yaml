@@ -1,0 +1,8 @@
+meta:
+  description: A command line tool and SPM package that allows you to convert a Git repository directory of large files to Git LFS pointers.
+  vendor: LebJe
+  maintainer: LebJe
+files:
+  "/usr/bin/LFSPointers":
+    file: LFSPointers
+    mode: "0755"

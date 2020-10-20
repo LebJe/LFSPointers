@@ -76,49 +76,51 @@ jobs:
  #           version: ${{ github.ref }}
  #           arch: 'arm64'
  #           desc: '${{ env.DESC }}'
-  PackageOnUbuntu-x86_64:
-    runs-on: ubuntu-latest
-    container: swiftlang/swift:nightly-5.3-focal
-    steps:
-      - uses: actions/checkout@v2
-      - name: Build and Package
-        env:
-          TAG: ${{ github.event.release.tag_name }}
-        run: |
-          swift build -c release --enable-test-discovery --static-swift-stdlib -Xswiftc -static-executable
-          mkdir LFSPointers-$TAG-linux-amd64
-          cp .build/release/LFSPointers LFSPointers-$TAG-linux-amd64
-          tar -czf LFSPointers-$TAG-linux-amd64.tar.gz LFSPointers-$TAG-linux-amd64
-      - name: Create deb and rpm structure
-        run: |
-          mkdir -p .debpkg/usr/bin
-          mkdir -p .rpmpkg/usr/bin
-          cp .build/release/LFSPointers .debpkg/usr/bin/
-          cp .build/release/LFSPointers .rpmpkg/usr/bin/
-      - uses: jiro4989/build-deb-action@v2
-        with:
-          package: ${{ env.APP_NAME }}
-          package_root: .debpkg
-          maintainer: ${{ env.MAINTAINER }}
-          version: ${{ github.ref }}
-          arch: 'amd64'
-          desc: '${{ env.DESC }}'
-      - name: Upload Binaries
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: LFSPointers-${{ github.event.release.tag_name }}-linux-amd64.tar.gz
-          asset_name: LFSPointers-${{ github.event.release.tag_name }}-linux-amd64.tar.gz
-          tag: ${{ github.ref }}
-          overwrite: true
-          body: ""
-      - name: Upload Deb
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./*.deb
-          tag: ${{ github.ref }}
-          overwrite: true
-          body: ""
-          file_glob: true
+ PackageOnUbuntu-x86_64:
+      runs-on: ubuntu-latest
+      container: swiftlang/swift:nightly-5.3-focal
+      steps:
+        - uses: actions/checkout@v2
+        - name: Build and Package
+          env:
+            TAG: ${{ github.event.release.tag_name }}
+          run: |
+            swift build -c release --enable-test-discovery --static-swift-stdlib -Xswiftc -static-executable
+            rm LFSPointers
+            cp .build/release/LFSPointers .
+            mkdir LFSPointers-$TAG-linux-amd64
+            cp .build/release/LFSPointers LFSPointers-$TAG-linux-amd64
+            tar -czf LFSPointers-$TAG-linux-amd64.tar.gz LFSPointers-$TAG-linux-amd64
+        - uses: kentik/pkg@v1.0.0-rc6
+          with:
+            name: LFSPointers
+            version: ${{ github.event.release.tag_name }}
+            arch: x86_64
+            format: deb
+            package: package.yaml
+        - uses: kentik/pkg@v1.0.0-rc6
+          with:
+            name: LFSPointers
+            version: ${{ github.event.release.tag_name }}
+            arch: x86_64
+            format: rpm
+            package: package.yaml
+        - name: Upload Deb
+          uses: svenstaro/upload-release-action@v2
+          with:
+            repo_token: ${{ secrets.GITHUB_TOKEN }}
+            file: ./*.deb
+            tag: ${{ github.ref }}
+            overwrite: true
+            body: ""
+            file_glob: true
+        - name: Upload RPM
+          uses: svenstaro/upload-release-action@v2
+          with:
+            repo_token: ${{ secrets.GITHUB_TOKEN }}
+            file: ./*.rpm
+            tag: ${{ github.ref }}
+            overwrite: true
+            body: ""
+            file_glob: true
 
