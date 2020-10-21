@@ -1,5 +1,7 @@
 ##  (2020-10-21)
 
+* Fix uploadAssets.yml ([2be7938](https://github.com/LebJe/LFSPointers/commit/2be7938))
+* Update CHANGELOG.md ([2782f1c](https://github.com/LebJe/LFSPointers/commit/2782f1c))
 
 
 
@@ -390,5 +392,6 @@
 
 * 0.0.1 ([44c0d08](https://github.com/LebJe/LFSPointers/commit/44c0d08))
 * Initial Commit ([9e165e9](https://github.com/LebJe/LFSPointers/commit/9e165e9))
+
 
 
