@@ -1,7 +1,8 @@
 name: Build, Package, and Upload
 
 on:
-  - release
+  release:
+    types: [published, created, released]
 
 jobs:
   PackageOnMacOS-x86_64:
