@@ -1,2 +1,2 @@
 # Todo
-- [ ] Build binaries for Linux when [Swift can build a statically linked executable](https://bugs.swift.org/browse/SR-648).
+- [x] Build binaries for Linux when [Swift can build a statically linked executable](https://bugs.swift.org/browse/SR-648).
