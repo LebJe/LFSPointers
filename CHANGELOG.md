@@ -1,10 +1,19 @@
-##  (2020-10-14)
+##  (2020-10-21)
 
+
+
+
+## <small>1.0.8 (2020-10-21)</small>
+
+* Build RPM and generate hashes when packaging. ([0262ca6](https://github.com/LebJe/LFSPointers/commit/0262ca6))
 * Fix “PackageOnUbuntu-ARM” ([d7aa74b](https://github.com/LebJe/LFSPointers/commit/d7aa74b))
 * Remove unnecessary `echo` statements ([bbc76c0](https://github.com/LebJe/LFSPointers/commit/bbc76c0))
+* Update Changelog ([8ab14e1](https://github.com/LebJe/LFSPointers/commit/8ab14e1))
 * Update help text. ([d438913](https://github.com/LebJe/LFSPointers/commit/d438913))
 * Update README, and use Docker container to build release assets. ([0bf40af](https://github.com/LebJe/LFSPointers/commit/0bf40af))
+* Update TODO.md ([6c5bd19](https://github.com/LebJe/LFSPointers/commit/6c5bd19))
 * Use Docker image when testing on Linux, and remove unnecessary scripts ([7669a23](https://github.com/LebJe/LFSPointers/commit/7669a23))
+* Use kentik/pkg. ([2b1ce1f](https://github.com/LebJe/LFSPointers/commit/2b1ce1f))
 * Use SwiftDoc 1.0.0-beta.5 ([937648a](https://github.com/LebJe/LFSPointers/commit/937648a))
 
 
