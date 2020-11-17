@@ -70,25 +70,25 @@ If you are on Ubuntu 16.04, 18.04, 20.04, or CentOS 8, you can build `LFSPointer
 ##### Ubuntu 16.04
 
 ```bash
-$ docker run --rm -v $(pwd):/src -w /src swift:5.3-xenial swift build -c release
+$ docker run --rm -v $(pwd):/src -w /src swift:xenial swift build -c release
 ````
 
 ##### Ubuntu 18.04
 
 ```bash
-$ docker run --rm -v $(pwd):/src -w /src swift:5.3-bionic swift build -c release
+$ docker run --rm -v $(pwd):/src -w /src swift:bionic swift build -c release
 ````
 
 ##### Ubuntu 20.04
 
 ```bash
-$ docker run --rm -v $(pwd):/src -w /src swift:5.3-focal swift build -c release
+$ docker run --rm -v $(pwd):/src -w /src swift:focal swift build -c release
 ````
 
 ##### CentOS 8
 
 ```bash
-$ docker run --rm -v $(pwd):/src -w /src swift:5.3-centos8 swift build -c release
+$ docker run --rm -v $(pwd):/src -w /src swift:centos8 swift build -c release
 ````
 
 Then run `mv .build/release/LFSPointers .` to move the binary to your current
@@ -100,7 +100,7 @@ directory.
 If you don’t or can’t use Docker, you can [Install Swift](#Install-Swift), then run:
 
 ```bash
-$ swift build -c release && cp .build/release/LFSPointers /usr/local/bin
+$ swift build -c release && sudo cp .build/release/LFSPointers /usr/local/bin
 ```
 
 this will build the program, then copy it into `/usr/local/bin`.
@@ -108,8 +108,6 @@ this will build the program, then copy it into `/usr/local/bin`.
 ### From GitHub Release
 
 Simply download the release asset. The binary is statically linked, so there is no need to install additional software.
-
-Currently you can't download a pre-built binary for a Linux machine using the `aarch64` architecture, since Swift 5.3 hasn’t been released.
 
 ### Setup Shell Completions
 
@@ -443,6 +441,6 @@ More information at [https://github.com/futurejones/swift-arm64](https://github.
 
 ```bash
 $ curl -s https://packagecloud.io/install/repositories/swift-arm/release/script.deb.sh | sudo bash
-sudo apt install swift-lang
+sudo apt install swiftlang
 ```
 
