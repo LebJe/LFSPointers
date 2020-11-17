@@ -21,15 +21,15 @@ jobs:
           run: |
             export DEBIAN_FRONTEND=noninteractive
             apt update -q
-            apt install -q -y curl sudo
+            apt install -yq curl sudo
             curl -s https://packagecloud.io/install/repositories/swift-arm/release/script.deb.sh | sudo bash
-            apt install -q -y swift-lang
-            apt update -q -y
+            apt install -yq swiftlang
+            apt update -yq
             swift test
 
   TestOnUbuntu-x86_64:
     runs-on: ubuntu-latest
-    container: swift:5.3-focal
+    container: swift:latest
     steps:
       - uses: actions/checkout@v2
       - name: Run tests

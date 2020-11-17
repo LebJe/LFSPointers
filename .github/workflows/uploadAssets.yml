@@ -31,71 +31,96 @@ jobs:
           tag: ${{ github.ref }}
           overwrite: true
           body: ""
-# Swift 5.3 Developer Snapshots aren't available yet.
-  # PackageOnUbuntu-ARM:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - uses: uraimo/run-on-arch-action@v1.1.0
-  #       id: build-and-package
-  #       env:
-  #         TAG: ${{ github.event.release.tag_name }}
-  #       with:
-  #         architecture: aarch64
-  #         distribution: ubuntu20.04
-  #         githubToken: ${{ secrets.GITHUB_TOKEN }}
-  #         run: |
-  #           export DEBIAN_FRONTEND=noninteractive
-  #           apt update -q
-  #           apt install -q -y curl sudo
-  #           curl -s https://packagecloud.io/install/repositories/swift-arm/release/script.deb.sh | sudo bash
-  #           apt update -q -y
-  #           apt install -q -y swift-lang
-  #           swift build -c release --enable-test-discovery
-  #           rm -f LFSPointers
-  #           cp .build/release/LFSPointers .
-  #           mkdir LFSPointers-$TAG-linux-arm64
-  #           cp .build/release/LFSPointers LFSPointers-$TAG-linux-arm64
-  #           tar -czf LFSPointers-${{ github.event.release.tag_name }}-linux-arm64.tar.gz LFSPointers-$TAG-linux-arm64
-  #     - name: SetEnv
-  #       run: |
-  #         export SHA256=$(cat LFSPointers-$TAG-linux-arm64.tar.gz | shasum -a 256 | cut -d " " -f 1)
-  #         echo "LINUX_AARCH64_SHA=$SHA256" >> $GITHUB_ENV
-  #     - name: Upload Binaries
-  #       uses: svenstaro/upload-release-action@v2
-  #       with:
-  #         repo_token: ${{ secrets.GITHUB_TOKEN }}
-  #         file: LFSPointers-${{ github.event.release.tag_name }}-linux-arm64.tar.gz
-  #         file: LFSPointers-${{ github.event.release.tag_name }}-linux-arm64.tar.gz
-  #         asset_name: LFSPointers-${{ github.event.release.tag_name }}-linux-arm64.tar.gz
-  #         tag: ${{ github.ref }}
-  #         overwrite: true
-  #         body: ""
-  #     - uses: kentik/pkg@v1.0.0-rc6
-  #       with:
-  #         name: LFSPointers
-  #         version: ${{ github.event.release.tag_name }}
-  #         arch: aarch64
-  #         format: deb
-  #         package: package.yaml
-  #     - name: Hash Deb
-  #       env:
-  #         TAG: ${{ github.event.release.tag_name }}
-  #       run: |
-  #         export SHA256="$(cat LFSPointers_$TAG-arm64.deb | shasum -a 256 | cut -d " " -f 1)"
-  #         echo "LINUX_AARCH64_SHA-DEB=$SHA256" >> $GITHUB_ENV
-  #     - name: Upload Deb
-  #       uses: svenstaro/upload-release-action@v2
-  #       with:
-  #         repo_token: ${{ secrets.GITHUB_TOKEN }}
-  #         file: ./*.deb
-  #         tag: ${{ github.ref }}
-  #         overwrite: true
-  #         body: ""
-  #         file_glob: true
+  PackageOnUbuntu-ARM:
+    runs-on: ubuntu-latest
+    outputs:
+      LINUX_AARCH64_SHA: ${{ steps.setEnv.outputs.LINUX_AARCH64_SHA }}
+      LINUX_AARCH64_SHA-DEB: ${{ steps.hashDEB.outputs.LINUX_AARCH64_SHA-DEB }}
+      LINUX_AARCH64_SHA-RPM: ${{ steps.hashDEB.outputs.LINUX_AARCH64_SHA-RPM }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: uraimo/run-on-arch-action@v2.0.7
+        id: build-and-package
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+        with:
+          architecture: aarch64
+          distribution: ubuntu20.04
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          env: |
+            TAG: ${{ github.event.release.tag_name }}
+          run: |
+            export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true
+            apt update -q && apt upgrade -yq
+            apt install -yq curl
+            curl -s https://packagecloud.io/install/repositories/swift-arm/release/script.deb.sh | bash
+            apt install -yq swiftlang
+            swift build -c release --enable-test-discovery --static-swift-stdlib -Xswiftc -static-executable
+            cp .build/release/LFSPointers .
+            mkdir LFSPointers-$TAG-linux-arm64
+            cp .build/release/LFSPointers LFSPointers-$TAG-linux-arm64
+            tar -czf LFSPointers-${{ github.event.release.tag_name }}-linux-arm64.tar.gz LFSPointers-$TAG-linux-arm64
+      - name: SetEnv
+        id: setEnv
+        run: |
+          export SHA256="$(cat LFSPointers-$TAG-linux-arm64.tar.gz | shasum -a 256 | cut -d " " -f 1)"
+          echo "::set-output name=LINUX_AARCH64_SHA::$SHA256"
+      - name: Upload Binaries
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: LFSPointers-${{ github.event.release.tag_name }}-linux-arm64.tar.gz
+          asset_name: LFSPointers-${{ github.event.release.tag_name }}-linux-arm64.tar.gz
+          tag: ${{ github.ref }}
+          overwrite: true
+          body: ""
+      - uses: kentik/pkg@v1.0.0-rc6
+        with:
+          name: LFSPointers
+          version: ${{ github.event.release.tag_name }}
+          arch: aarch64
+          format: deb
+          package: package.yaml
+      - uses: kentik/pkg@v1.0.0-rc6
+        with:
+          name: LFSPointers
+          version: ${{ github.event.release.tag_name }}
+          arch: aarch64
+          format: rpm
+          package: package.yaml
+      - name: Hash Deb and RPM
+        id: hashDEB
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          # DEB
+          export SHA256="$(cat LFSPointers_$TAG-1_arm64.deb | shasum -a 256 | cut -d " " -f 1)"
+          echo "::set-output name=LINUX_AARCH64_SHA-DEB::$SHA256"
+          
+          # RPM
+          export SHA256="$(cat LFSPointers-$TAG-1.aarch64.rpm | shasum -a 256 | cut -d " " -f 1)"
+          echo "::set-output name=LINUX_AARCH64_SHA-RPM::$SHA256"
+      - name: Upload Deb
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ./*.deb
+          tag: ${{ github.ref }}
+          overwrite: true
+          body: ""
+          file_glob: true
+      - name: Upload RPM
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ./*.rpm
+          tag: ${{ github.ref }}
+          overwrite: true
+          body: ""
+          file_glob: true
   PackageOnUbuntu-x86_64:
     runs-on: ubuntu-latest
-    container: swiftlang/swift:nightly-5.3-focal
+    container: swift:latest
     outputs:
       SHA-TAR: ${{ steps.build-and-package.outputs.SHA-TAR }}
       SHA-DEB: ${{ steps.hashDeb.outputs.SHA-DEB }}
@@ -108,7 +133,6 @@ jobs:
           TAG: ${{ github.event.release.tag_name }}
         run: |
           swift build -c release --enable-test-discovery --static-swift-stdlib -Xswiftc -static-executable
-          rm -f LFSPointers
           cp .build/release/LFSPointers .
           mkdir LFSPointers-$TAG-linux-amd64
           cp .build/release/LFSPointers LFSPointers-$TAG-linux-amd64
@@ -156,9 +180,17 @@ jobs:
           overwrite: true
           body: ""
           file_glob: true
-
+      - name: Upload Binaries
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: LFSPointers-${{ github.event.release.tag_name }}-linux-amd64.tar.gz
+          asset_name: LFSPointers-${{ github.event.release.tag_name }}-linux-amd64.tar.gz
+          tag: ${{ github.ref }}
+          overwrite: true
+          body: ""
   UpdateRelease:
-    needs: [PackageOnMacOS-x86_64, PackageOnUbuntu-x86_64]
+    needs: [PackageOnMacOS-x86_64, PackageOnUbuntu-x86_64, PackageOnUbuntu-ARM]
     runs-on: ubuntu-latest
     steps:
       - name: Add SHA256
@@ -192,3 +224,22 @@ jobs:
             ```
             ${{ needs.PackageOnUbuntu-x86_64.outputs.SHA-RPM }}
             ```
+            
+            LFSPointers-${{ github.event.release.tag_name }}-linux-arm64.tar.gz
+
+            ```
+            ${{ needs.PackageOnUbuntu-ARM.outputs.LINUX_AARCH64_SHA }}
+            ```
+            
+            LFSPointers_${{ github.event.release.tag_name }}-1_arm64.deb
+
+            ```
+            ${{ needs.PackageOnUbuntu-ARM.outputs.LINUX_AARCH64_SHA-DEB }}
+            ```
+
+            LFSPointers-${{ github.event.release.tag_name }}-1.aarch64.rpm
+
+            ```
+            ${{ needs.PackageOnUbuntu-ARM.outputs.LINUX_AARCH64_SHA-RPM }}
+            ```
+            
