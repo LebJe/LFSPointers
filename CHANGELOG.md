@@ -1,7 +1,13 @@
-##  (2020-10-21)
+##  (2020-11-17)
 
+* Add CHANGELOG generator ([add29cf](https://github.com/LebJe/LFSPointers/commit/add29cf))
 * Fix uploadAssets.yml ([2be7938](https://github.com/LebJe/LFSPointers/commit/2be7938))
 * Update CHANGELOG.md ([2782f1c](https://github.com/LebJe/LFSPointers/commit/2782f1c))
+* Update documentation generation. ([82f08fc](https://github.com/LebJe/LFSPointers/commit/82f08fc))
+* Update README ([c393f5e](https://github.com/LebJe/LFSPointers/commit/c393f5e))
+* Use `swift:latest` docker image ([7f73af6](https://github.com/LebJe/LFSPointers/commit/7f73af6))
+* Use master branch of SwiftDoc. ([6f6c0c8](https://github.com/LebJe/LFSPointers/commit/6f6c0c8))
+* Use Ubuntu 20.04 AArch64 for testing. ([60ac47f](https://github.com/LebJe/LFSPointers/commit/60ac47f))
 
 
 
