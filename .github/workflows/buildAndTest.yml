@@ -14,10 +14,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: uraimo/run-on-arch-action@v1.1.0
+      - uses: uraimo/run-on-arch-action@v2.0.7
         with:
           architecture: aarch64
-          distribution: ubuntu18.04
+          distribution: ubuntu20.04
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
           run: |
             export DEBIAN_FRONTEND=noninteractive
             apt update -q
