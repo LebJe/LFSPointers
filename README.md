@@ -187,6 +187,12 @@ public struct LFSPointer {
 
 	/// The size of the converted file.
 	public let size: Int
+
+	/// The name of the file.
+	public let filename: String
+
+	/// The full path of the file.
+	public let filePath: String
 	
 	/// String representation of this pointer.
 	public var stringRep: String {
@@ -217,7 +223,7 @@ The search types available are:
 .all
 ```
 
-That function returns an array of `LFSPointers`.
+That function returns an array of `LFSPointer`s.
 
 #### Writing Pointers
 After you generate a pointer, write it to a file using:

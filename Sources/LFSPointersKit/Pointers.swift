@@ -39,7 +39,7 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 	/// The size of the converted file.
 	public let size: Int
 
-	/// The filename of the file.
+	/// The name of the file.
 	public let filename: String
 
 	/// The full path of the file.
