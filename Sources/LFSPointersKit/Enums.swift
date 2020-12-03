@@ -11,7 +11,7 @@ import Foundation
 public enum SearchTypes {
 	
 	/// Searches for all files that match any of the filenames in the array.
-	case fileNames([String])
+	case fileNames([URL])
 	
 	/// Searches for all files whose name matches the regular expression.
 	case regex(NSRegularExpression)
@@ -25,5 +25,5 @@ public enum Status {
 	case writing(LFSPointer),
 		 appending(LFSPointer),
 		 generating, error(Error),
-		 regexDosentMatch(NSRegularExpression)
+		 regexDoesntMatch(NSRegularExpression)
 }

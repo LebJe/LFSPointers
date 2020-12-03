@@ -7,22 +7,18 @@ import LFSPointersKit
 let jsonStructure = """
 [
 	{
+		"version": "https://git-lfs.github.com/spec/v1",
+		"oid": "10b2cd328e193dd4b81d921dbe91bda74bda704c37bca43f1e15f41fcd20ac2a",
+		"size": 1455,
 		"filename": "foo.txt",
-		"filePath": "/path/to/foo.txt",
-		"pointer": {
-			"version": "https://git-lfs.github.com/spec/v1",
-			"oid": "10b2cd328e193dd4b81d921dbe91bda74bda704c37bca43f1e15f41fcd20ac2a",
-			"size": 1455
-		}
+		"filePath": "/path/to/foo.txt"
 	},
 	{
+		"version": "https://git-lfs.github.com/spec/v1",
+		"oid": "601952b2d85214ea602104a4784728ffa6b323b3a6131a124044fa5bfc2f7bf2",
+		"size": 1285200,
 		"filename": "bar.txt",
-		"filePath": "/path/to/bar.txt",
-		"pointer": {
-			"version": "https://git-lfs.github.com/spec/v1",
-			"oid": "601952b2d85214ea602104a4784728ffa6b323b3a6131a124044fa5bfc2f7bf2",
-			"size": 1285200
-		}
+		"filePath": "/path/to/bar.txt"
 	}
 ]
 """
@@ -36,7 +32,7 @@ struct LFSPointersCommand: ParsableCommand {
 		commandName: "LFSPointers",
 		abstract: "Replaces large files in a Git repository directory with Git LFS pointers.",
 		discussion: "JSON STRUCTURE:\n\(jsonStructure)",
-		version: "1.0.0"
+		version: "2.0.0"
 	)
 	
 	@Flag(name: .shortAndLong, help: "Whether to display verbose output.")
@@ -68,7 +64,7 @@ struct LFSPointersCommand: ParsableCommand {
 
 	@Option(
 		name: .shortAndLong,
-		help: "The directory files will be copied to before being processed. Will be created if it does not exist. If no directory is specified, no files will be copied.",
+		help: "The directory files will be copied to before being processed. If no directory is specified, no files will be copied.",
 		completion: .directory,
 		transform: URL.init(fileURLWithPath:)
 	)
@@ -82,7 +78,7 @@ struct LFSPointersCommand: ParsableCommand {
 	var directory: URL
 	
 	@Argument(
-		help: "A list of filenames that represent files to be converted. You can use your shell's regular expression support to pass in a list of files.",
+		help: "A list of paths to files, relative to the current directory, that represent files to be converted. You can use your shell's regular expression support to pass in a list of files.",
 		completion: .file()
 	)
 	var files: [String] = []
@@ -91,6 +87,14 @@ struct LFSPointersCommand: ParsableCommand {
 		// Verify the directory actually exists.
 		guard FileManager().fileExists(atPath: directory.path) else {
 			throw ValidationError("Directory does not exist at \"\(directory.path)\".".red)
+		}
+
+		if !files.isEmpty {
+			for file in files {
+				guard Folder.current.containsFile(at: file) == true || Folder.current.containsSubfolder(at: file) else {
+					throw ValidationError("File does not exist at \"\(file)\".".red)
+				}
+			}
 		}
 	}
 	
@@ -146,7 +150,7 @@ struct LFSPointersCommand: ParsableCommand {
 					} else if !silent {
 						print("Converting \"\(file.name)\" to pointer...\n")
 					}
-				case let .regexDosentMatch(regex):
+				case let .regexDoesntMatch(regex):
 					let file = try! File(path: url.path)
 					
 					if !silent && self.verbose {
@@ -166,11 +170,11 @@ struct LFSPointersCommand: ParsableCommand {
 		do {
 
 			if all {
-				print("Are you sure? [Y\\N] ")
+				print("Are you sure? [Y(es)\\N(o)] ")
 				let answer = readLine() ?? ""
 
 				switch answer.lowercased() {
-					case "y":
+					case "y", "yes":
 						break
 					default:
 						Foundation.exit(0)
@@ -214,11 +218,11 @@ struct LFSPointersCommand: ParsableCommand {
 				)
 				
 				if !json {
-					pointers.forEach({ jsonPointer in
+					pointers.forEach({ p in
 						
 						do {
-							try jsonPointer.pointer.write(
-								toFile: URL(fileURLWithPath: jsonPointer.filePath),
+							try p.write(
+								toFile: URL(fileURLWithPath: p.filePath),
 								withNewline: newline,
 								statusClosure: printClosure
 							)
@@ -226,36 +230,44 @@ struct LFSPointersCommand: ParsableCommand {
 							if !silent {
 
 								if self.color {
-									fputs("Unable to overwrite file \"\(jsonPointer.filename)\". Check the file permissions and check that the file exists.".red, stderr)
+									fputs("Unable to overwrite file \"\(p.filename)\". Check the file permissions and check that the file exists.".red, stderr)
 								} else {
-									fputs("Unable to overwrite file \"\(jsonPointer.filename)\". Check the file permissions and check that the file exists.", stderr)
+									fputs("Unable to overwrite file \"\(p.filename)\". Check the file permissions and check that the file exists.", stderr)
 								}
 							}
 						} catch let error {
 							if !silent {
-								fputs("Unable to overwrite file \"\(jsonPointer.filename)\". Error: \(error)", stderr)
+								fputs("Unable to overwrite file \"\(p.filename)\". Error: \(error)", stderr)
 							}
 						}
 						
 					})
 				} else {
-					print(toJSON(array: pointers, jsonFormat: jsonFormat == .compact ? .init() : .prettyPrinted))
+					do {
+						print(String(data: try pointers.toJSON(inFormat: jsonFormat == .compact ? .init() : .prettyPrinted), encoding: .utf8) ?? "{\"error\": \"Failed to generate JSON\"}")
+					} catch {
+						if !silent {
+							fputs("Unable to generate JSON. Error: \(error)", stderr)
+						}
+					}
 				}
 
 			} else {
+				let urls = files.map({ URL.init(string: $0)! })
+
 				let pointers = try LFSPointer.pointers(
 					forDirectory: directory,
-					searchType: .fileNames(files),
+					searchType: .fileNames(urls),
 					recursive: recursive,
 					statusClosure: printClosure
 				)
 				
 				if !json {
-					pointers.forEach({ jsonPointer in
+					pointers.forEach({ p in
 						
 						do {
-							try jsonPointer.pointer.write(
-								toFile: URL(fileURLWithPath: jsonPointer.filePath),
+							try p.write(
+								toFile: URL(fileURLWithPath: p.filePath),
 								withNewline: newline,
 								statusClosure: printClosure
 							)
@@ -263,21 +275,27 @@ struct LFSPointersCommand: ParsableCommand {
 							if !silent {
 
 								if self.color {
-									fputs("Unable to overwrite file \"\(jsonPointer.filename)\". Check the file permissions and check that the file exists.".red, stderr)
+									fputs("Unable to overwrite file \"\(p.filename)\". Check the file permissions and check that the file exists.".red, stderr)
 								} else {
-									fputs("Unable to overwrite file \"\(jsonPointer.filename)\". Check the file permissions and check that the file exists.", stderr)
+									fputs("Unable to overwrite file \"\(p.filename)\". Check the file permissions and check that the file exists.", stderr)
 								}
 
 							}
 						} catch let error {
 							if !silent {
-								fputs("Unable to overwrite file \"\(jsonPointer.filename)\". Error: \(error)", stderr)
+								fputs("Unable to overwrite file \"\(p.filename)\". Error: \(error)", stderr)
 							}
 						}
 						
 					})
 				} else {
-					print(toJSON(array: pointers, jsonFormat: jsonFormat == .compact ? .init() : .prettyPrinted))
+					do {
+						print(String(data: try pointers.toJSON(inFormat: jsonFormat == .compact ? .init() : .prettyPrinted), encoding: .utf8) ?? "{\"error\": \"Failed to generate JSON\"}")
+					} catch {
+						if !silent {
+							fputs("Unable to generate JSON. Error: \(error)", stderr)
+						}
+					}
 				}
 
 			}

@@ -36,10 +36,10 @@ final class LFSPointersTests: XCTestCase {
 		XCTAssertEqual(2, pointers.count)
 		
 		// Try writing the pointer to "foo.txt".
-		try pointers[0].pointer.write(toFile: fooFile.url, shouldAppend: false)
+		try pointers[0].write(toFile: fooFile.url, shouldAppend: false)
 		
 		// Try writing the pointer to "recursive/bar.txt".
-		try pointers[1].pointer.write(toFile: barFile.url, shouldAppend: false)
+		try pointers[1].write(toFile: barFile.url, shouldAppend: false)
 		
 		// Restore the contents of "foo.txt".
 		try foo.write(to: fooFile.url, atomically: false, encoding: .utf8)
@@ -68,15 +68,15 @@ final class LFSPointersTests: XCTestCase {
 	}
 	
 	func testSearchTypeFilenames() throws {
-		let filenames = ["bar.txt"]
+		let filenames = [try! resources.file(at: "recursive/bar.txt")]
 		
 		// Get a list of pointers.
-		let pointers = try LFSPointer.pointers(forDirectory: resources.url, searchType: .fileNames(filenames), recursive: true)
+		let pointers = try LFSPointer.pointers(forDirectory: resources.url, searchType: .fileNames(filenames.map({ $0.url })), recursive: true)
 		
 		// Make sure there are two pointers.
 		XCTAssertEqual(pointers.count, 1)
 		
-		XCTAssertEqual(pointers[0].filename, filenames[0])
+		XCTAssertEqual(pointers[0].filename, filenames[0].name)
 	}
 	
 	func testLFSPointerIsEquatable() throws {

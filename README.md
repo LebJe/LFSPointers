@@ -217,15 +217,7 @@ The search types available are:
 .all
 ```
 
-This returns an array of `JSONPointer` that each contain the filename, file path, and `LFSPointer`: 
-
-```swift
-public struct JSONPointer: Codable {
-	public let filename: String
-	public let filePath: String
-	public let pointer: LFSPointer
-}
-```
+That function returns an array of `LFSPointers`.
 
 #### Writing Pointers
 After you generate a pointer, write it to a file using:
@@ -240,14 +232,14 @@ To convert a pointer to JSON:
 
 ```swift
 let pointer = try LFSPointer(...)
-let json = pointer.json
+try JSONEncoder().encode(pointer)
 ```
 
 and to convert an array of tuples consisting of filename, file path, and pointer:
 
 ```swift
 let pointers = try LFSPointer.pointers(...)
-toJSON(array: pointers)
+pointers.toJSON()
 ```
 
 The JSON for the `LFSPointer` array will be structured as shown [here](#json-structure-for-lfspointer-array), and the JSON for the single `LFSPointer` will be structured as shown [here](#json-structure-for-single-lfspointer).
@@ -256,20 +248,20 @@ The JSON for the `LFSPointer` array will be structured as shown [here](#json-str
 Let's imagine you have a directory of large `png` and `jpg` files called `Project Logos`. If you wanted to convert the files with the extension `png` to LFS pointers, you could run 
 
 ```bash
-$ LFSPointers path/to/Project\ Logos *.png
+$ LFSPointers path/to/Project\ Logos path/to/Project\ Logos/*.png
 ```
 
 . The first argument is the path to the directory, and the second argument is a regular expression used to search for `png` files that your shell will convert to a list of filenames.\
 But wait! It's not safe to run random programs on your computer! To backup your files just in case something goes wrong, add `-b path/to/backup-directory` to the previous command, like this:
 
 ```bash
-$ LFSPointers -b path/to/backup-directory path/to/Project\ Logos *.png
+$ LFSPointers -b path/to/backup-directory path/to/Project\ Logos path/to/Project\ Logos/*.png
 ```
 
 If you want to generate JSON output instead, do:
 
 ```bash
-$ LFSPointers --json path/to/Project\ Logos *.png
+$ LFSPointers --json path/to/Project\ Logos path/to/Project\ Logos/*.png
 ```
 
 The JSON will be structured as shown [here](#json-structure-for-lfspointer-array).
@@ -279,6 +271,7 @@ The JSON will be structured as shown [here](#json-structure-for-lfspointer-array
 - [Files](https://github.com/JohnSundell/Files)
 - [Rainbow](https://github.com/onevcat/Rainbow)
 - [Swift Argument Parser](https://github.com/apple/swift-argument-parser)
+- [CryptoSwift](https://github.com/krzyzanowskim/CryptoSwift)
 
 ## More Information
 Run `$ LFSPointers --help`.
@@ -286,7 +279,7 @@ Run `$ LFSPointers --help`.
 ## Tested Platforms
 
 ### Mac
-Tested on MacOS 10.15, using Swift 5.2.
+Tested on MacOS 10.15 and 11, using Swift 5.2.
 ### Linux
 Tested on Ubuntu 18.04 (`x86_64` and `aarch64`), also using Swift 5.2.
 ## iOS, watchOS, tvOS
@@ -297,22 +290,18 @@ These platforms have not been tested on yet, although, at the time of writing th
 ```json
 [
 	{
+		"version": "https://git-lfs.github.com/spec/v1",
+		"oid": "10b2cd328e193dd4b81d921dbe91bda74bda704c37bca43f1e15f41fcd20ac2a",
+		"size": 1455,
 		"filename": "foo.txt",
-		"filePath": "/path/to/foo.txt",
-		"pointer": {
-			"version": "https://git-lfs.github.com/spec/v1",
-			"oid": "10b2cd328e193dd4b81d921dbe91bda74bda704c37bca43f1e15f41fcd20ac2a",
-			"size": 1455
-		}
+		"filePath": "/path/to/foo.txt"
 	},
 	{
+		"version": "https://git-lfs.github.com/spec/v1",
+		"oid": "601952b2d85214ea602104a4784728ffa6b323b3a6131a124044fa5bfc2f7bf2",
+		"size": 1285200,
 		"filename": "bar.txt",
-		"filePath": "/path/to/bar.txt",
-		"pointer": {
-			"version": "https://git-lfs.github.com/spec/v1",
-			"oid": "601952b2d85214ea602104a4784728ffa6b323b3a6131a124044fa5bfc2f7bf2",
-			"size": 1285200
-		}
+		"filePath": "/path/to/bar.txt"
 	}
 ]
 ```
@@ -323,7 +312,9 @@ These platforms have not been tested on yet, although, at the time of writing th
 {
 	"version": "https://git-lfs.github.com/spec/v1",
 	"oid": "10b2cd328e193dd4b81d921dbe91bda74bda704c37bca43f1e15f41fcd20ac2a",
-	"size": 1455
+	"size": 1455,
+	"filename": "foo.txt",
+	"filePath": "/path/to/foo.txt"
 }
 ```
 
@@ -331,111 +322,16 @@ These platforms have not been tested on yet, although, at the time of writing th
 
 ## Install [Swift](https://swift.org/download/)
 
-More information at [https://swift.org/download/](https://swift.org/download/).
+[Download Swift](https://swift.org/download/), then follow the instructions for your platform:
 
-### MacOS
-
-Install [Xcode](https://apps.apple.com/us/app/xcode/id497799835?mt=12), or:
-
-```bash
-$ sudo xcode-select --install
-```
-
-
-
-### Linux (`x86_64`)
-
-#### Ubuntu 20.04
-
-```bash
-$ # Install Dependencies
-apt install \
-          binutils \
-          git \
-          gnupg2 \
-          libc6-dev \
-          libcurl4 \
-          libedit2 \
-          libgcc-9-dev \
-          libpython2.7 \
-          libsqlite3-0 \
-          libstdc++-9-dev \
-          libxml2 \
-          libz3-dev \
-          pkg-config \
-          tzdata \
-          zlib1g-dev
-# Download Swift
-wget https://swift.org/builds/swift-5.2.5-release/ubuntu2004/swift-5.2.5-RELEASE/swift-5.2.5-RELEASE-ubuntu20.04.tar.gz
-
-tar -zxvf swift-5.2.5-RELEASE-ubuntu20.04.tar.gz
-
-export PATH="$HOME/swift-5.2.5-RELEASE-ubuntu20.04/usr/bin:$PATH"
-```
-
-
-
-#### Ubuntu 18.04
-
-```bash
-$ # Install Dependencies
-apt install \
-          binutils \
-          git \
-          libc6-dev \
-          libcurl4 \
-          libedit2 \
-          libgcc-5-dev \
-          libpython2.7 \
-          libsqlite3-0 \
-          libstdc++-5-dev \
-          libxml2 \
-          pkg-config \
-          tzdata \
-          zlib1g-dev
-# Download Swift
-wget https://swift.org/builds/swift-5.2.5-release/ubuntu1804/swift-5.2.5-RELEASE/swift-5.2.5-RELEASE-ubuntu18.04.tar.gz
-
-tar -zxvf swift-5.2.5-RELEASE-ubuntu18.04.tar.gz
-
-export PATH="$HOME/swift-5.2.5-RELEASE-ubuntu18.04.tar.gz/usr/bin:$PATH"
-```
-
-
-
-#### Ubuntu 16.04
-
-```bash
-$ # Install Dependencies
-apt install \
-          binutils \
-          git \
-          libc6-dev \
-          libcurl3 \
-          libedit2 \
-          libgcc-5-dev \
-          libpython2.7 \
-          libsqlite3-0 \
-          libstdc++-5-dev \
-          libxml2 \
-          pkg-config \
-          tzdata \
-          zlib1g-dev
-# Download Swift
-wget https://swift.org/builds/swift-5.2.5-release/ubuntu1604/swift-5.2.5-RELEASE/swift-5.2.5-RELEASE-ubuntu16.04.tar.gz
-
-tar -zxvf swift-5.2.5-RELEASE-ubuntu16.04.tar.gz
-
-export PATH="$HOME/swift-5.2.5-RELEASE-ubuntu16.04.tar.gz/usr/bin:$PATH"
-```
-
-
-
+- [Mac](https://swift.org/download/#apple-platforms)
+- [Linux](https://swift.org/download/#linux)
+- [Windows](https://swift.org/download/#windows)
 
 
 ### Linux (`aarch64`)
 
-More information at [https://github.com/futurejones/swift-arm64](https://github.com/futurejones/swift-arm64)
+More information at [swift-arm64](https://github.com/futurejones/swift-arm64).
 
 #### Ubuntu
 

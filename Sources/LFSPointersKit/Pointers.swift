@@ -11,15 +11,21 @@ import CryptoSwift
 
 /// Represents a Git LFS pointer for a file.
 ///
-/// The pointer "Git LFS pointer for file.txt
-/// version https://git-lfs.github.com/spec/v1
-/// oid sha256:10b2cd328e193dd4b81d921dbe91bda74bda704c37bca43f1e15f41fcd20ac2a
-/// size 1455", would look like this:
+/// The pointer
 ///
 /// ```
-/// let pointer = LFSPointer(
+/// Git LFS pointer for file.txt
+/// version https://git-lfs.github.com/spec/v1
+/// oid sha256:10b2cd328e193dd4b81d921dbe91bda74bda704c37bca43f1e15f41fcd20ac2a
+/// size 1455
+/// ```
+/// would look like this:
+///
+/// ```
+/// let pointer = try LFSPointer(
 /// 	version: "https://git-lfs.github.com/spec/v1",
-///  	oid: "10b2cd328e193dd4b81d921dbe91bda74bda704c37bca43f1e15f41fcd20ac2a", size: 1455
+///  	oid: "10b2cd328e193dd4b81d921dbe91bda74bda704c37bca43f1e15f41fcd20ac2a",
+///  	size: 1455
 /// )
 ///
 /// ```
@@ -32,6 +38,12 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 	
 	/// The size of the converted file.
 	public let size: Int
+
+	/// The filename of the file.
+	public let filename: String
+
+	/// The full path of the file.
+	public let filePath: String
 	
 	/// String representation of this pointer.
 	public var stringRep: String {
@@ -44,16 +56,8 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 		try container.encode(self.version, forKey: .version)
 		try container.encode(self.oid, forKey: .oid)
 		try container.encode(self.size, forKey: .size)
-	}
-	
-	var json: String {
-		"""
-		{
-			"version": "\(self.version)",
-			"oid": "\(self.oid)",
-			"size": \(self.size)
-		}
-		"""
+		try container.encode(self.filename, forKey: .filename)
+		try container.encode(self.filePath, forKey: .filePath)
 	}
 	
 	/// Initializes `self` from a file.
@@ -69,7 +73,10 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 		
 		let attr = try FileManager.default.attributesOfItem(atPath: file.path)
 		
-		self.size = attr[.size] as! Int
+		self.size = (attr[.size] as? Int) ?? 0
+
+		self.filename = file.name
+		self.filePath = file.path
 	}
 	
 	/// Iterates over all files in a directory (excluding hidden files), and generates a LFS pointer for each one.
@@ -80,39 +87,41 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 	///   - printOutput: Whether output should be printed.
 	///   - printVerboseOutput: Whether verbose output should be printed.
 	///   - statusClosure: Use this closure to determine the status of this function. It will be passed the `URL` of the file or folder being operated on, as well as an enum representing the status of this function.
-	/// - Throws: `GitLFSError` if an error occurred while generating pointers, or `LocationError` if the directory path is invalid.
-	/// - Returns: An array of tuples that contain the filename, file path, and `LFSPointer`.
+	/// - Throws: `LocationError` if the directory path is invalid.
+	/// - Returns: An array of `LFSPointer`.
 	public static func pointers(
 		forDirectory directory: URL,
 		searchType type: SearchTypes,
 		recursive: Bool = false,
 		statusClosure status: ((URL, Status) -> Void)? = nil
-	) throws -> [JSONPointer] {
-		var pointers: [JSONPointer] = []
+	) throws -> [LFSPointer] {
+		var pointers: [LFSPointer] = []
 		
 		let folder = try Folder(path: directory.path)
 		
 		if recursive {
 			switch type {
 				case .fileNames(let fileNames):
+					var files: [File] = []
+
+					for file in fileNames {
+						if let f = (try? File(path: file.path)) {
+							files.append(f)
+						}
+					}
+
 					let folder = try Folder(path: directory.path)
 					
 					let folderNames = folder.files.recursive.names()
 					
-					for name in fileNames {
-						if folderNames.contains(name) {
-							let file = folder.files.recursive.first(where: { file in
-								file.name == name
-							})!
-							
-							if status != nil { status!(file.url, .generating) }
+					for f in files {
+						if folderNames.contains(f.name) {
+							if status != nil { status!(f.url, .generating) }
 							
 							do {
-								let pointer = try self.init(fromFile: file.url)
-								
-								pointers.append(JSONPointer(filename: file.name, filePath: file.path, pointer: pointer))
+								pointers.append(try self.init(fromFile: f.url))
 							} catch let error {
-								if status != nil { status!(file.url, .error(error)) }
+								if status != nil { status!(f.url, .error(error)) }
 								
 								throw error
 							}
@@ -126,10 +135,7 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 							if status != nil { status!(file.url, .generating) }
 						
 							do {
-								let pointer = try self.init(fromFile: file.url)
-								
-								pointers.append(JSONPointer(filename: file.name, filePath: file.path, pointer: pointer))
-								
+								pointers.append(try self.init(fromFile: file.url))
 							} catch let error {
 								if status != nil { status!(file.url, .error(error)) }
 								
@@ -137,7 +143,7 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 							}
 							
 						} else {
-							if status != nil { status!(file.url, .regexDosentMatch(regex)) }
+							if status != nil { status!(file.url, .regexDoesntMatch(regex)) }
 						}
 					})
 				case .all:
@@ -145,11 +151,7 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 						if status != nil { status!(file.url, .generating) }
 						
 						do {
-							
-							let pointer = try self.init(fromFile: file.url)
-							
-							pointers.append(JSONPointer(filename: file.name, filePath: file.path, pointer: pointer))
-							
+							pointers.append(try self.init(fromFile: file.url))
 						} catch let error {
 							if status != nil { status!(file.url, .error(error)) }
 							
@@ -161,18 +163,22 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 		} else {
 			switch type {
 				case .fileNames(let fileNames):
-					for name in fileNames {
-						if folder.containsFile(named: name) {
-							let file = try folder.file(named: name)
-							
-							if status != nil { status!(file.url, .generating) }
+					var files: [File] = []
+
+					for file in fileNames {
+						if let f = (try? File(path: file.path)) {
+							files.append(f)
+						}
+					}
+
+					for f in files {
+						if folder.containsFile(named: f.name) {
+							if status != nil { status!(f.url, .generating) }
 							
 							do {
-								let pointer = try self.init(fromFile: file.url)
-								
-								pointers.append(JSONPointer(filename: file.name, filePath: file.path, pointer: pointer))
+								pointers.append(try self.init(fromFile: f.url))
 							} catch let error {
-								if status != nil { status!(file.url, .error(error)) }
+								if status != nil { status!(f.url, .error(error)) }
 								
 								throw error
 							}
@@ -186,16 +192,14 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 							do {
 								if status != nil { status!(file.url, .generating) }
 								
-								let pointer = try self.init(fromFile: file.url)
-								
-								pointers.append(JSONPointer(filename: file.name, filePath: file.path, pointer: pointer))
+								pointers.append(try self.init(fromFile: file.url))
 							} catch let error {
 								if status != nil { status!(file.url, .error(error)) }
 								
 								throw error
 							}
 						} else {
-							if status != nil { status!(file.url, .regexDosentMatch(regex)) }
+							if status != nil { status!(file.url, .regexDoesntMatch(regex)) }
 						}
 				}
 				case .all:
@@ -203,10 +207,7 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 						do {
 							if status != nil { status!(file.url, .generating) }
 							
-							let pointer = try self.init(fromFile: file.url)
-							
-							pointers.append(JSONPointer(filename: file.name, filePath: file.path, pointer: pointer))
-							
+							pointers.append(try self.init(fromFile: file.url))
 						} catch let error {
 							if status != nil { status!(file.url, .error(error)) }
 							
@@ -248,7 +249,7 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 	}
 	
 	enum CodingKeys: String, CodingKey {
-		case version, oid, size
+		case version, oid, size, filename, filePath
 	}
 }
 
@@ -278,4 +279,16 @@ public func toJSON(array: [JSONPointer], jsonFormat: JSONEncoder.OutputFormattin
 	let jsonString = String(data: jsonBytes, encoding: .utf8) ?? ""
 
 	return jsonString
+}
+
+public extension Array where Self.Element == LFSPointer {
+	/// Converts and `Array` of `LFSPointer`s to `JSON`.
+	/// - Parameter jsonFormat: The format of the generated `JSON`.
+	/// - Throws: `EncodingError` when generating `JSON` fails.
+	/// - Returns: `Data` containing the generated `JSON`.
+	func toJSON(inFormat jsonFormat: JSONEncoder.OutputFormatting = .init()) throws -> Data {
+		let encoder = JSONEncoder()
+		encoder.outputFormatting = jsonFormat
+		return try encoder.encode(self)
+	}
 }
