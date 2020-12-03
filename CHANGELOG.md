@@ -1,7 +1,17 @@
-##  (2020-11-17)
+##  (2020-12-03)
+
+* Pin CrytoSwift to 1.3.2 ([73d36f2](https://github.com/LebJe/LFSPointers/commit/73d36f2))
+* Remove binary ([a436094](https://github.com/LebJe/LFSPointers/commit/a436094))
+* Update `LFSPointer` documentation ([a3189f9](https://github.com/LebJe/LFSPointers/commit/a3189f9))
+* Update buildAndTest.yml ([c1ea369](https://github.com/LebJe/LFSPointers/commit/c1ea369))
+
+
+
+## <small>1.0.9 (2020-11-17)</small>
 
 * Add CHANGELOG generator ([add29cf](https://github.com/LebJe/LFSPointers/commit/add29cf))
 * Fix uploadAssets.yml ([2be7938](https://github.com/LebJe/LFSPointers/commit/2be7938))
+* Update Changelog ([582263a](https://github.com/LebJe/LFSPointers/commit/582263a))
 * Update CHANGELOG.md ([2782f1c](https://github.com/LebJe/LFSPointers/commit/2782f1c))
 * Update documentation generation. ([82f08fc](https://github.com/LebJe/LFSPointers/commit/82f08fc))
 * Update README ([c393f5e](https://github.com/LebJe/LFSPointers/commit/c393f5e))
