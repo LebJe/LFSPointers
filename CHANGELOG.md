@@ -1,5 +1,12 @@
-##  (2020-12-03)
+##  (2020-12-04)
 
+
+
+
+## 3.0.0 (2020-12-04)
+
+* Properly compute hashes on Linux by using swift-crypto. ([574157f](https://github.com/LebJe/LFSPointers/commit/574157f))
+* Update CHANGELOG.md ([f90e5a1](https://github.com/LebJe/LFSPointers/commit/f90e5a1))
 
 
 
