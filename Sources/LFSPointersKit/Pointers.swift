@@ -7,7 +7,7 @@
 
 import Foundation
 import Files
-import CryptoSwift
+import Crypto
 
 /// Represents a Git LFS pointer for a file.
 ///
@@ -68,11 +68,25 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 		let file = try File(path: path.path)
 		
 		self.version = "https://git-lfs.github.com/spec/v1"
-		
-		self.oid = try FileHandle(forReadingFrom: file.url).availableData.sha256().toHexString()
+
+		let handle = try FileHandle(forReadingFrom: file.url)
+
+		let readSize = 8192
+		var hasher = SHA256()
+
+		while true {
+			let data = handle.readData(ofLength: readSize)
+			if data.count == 0 {
+				break
+			}
+
+			hasher.update(data: data)
+		}
+
+		self.oid = String(hexEncoding: Data(hasher.finalize()))
 		
 		let attr = try FileManager.default.attributesOfItem(atPath: file.path)
-		
+
 		self.size = (attr[.size] as? Int) ?? 0
 
 		self.filename = file.name
@@ -257,28 +271,6 @@ extension LFSPointer: CustomDebugStringConvertible {
 	public var debugDescription: String {
 		"version \(self.version)\noid sha256:\(self.oid)\nsize \(self.size)"
 	}
-}
-
-public struct JSONPointer: Codable {
-	public let filename: String
-	public let filePath: String
-	public let pointer: LFSPointer
-}
-
-/// Generates a string containing `JSON`.
-/// - Parameter array: No description.
-/// - Returns: A `String` containing `JSON`.
-public func toJSON(array: [JSONPointer], jsonFormat: JSONEncoder.OutputFormatting = .init()) -> String {
-
-	let encoder = JSONEncoder()
-
-	encoder.outputFormatting = jsonFormat
-
-	let jsonBytes = (try? encoder.encode(array)) ?? Data()
-
-	let jsonString = String(data: jsonBytes, encoding: .utf8) ?? ""
-
-	return jsonString
 }
 
 public extension Array where Self.Element == LFSPointer {

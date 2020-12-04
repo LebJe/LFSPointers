@@ -153,7 +153,7 @@ $ LFSPointers --generate-completion-script bash > ~/.bash_completions/LFSPointer
 Add this to the `dependencies` array in `Package.swift`:
 
 ```swift
-.package(url: "https://github.com/LebJe/LFSPointers.git", from: “2.0.0”)
+.package(url: "https://github.com/LebJe/LFSPointers.git", from: “3.0.0”)
 ```
 . Also add this to the `targets` array in the aforementioned file:
 
@@ -241,7 +241,7 @@ let pointer = try LFSPointer(...)
 try JSONEncoder().encode(pointer)
 ```
 
-and to convert an array of tuples consisting of filename, file path, and pointer:
+and to convert an array of `LFSPointer`s:
 
 ```swift
 let pointers = try LFSPointer.pointers(...)
