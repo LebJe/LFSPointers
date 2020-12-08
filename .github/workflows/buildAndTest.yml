@@ -10,7 +10,7 @@ jobs:
       - name: Run tests
         run: swift test
 
-  TestOnUbuntu-ARM:
+  TestOnUbuntu20.04-ARM:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -27,19 +27,46 @@ jobs:
             apt install -yq swiftlang
             apt update -yq
             swift test
+            
+  TestOnUbuntu18.04-ARM:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: uraimo/run-on-arch-action@v2.0.7
+        with:
+          arch: aarch64
+          distro: ubuntu18.04
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          run: |
+            export DEBIAN_FRONTEND=noninteractive
+            apt update -q
+            apt install -yq curl sudo
+            curl -s https://packagecloud.io/install/repositories/swift-arm/release/script.deb.sh | sudo bash
+            apt install -yq swiftlang
+            apt update -yq
+            swift test
 
-  TestOnUbuntu-x86_64:
+  TestOnUbuntu-20.04-x86_64:
     runs-on: ubuntu-latest
     container: swift:latest
     steps:
       - uses: actions/checkout@v2
       - name: Run tests
         run: swift test
+        
+  TestOnUbuntu18.04-x86_64:
+    runs-on: ubuntu-latest
+    container: swift:bionic
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run tests
+        run: swift test
+        
+        
   # Uncomment and update as needed when an Apple Silicon VM is available.
   #TestOnMacOS-ARM:
-  #runs-on: macos-silicon-latest
-  #- uses: actions/checkout@v2
-  #- name: Build
-  #   run: bash Scripts/install.sh
-  # - name: Run tests
-  #   run: bash Scripts/script.sh
+  # runs-on: macos-silicon-latest
+  # steps:
+  #   - uses: actions/checkout@v2
+  #   - name: Run tests
+  #     run: swift test
