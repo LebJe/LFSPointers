@@ -10,7 +10,7 @@ jobs:
       - name: Run tests
         run: swift test
 
-  TestOnUbuntu20.04-ARM:
+  TestOnUbuntu20-04-ARM:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -28,7 +28,7 @@ jobs:
             apt update -yq
             swift test
             
-  TestOnUbuntu18.04-ARM:
+  TestOnUbuntu18-04-ARM:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -46,7 +46,7 @@ jobs:
             apt update -yq
             swift test
 
-  TestOnUbuntu-20.04-x86_64:
+  TestOnUbuntu-20-04-x86_64:
     runs-on: ubuntu-latest
     container: swift:latest
     steps:
@@ -54,7 +54,7 @@ jobs:
       - name: Run tests
         run: swift test
         
-  TestOnUbuntu18.04-x86_64:
+  TestOnUbuntu18-04-x86_64:
     runs-on: ubuntu-latest
     container: swift:bionic
     steps:
