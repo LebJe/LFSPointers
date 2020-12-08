@@ -13,7 +13,8 @@ jobs:
          inputs: "Sources"
          module-name: LFSPointersKit
          format: html
-         output: ./.build/documentation    
+         base-url: "https://lebje.github.io/LFSPointers/"
+         output: ./.build/documentation
      - name: Change Permissions
        run: sudo chmod o+r -R ./.build/documentation   
      - name: Deploy to GitHub Pages
