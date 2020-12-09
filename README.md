@@ -37,12 +37,7 @@
 	* [iOS, watchOS, tvOS](#ios-watchos-tvos)
 	* [JSON Structure for LFSPointer Array](#json-structure-for-lfspointer-array)
 	* [JSON Structure for Single LFSPointer](#json-structure-for-single-lfspointer)
-	* [Install <a href="https://swift.org/download/" rel="nofollow">Swift</a>](#install-swift)
-		* [MacOS](#macos)
-		* [Linux (x86_64)](#linux-x86_64)
-			* [Ubuntu 20.04](#ubuntu-2004)
-			* [Ubuntu 18.04](#ubuntu-1804)
-			* [Ubuntu 16.04](#ubuntu-1604)
+	* [Install Swift](#install-swift)
 		* [Linux (aarch64)](#linux-aarch64)
 
 It it recommended that you read the [Git-LFS Homepage](https://git-lfs.github.com) before continuing.
