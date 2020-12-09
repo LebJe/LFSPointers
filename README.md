@@ -248,6 +248,8 @@ pointers.toJSON()
 The JSON for the `LFSPointer` array will be structured as shown [here](#json-structure-for-lfspointer-array), and the JSON for the single `LFSPointer` will be structured as shown [here](#json-structure-for-single-lfspointer).
 
 ### Command Line
+If you want to use [the Docker image](https://github.com/users/LebJe/packages/container/package/lfs-pointers), prefix all the following commands with: `docker run --rm -v $(pwd):/src -w /src ghcr.io/lebje/lfs-pointers:latest <command>`
+
 Let's imagine you have a directory of large `png` and `jpg` files called `Project Logos`. If you wanted to convert the files with the extension `png` to LFS pointers, you could run 
 
 ```bash
