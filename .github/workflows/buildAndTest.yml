@@ -61,7 +61,7 @@ jobs:
       - name: Run tests
         run: swift test
         
-  TestOnUbuntu18_04_x86_64:
+  TestOnUbuntu18_04-x86_64:
     runs-on: ubuntu-latest
     container: swift:bionic
     steps:
