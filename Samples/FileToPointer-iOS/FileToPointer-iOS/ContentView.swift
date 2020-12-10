@@ -27,7 +27,9 @@ struct ContentView: View {
 			
 			Button("Generate Pointer") {
 				let pointer = try! LFSPointer(fromFile: Bundle.main.url(forResource: ContentView.files[self.selection], withExtension: "txt")!)
+
 				
+
 				self.version = pointer.version
 				self.hash = pointer.oid
 				self.size = String(pointer.size)

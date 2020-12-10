@@ -42,7 +42,9 @@ struct ContentView: View {
 						DispatchQueue.global(qos: .utility).async {
 							do {
 								let pointer = try LFSPointer(fromFile: url)
-								self.text = pointer.stringRep
+								let encoder = JSONEncoder()
+								encoder.outputFormatting = .prettyPrinted
+								self.text = String(data: try encoder.encode(pointer), encoding: .utf8)!
 							} catch let error {
 								print(error)
 								self.showAlert.toggle()

@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "LFSPointers",
-	platforms: [.macOS(.v10_15)],
+	platforms: [.macOS(.v10_15), .iOS(.v13)],
 	products: [
 		.executable(name: "LFSPointers", targets: ["LFSPointersExecutable"]),
 		.library(name: "LFSPointersKit", targets: ["LFSPointersKit"])
