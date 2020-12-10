@@ -32,7 +32,7 @@ jobs:
           overwrite: true
           body: ""
           
-  PackageOnMacOS-ARM64:
+  PackageOnMacOSForARM64:
     runs-on: macos-latest
     outputs:
       SHA-ARM64: ${{ steps.build-and-package.outputs.SHA-ARM64 }}
@@ -246,7 +246,7 @@ jobs:
             ghcr.io/lebje/lfs-pointers:${{ github.event.release.tag_name }}
           
   UpdateRelease:
-    needs: [PackageOnMacOS-x86_64, PackageOnUbuntu-x86_64, PackageOnUbuntu-ARM]
+    needs: [PackageOnMacOS-x86_64, PackageOnMacOSForARM64, PackageOnUbuntu-x86_64, PackageOnUbuntu-ARM]
     runs-on: ubuntu-latest
     steps:
       - name: Add SHA256
@@ -266,7 +266,7 @@ jobs:
             LFSPointers-${{ github.event.release.tag_name }}-macOS-arm64.tar.gz
 
             ```
-            ${{ needs.PackageOnMacOS-x86_64.outputs.SHA-ARM64 }}
+            ${{ needs.PackageOnMacOSForARM64.outputs.SHA-ARM64 }}
             ```
 
             LFSPointers-${{ github.event.release.tag_name }}-linux-amd64.tar.gz
