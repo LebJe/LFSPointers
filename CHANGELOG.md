@@ -1,5 +1,18 @@
-##  (2020-12-04)
+##  (2020-12-10)
 
+* Add Dockerfile, build container on push to main. ([eb1a9f3](https://github.com/LebJe/LFSPointers/commit/eb1a9f3))
+* build container on release. ([5d02fba](https://github.com/LebJe/LFSPointers/commit/5d02fba))
+* Cross-compile for ARM. ([411577a](https://github.com/LebJe/LFSPointers/commit/411577a))
+* Fix buildAndTest.yml ([da1fed2](https://github.com/LebJe/LFSPointers/commit/da1fed2))
+* Fix uploadAssets.yml ([464b1b5](https://github.com/LebJe/LFSPointers/commit/464b1b5))
+* Let swift-crypto work on iOS. ([af4c6c8](https://github.com/LebJe/LFSPointers/commit/af4c6c8))
+* Test on Ubuntu 18.04 (AArch64 and X86-64) ([47df56b](https://github.com/LebJe/LFSPointers/commit/47df56b))
+* Update CHANGELOG.md ([f17f30d](https://github.com/LebJe/LFSPointers/commit/f17f30d))
+* Update generateDocumentation.yml ([54c293a](https://github.com/LebJe/LFSPointers/commit/54c293a))
+* Update README. ([0fc68f7](https://github.com/LebJe/LFSPointers/commit/0fc68f7))
+* Update README. ([a37a3a5](https://github.com/LebJe/LFSPointers/commit/a37a3a5))
+* Update README.md ([d5c717d](https://github.com/LebJe/LFSPointers/commit/d5c717d))
+* Update samples. ([a2df36b](https://github.com/LebJe/LFSPointers/commit/a2df36b))
 
 
 
