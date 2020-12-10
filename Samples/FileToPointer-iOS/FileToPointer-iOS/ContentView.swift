@@ -20,9 +20,8 @@ struct ContentView: View {
 		
 		return VStack {
 			Picker("Select a File", selection: $selection, content: {
-				ForEach(Self.files, id: \.self) {
-					Text($0 + ".txt")
-				}
+				Text("foo" + ".txt").tag(0)
+				Text("bar" + ".txt").tag(1)
 			}).padding()
 			
 			Button("Generate Pointer") {
