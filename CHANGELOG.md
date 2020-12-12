@@ -3,7 +3,9 @@
 * Actually build latest. ([4374e44](https://github.com/LebJe/LFSPointers/commit/4374e44))
 * Update buildAndTest.yml ([cd62657](https://github.com/LebJe/LFSPointers/commit/cd62657))
 * Update installDeb.sh ([3571491](https://github.com/LebJe/LFSPointers/commit/3571491))
+* Update README. ([a990ed1](https://github.com/LebJe/LFSPointers/commit/a990ed1))
 * Update README.md ([a53a8f0](https://github.com/LebJe/LFSPointers/commit/a53a8f0))
+* Update workflows and CHANGELOG. ([573dd9b](https://github.com/LebJe/LFSPointers/commit/573dd9b))
 
 
 
