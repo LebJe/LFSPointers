@@ -20,4 +20,4 @@ FROM ${ARCH}ubuntu:focal
 
 COPY --from=build build/LFSPointers .
 
-RUN export PATH="$(pwd):$PATH"
+RUN cp LFSPointers /usr/bin
