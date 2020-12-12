@@ -92,7 +92,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: ./Dockerfile
+          file: ./Dockerfile.latest
           platforms: linux/amd64,linux/arm64/v8
           push: true
           tags: |
