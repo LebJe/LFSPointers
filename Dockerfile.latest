@@ -1,0 +1,23 @@
+ARG ARCH=
+FROM ${ARCH}ubuntu:focal as build
+
+LABEL maintainer="LebJe"
+LABEL Description="A command line tool and SPM package that allows you to convert a Git repository directory of large files to Git LFS pointers."
+LABEL org.opencontainers.image.source https://github.com/LebJe/LFSPointers
+
+WORKDIR /build
+
+RUN export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true && \
+	apt update -q && \
+	apt upgrade -yq && \
+	apt install -yq curl wget
+
+COPY . .
+
+RUN ./Scripts/buildLatest.sh
+
+FROM ${ARCH}ubuntu:focal
+
+COPY --from=build build/LFSPointers .
+
+RUN export PATH="$(pwd):$PATH"
