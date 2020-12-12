@@ -104,8 +104,6 @@ this will build the program, then copy it into `/usr/local/bin`.
 
 Simply download the release asset. The binary is statically linked, so there is no need to install additional software.
 
-If you are using an `AArch64` CPU, then you will have to [compile](#manually) `LFSPointers` from source.
-
 ### Setup Shell Completions
 
 #### ZSH
