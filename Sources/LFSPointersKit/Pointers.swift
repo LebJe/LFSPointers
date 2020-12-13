@@ -88,7 +88,7 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 		
 		try handle.close()
 
-		self.size = file.path.withCString({ findSize(UnsafeMutablePointer(mutating: $0)) })
+		self.size = file.path.withCString({ getFileSize(UnsafeMutablePointer(mutating: $0)) })
 
 		self.filename = file.name
 		self.filePath = file.path

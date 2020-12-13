@@ -8,11 +8,12 @@
 #include "include/FileSize/FileSize.h"
 #include <stdio.h>
 
-long int findSize(char file_name[]) {
-	// opening the file in read mode
-	FILE* fp = fopen(file_name, "r");
+// From https://www.geeksforgeeks.org/c-program-find-size-file/
+/// Gets the size of `file_name`.
+/// @param file_name the name of the file to get the size from.
+long int getFileSize(char filename[]) {
+	FILE* fp = fopen(filename, "r");
 
-	// checking if the file exist or not
 	if (fp == NULL) {
 		printf("File Not Found!\n");
 		return -1;
@@ -20,10 +21,8 @@ long int findSize(char file_name[]) {
 
 	fseek(fp, 0L, SEEK_END);
 
-	// calculating the size of the file
 	long int res = ftell(fp);
 
-	// closing the file
 	fclose(fp);
 
 	return res;
