@@ -8,7 +8,6 @@
 import Foundation
 import Files
 import Crypto
-import FileSize
 
 /// Represents a Git LFS pointer for a file.
 ///
@@ -88,7 +87,13 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 		
 		try handle.close()
 
-		self.size = file.path.withCString({ getFileSize(UnsafeMutablePointer(mutating: $0)) })
+		let fp = fopen(file.path, "r")
+
+		fseek(fp, 0, SEEK_END)
+
+		self.size = ftell(fp)
+
+		fclose(fp)
 
 		self.filename = file.name
 		self.filePath = file.path
