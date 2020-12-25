@@ -1,10 +1,15 @@
-##  (2020-12-12)
+##  (2020-12-25)
 
 * Actually build latest. ([4374e44](https://github.com/LebJe/LFSPointers/commit/4374e44))
+* Add Release Process ([9451d8c](https://github.com/LebJe/LFSPointers/commit/9451d8c))
+* Rewrite file size code in Swift ([e7c03e8](https://github.com/LebJe/LFSPointers/commit/e7c03e8))
 * Update buildAndTest.yml ([cd62657](https://github.com/LebJe/LFSPointers/commit/cd62657))
+* Update CHANGELOG. ([674962a](https://github.com/LebJe/LFSPointers/commit/674962a))
+* Update FileSize ([a00e5d7](https://github.com/LebJe/LFSPointers/commit/a00e5d7))
 * Update installDeb.sh ([3571491](https://github.com/LebJe/LFSPointers/commit/3571491))
 * Update README. ([a990ed1](https://github.com/LebJe/LFSPointers/commit/a990ed1))
 * Update README.md ([a53a8f0](https://github.com/LebJe/LFSPointers/commit/a53a8f0))
+* Update uploadAssets.yml ([791ddd6](https://github.com/LebJe/LFSPointers/commit/791ddd6))
 * Update workflows and CHANGELOG. ([573dd9b](https://github.com/LebJe/LFSPointers/commit/573dd9b))
 
 
