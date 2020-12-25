@@ -84,6 +84,8 @@ jobs:
             apt install -yq swiftlang
             swift build -c release --enable-test-discovery --static-swift-stdlib -Xswiftc -static-executable
             cp .build/release/LFSPointers .
+            ./LFSPointers --generate-completion-script zsh > _LFSPointers
+            ./LFSPointers --generate-completion-script bash > LFSPointers.bash
             mkdir LFSPointers-$TAG-linux-arm64
             cp .build/release/LFSPointers LFSPointers-$TAG-linux-arm64
             tar -czf LFSPointers-${{ github.event.release.tag_name }}-linux-arm64.tar.gz LFSPointers-$TAG-linux-arm64
@@ -161,6 +163,8 @@ jobs:
         run: |
           swift build -c release --enable-test-discovery --static-swift-stdlib -Xswiftc -static-executable
           cp .build/release/LFSPointers .
+          ./LFSPointers --generate-completion-script zsh > _LFSPointers
+          ./LFSPointers --generate-completion-script bash > LFSPointers.bash
           mkdir LFSPointers-$TAG-linux-amd64
           cp .build/release/LFSPointers LFSPointers-$TAG-linux-amd64
           tar -czf LFSPointers-$TAG-linux-amd64.tar.gz LFSPointers-$TAG-linux-amd64

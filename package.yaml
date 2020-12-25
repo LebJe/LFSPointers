@@ -6,3 +6,7 @@ files:
   "/usr/bin/LFSPointers":
     file: LFSPointers
     mode: "0755"
+  "/etc/bash_completion.d/LFSPointers.bash":
+    file: LFSPointers.bash
+  "/usr/share/zsh/site-functions/_LFSPointers":
+    file: _LFSPointers

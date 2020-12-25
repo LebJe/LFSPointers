@@ -1,8 +1,15 @@
-import Foundation
+//
+//  main.swift
+//
+//
+//  Created by Jeff Lebrun on 0/00/20.
+//
+
 import ArgumentParser
-import Rainbow
 import Files
+import Foundation
 import LFSPointersKit
+import Rainbow
 
 let jsonStructure = """
 [
@@ -34,16 +41,16 @@ struct LFSPointersCommand: ParsableCommand {
 		discussion: "JSON STRUCTURE:\n\(jsonStructure)",
 		version: "3.0.0"
 	)
-	
+
 	@Flag(name: .shortAndLong, help: "Whether to display verbose output.")
 	var verbose: Bool = false
-	
+
 	@Flag(name: .customLong("silent"), help: "Don't print to standard output or standard error.")
 	var s: Bool = false
-	
+
 	@Flag(name: .shortAndLong, help: "Repeat this process in all directories.")
 	var recursive: Bool = false
-	
+
 	@Flag(name: .shortAndLong, help: "Convert all files to pointers (USE WITH CAUTION!).")
 	var all: Bool = false
 	
@@ -69,20 +76,20 @@ struct LFSPointersCommand: ParsableCommand {
 		transform: URL.init(fileURLWithPath:)
 	)
 	var backupDirectory: URL? = nil
-	
+
 	@Argument(
 		help: "The directory which contains the files you want to convert to LFS pointers.",
 		completion: .directory,
 		transform: URL.init(fileURLWithPath:)
 	)
 	var directory: URL
-	
+
 	@Argument(
 		help: "A list of paths to files, relative to the current directory, that represent files to be converted. You can use your shell's regular expression support to pass in a list of files.",
 		completion: .file()
 	)
 	var files: [String] = []
-	
+
 	mutating func validate() throws {
 		// Verify the directory actually exists.
 		guard FileManager().fileExists(atPath: directory.path) else {
@@ -97,22 +104,22 @@ struct LFSPointersCommand: ParsableCommand {
 			}
 		}
 	}
-	
+
 	func run() throws {
 		var silent = false
-		
+
 		if s {
 			silent = true
 		}
-		
+
 		if json {
 			silent = true
 		}
-		
+
 		if !color {
 			Rainbow.enabled = false
 		}
-		
+
 		let printClosure: (URL, Status) -> Void = { url, status in
 			switch status {
 				case let .appending(pointer):
@@ -122,17 +129,17 @@ struct LFSPointersCommand: ParsableCommand {
 					} else if !silent {
 						print("Appending pointer to file \"\(file.name)\"...")
 				}
-				
+
 				case let .error(error):
 					let file = try! File(path: url.path)
-					
+
 					if self.verbose && !silent {
 						if self.color {
 							fputs("Could not convert \"\(file.name)\" to a pointer.\n Git LFS error: \(error)\n".red, stderr)
 						} else {
 							fputs("Could not convert \"\(file.name)\" to a pointer.\n Git LFS error: \(error)\n", stderr)
 						}
-						
+
 					} else if !silent {
 						if self.color {
 							fputs("Could not convert \"\(file.name)\" to a pointer.".red, stderr)
@@ -141,10 +148,10 @@ struct LFSPointersCommand: ParsableCommand {
 						}
 					}
 				break
-				
+
 				case .generating:
 					let file = try! File(path: url.path)
-					
+
 					if !silent && self.verbose {
 						print("Converting \"\(file.name)\" to pointer...\n")
 					} else if !silent {
@@ -152,11 +159,11 @@ struct LFSPointersCommand: ParsableCommand {
 					}
 				case let .regexDoesntMatch(regex):
 					let file = try! File(path: url.path)
-					
+
 					if !silent && self.verbose {
 						print("File name \"\(file.name)\" does not match regular expression \"\(regex.pattern)\", continuing...")
 					}
-				
+
 				case let .writing(pointer):
 					let file = try! File(path: url.path)
 					if self.verbose && !silent {
@@ -166,7 +173,7 @@ struct LFSPointersCommand: ParsableCommand {
 					}
 			}
 		}
-		
+
 		do {
 
 			if all {
@@ -180,13 +187,13 @@ struct LFSPointersCommand: ParsableCommand {
 						Foundation.exit(0)
 				}
 			}
-			
+
 			if let bd = backupDirectory {
 				do {
 					if !silent {
 						print("Copying files to backup directory...")
 					}
-					
+
 					// Copy the specified directory into the backup directory.
 					try Folder(path: directory.path).copy(to: Folder(path: bd.path))
 				} catch {
@@ -204,11 +211,11 @@ struct LFSPointersCommand: ParsableCommand {
 							)
 						}
 					}
-					
+
 					Foundation.exit(4)
 				}
 			}
-			
+
 			if all {
 				let pointers = try LFSPointer.pointers(
 					forDirectory: directory,
@@ -216,10 +223,10 @@ struct LFSPointersCommand: ParsableCommand {
 					recursive: recursive,
 					statusClosure: printClosure
 				)
-				
+
 				if !json {
 					pointers.forEach({ p in
-						
+
 						do {
 							try p.write(
 								toFile: URL(fileURLWithPath: p.filePath),
@@ -240,7 +247,7 @@ struct LFSPointersCommand: ParsableCommand {
 								fputs("Unable to overwrite file \"\(p.filename)\". Error: \(error)", stderr)
 							}
 						}
-						
+
 					})
 				} else {
 					do {
@@ -261,10 +268,10 @@ struct LFSPointersCommand: ParsableCommand {
 					recursive: recursive,
 					statusClosure: printClosure
 				)
-				
+
 				if !json {
 					pointers.forEach({ p in
-						
+
 						do {
 							try p.write(
 								toFile: URL(fileURLWithPath: p.filePath),
@@ -286,7 +293,7 @@ struct LFSPointersCommand: ParsableCommand {
 								fputs("Unable to overwrite file \"\(p.filename)\". Error: \(error)", stderr)
 							}
 						}
-						
+
 					})
 				} else {
 					do {
@@ -299,7 +306,7 @@ struct LFSPointersCommand: ParsableCommand {
 				}
 
 			}
-			
+
 		} catch let error {
 			if !silent {
 
@@ -310,10 +317,10 @@ struct LFSPointersCommand: ParsableCommand {
 				}
 
 			}
-			
+
 			Foundation.exit(2)
 		}
-		
+
 		if !silent {
 
 			if self.color {
