@@ -1,5 +1,11 @@
 ##  (2020-12-25)
 
+* Updte Changelog ([e9c44d4](https://github.com/LebJe/LFSPointers/commit/e9c44d4))
+
+
+
+## <small>3.0.2 (2020-12-25)</small>
+
 * Actually build latest. ([4374e44](https://github.com/LebJe/LFSPointers/commit/4374e44))
 * Add Release Process ([9451d8c](https://github.com/LebJe/LFSPointers/commit/9451d8c))
 * Rewrite file size code in Swift ([e7c03e8](https://github.com/LebJe/LFSPointers/commit/e7c03e8))
