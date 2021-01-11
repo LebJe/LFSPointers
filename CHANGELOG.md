@@ -1,5 +1,7 @@
-##  (2020-12-25)
+##  (2021-01-11)
 
+* Update Changelog ([4e67a91](https://github.com/LebJe/LFSPointers/commit/4e67a91))
+* Update README. ([75a0528](https://github.com/LebJe/LFSPointers/commit/75a0528))
 * Updte Changelog ([e9c44d4](https://github.com/LebJe/LFSPointers/commit/e9c44d4))
 
 
