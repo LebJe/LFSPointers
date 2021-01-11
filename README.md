@@ -1,6 +1,6 @@
 # LFS Pointers
 
-<p align="center"><strong>A command line tool and SPM package that allows you to convert a Git repository directory of large files to Git LFS pointers.</strong></p>
+**A command line tool and SPM package that allows you to convert a Git repository directory of large files to Git LFS pointers.**
 
 [![Swift 5.2](https://img.shields.io/badge/Swift-5.2-brightgreen.svg)](https://swift.org)
 [![SPM Compatible](https://img.shields.io/badge/SPM-compatible-brightgreen.svg)](https://swift.org/package-manager)
@@ -9,37 +9,47 @@
 [![Build and Test](https://github.com/LebJe/LFSPointers/workflows/Build%20and%20Test/badge.svg)](https://github.com/LebJe/LFSPointers/actions)
 ![Build Container](https://github.com/LebJe/LFSPointers/workflows/Build%20Container/badge.svg)
 
-* [LFS Pointers](#lfs-pointers)
-	* [Install Program](#install-program)
-		* [<a href="https://github.com/yonaskolb/mint">Mint</a>](#mint)
-		* [<a href="https://brew.sh" rel="nofollow">Homebrew</a>](#homebrew)
-		* [Manually](#manually)
-			* [From GitHub Release](#from-github-release)
-		* [Setup Shell Completions](#setup-shell-completions)
-			* [ZSH](#zsh)
-			* [Oh My ZSH](#oh-my-zsh)
-			* [Without Oh My ZSH](#without-oh-my-zsh)
-			* [Bash](#bash)
-	* [Install Library](#install-library)
-		* [Swift Package Manager](#swift-package-manager)
-	* [Usage](#usage)
-		* [Library](#library)
-			* [Import](#import)
-			* [File Conversion](#file-conversion)
-			* [Folder Conversion](#folder-conversion)
-			* [Writing Pointers](#writing-pointers)
-			* [Generating JSON](#generating-json)
-		* [Command Line](#command-line)
-	* [Dependencies](#dependencies)
-	* [More Information](#more-information)
-	* [Tested Platforms](#tested-platforms)
-		* [Mac](#mac)
-	* [Linux](#linux)
-	* [iOS, watchOS, tvOS](#ios-watchos-tvos)
-	* [JSON Structure for LFSPointer Array](#json-structure-for-lfspointer-array)
-	* [JSON Structure for Single LFSPointer](#json-structure-for-single-lfspointer)
-	* [Install Swift](#install-swift)
-		* [Linux (aarch64)](#linux-aarch64)
+   * [LFS Pointers](#lfs-pointers)
+      * [Install Program](#install-program)
+         * [Mint](#mint)
+         * [Homebrew](#homebrew)
+         * [From DEB Or RPM](#from-deb-or-rpm)
+            * [DEB](#deb)
+            * [RPM](#rpm)
+         * [Manually](#manually)
+            * [With Docker](#with-docker)
+               * [Ubuntu 16.04](#ubuntu-1604)
+               * [Ubuntu 18.04](#ubuntu-1804)
+               * [Ubuntu 20.04](#ubuntu-2004)
+               * [CentOS 8](#centos-8)
+            * [Without Docker](#without-docker)
+         * [From GitHub Release](#from-github-release)
+         * [Setup Shell Completions](#setup-shell-completions)
+            * [ZSH](#zsh)
+               * [Oh My ZSH](#oh-my-zsh)
+               * [Without Oh My ZSH](#without-oh-my-zsh)
+            * [Bash](#bash)
+      * [Install Library](#install-library)
+         * [Swift Package Manager](#swift-package-manager)
+      * [Usage](#usage)
+         * [Library](#library)
+            * [Import](#import)
+            * [File Conversion](#file-conversion)
+            * [Folder Conversion](#folder-conversion)
+            * [Writing Pointers](#writing-pointers)
+            * [Generating JSON](#generating-json)
+         * [Command Line](#command-line)
+      * [Dependencies](#dependencies)
+      * [More Information](#more-information)
+      * [Tested Platforms](#tested-platforms)
+         * [Mac](#mac)
+         * [Linux](#linux)
+      * [iOS, watchOS, tvOS](#ios-watchos-tvos)
+      * [JSON Structure for LFSPointer Array](#json-structure-for-lfspointer-array)
+      * [JSON Structure for Single LFSPointer](#json-structure-for-single-lfspointer)
+      * [Install Swift](#install-swift)
+         * [Linux (aarch64)](#linux-aarch64)
+            * [Ubuntu](#ubuntu)
 
 It it recommended that you read the [Git-LFS Homepage](https://git-lfs.github.com) before continuing.
 
@@ -56,6 +66,25 @@ then run:
 
 ```
 $ brew install LebJe/formulae/lfs-pointers
+```
+
+### From DEB Or RPM
+
+#### DEB
+
+```bash
+curl -s https://packagecloud.io/install/repositories/LebJe/LFSPointers/script.deb.sh > script.sh
+chmod +x script.sh
+sudo os=ubuntu dist=focal ./script.sh
+sudo apt install lfspointers
+```
+
+#### RPM
+
+```bash
+curl -s https://packagecloud.io/install/repositories/LebJe/LFSPointers/script.rpm.sh > script.sh && chmod +x script.sh
+sudo os=fedora dist=32 ./script.sh
+sudo yum install LFSPointers
 ```
 
 ### Manually
