@@ -23,6 +23,7 @@ public enum SearchTypes {
 public enum Status {
 	case writing(LFSPointer),
 		 appending(LFSPointer),
-		 generating, error(Error),
+		 generating, 
+		 error(Error),
 		 regexDoesntMatch(NSRegularExpression)
 }

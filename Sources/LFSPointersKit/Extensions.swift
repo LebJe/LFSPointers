@@ -12,7 +12,7 @@ public extension NSRegularExpression {
 	///
 	/// - Returns: `true` if the `String` matches, otherwise, `false`.
 	func matches(_ string: String) -> Bool {
-		firstMatch(in: string, options: [], range: NSRange(location: 0, length: string.utf16.count)) != nil
+		self.firstMatch(in: string, options: [], range: NSRange(location: 0, length: string.utf16.count)) != nil
 	}
 }
 

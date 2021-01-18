@@ -6,8 +6,8 @@
 [![SPM Compatible](https://img.shields.io/badge/SPM-compatible-brightgreen.svg)](https://swift.org/package-manager)
 [![https://img.shields.io/badge/Platforms-MacOS%20%7C%20Linux-lightgrey](https://img.shields.io/badge/Platforms-MacOS%20%7C%20Linux-lightgrey)](https://img.shields.io/badge/Platforms-MacOS%20%7C%20Linux-lightgrey)
 [![](https://img.shields.io/github/v/tag/LebJe/LFSPointers)](https://github.com/LebJe/LFSPointers/releases)
-[![Build and Test](https://github.com/LebJe/LFSPointers/workflows/Build%20and%20Test/badge.svg)](https://github.com/LebJe/LFSPointers/actions)
-![Build Container](https://github.com/LebJe/LFSPointers/workflows/Build%20Container/badge.svg)
+[![Build and Test](https://github.com/LebJe/LFSPointers/workflows/Build%20and%20Test/badge.svg)](https://github.com/LebJe/LFSPointers/actions?query=workflow%3A%22Build+and+Test%22)
+[![Build Container](https://github.com/LebJe/LFSPointers/workflows/Build%20Container/badge.svg)](https://github.com/LebJe/LFSPointers/actions?query=workflow%3A%22Build+Container%22)
 
    * [LFS Pointers](#lfs-pointers)
       * [Install Program](#install-program)
