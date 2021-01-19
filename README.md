@@ -1,8 +1,8 @@
 # LFS Pointers
 
-**A command line tool and SPM package that allows you to convert a Git repository directory of large files to Git LFS pointers.**
+**A Swift library and CLI that allows you to convert a Git repository directory of large files to Git LFS pointers.**
 
-[![Swift 5.2](https://img.shields.io/badge/Swift-5.2-brightgreen.svg)](https://swift.org)
+[![Swift 5.2](https://img.shields.io/badge/Swift-5.3-brightgreen?logo=swift)](https://swift.org)
 [![SPM Compatible](https://img.shields.io/badge/SPM-compatible-brightgreen.svg)](https://swift.org/package-manager)
 [![https://img.shields.io/badge/Platforms-MacOS%20%7C%20Linux-lightgrey](https://img.shields.io/badge/Platforms-MacOS%20%7C%20Linux-lightgrey)](https://img.shields.io/badge/Platforms-MacOS%20%7C%20Linux-lightgrey)
 [![](https://img.shields.io/github/v/tag/LebJe/LFSPointers)](https://github.com/LebJe/LFSPointers/releases)
