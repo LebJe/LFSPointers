@@ -95,25 +95,25 @@ If you are on Ubuntu 16.04, 18.04, 20.04, or CentOS 8, you can build `LFSPointer
 ##### Ubuntu 16.04
 
 ```bash
-$ docker run --rm -v $(pwd):/src -w /src swift:xenial swift build -c release
+$ docker run --rm -v $(pwd):/src -w /src swift:xenial swift build -c release --enable-test-discovery --static-swift-stdlib -Xswiftc -static-executable
 ````
 
 ##### Ubuntu 18.04
 
 ```bash
-$ docker run --rm -v $(pwd):/src -w /src swift:bionic swift build -c release
+$ docker run --rm -v $(pwd):/src -w /src swift:bionic swift build -c release --enable-test-discovery --static-swift-stdlib -Xswiftc -static-executable
 ````
 
 ##### Ubuntu 20.04
 
 ```bash
-$ docker run --rm -v $(pwd):/src -w /src swift:focal swift build -c release
+$ docker run --rm -v $(pwd):/src -w /src swift:focal swift build -c release --enable-test-discovery --static-swift-stdlib -Xswiftc -static-executable
 ````
 
 ##### CentOS 8
 
 ```bash
-$ docker run --rm -v $(pwd):/src -w /src swift:centos8 swift build -c release
+$ docker run --rm -v $(pwd):/src -w /src swift:centos8 swift build -c release --enable-test-discovery --static-swift-stdlib -Xswiftc -static-executable
 ````
 
 Then run `mv .build/release/LFSPointers .` to move the binary to your current
