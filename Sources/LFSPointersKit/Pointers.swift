@@ -53,7 +53,7 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 	}
 
 	public func encode(to encoder: Encoder) throws {
-		var container = encoder.container(keyedBy: CodingKeys.self)
+		var container = encoder.container(keyedBy: Self.CodingKeys.self)
 
 		try container.encode(self.version, forKey: .version)
 		try container.encode(self.oid, forKey: .oid)
