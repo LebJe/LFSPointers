@@ -22,13 +22,12 @@ import Foundation
 /// would look like this:
 ///
 /// ```
-/// let pointer = try LFSPointer(
-/// 	version: "https://git-lfs.github.com/spec/v1",
-///  	oid: "10b2cd328e193dd4b81d921dbe91bda74bda704c37bca43f1e15f41fcd20ac2a",
-///  	size: 1455
-/// )
-///
+/// let pointer = try LFSPointer(fromFile: URL(fileURLWithPath: "file.txt"))
+/// pointer.oid // 10b2cd328e193dd4b81d921dbe91bda74bda704c37bca43f1e15f41fcd20ac2a
+/// pointer.size // 1455
+/// pointer.version // https://git-lfs.github.com/spec/v1
 /// ```
+///
 public struct LFSPointer: Codable, Equatable, Hashable {
 	/// The version of the pointer.
 	///
