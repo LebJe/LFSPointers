@@ -53,10 +53,10 @@ struct LFSPointersCommand: ParsableCommand {
 
 	@Flag(name: .shortAndLong, help: "Convert all files to pointers (USE WITH CAUTION!).")
 	var all: Bool = false
-	
+
 	@Flag(name: .long, help: "Sends JSON to standard output. The JSON is structured as shown above. This will automatically enable --silent.")
 	var json: Bool = false
-	
+
 	@Flag(name: .long, inversion: .prefixedEnableDisable, help: "Whether to send colorized output to the terminal or not.")
 	var color: Bool = true
 
@@ -92,12 +92,12 @@ struct LFSPointersCommand: ParsableCommand {
 
 	mutating func validate() throws {
 		// Verify the directory actually exists.
-		guard FileManager().fileExists(atPath: directory.path) else {
-			throw ValidationError("Directory does not exist at \"\(directory.path)\".".red)
+		guard FileManager().fileExists(atPath: self.directory.path) else {
+			throw ValidationError("Directory does not exist at \"\(self.directory.path)\".".red)
 		}
 
-		if !files.isEmpty {
-			for file in files {
+		if !self.files.isEmpty {
+			for file in self.files {
 				guard Folder.current.containsFile(at: file) == true || Folder.current.containsSubfolder(at: file) else {
 					throw ValidationError("File does not exist at \"\(file)\".".red)
 				}
@@ -108,15 +108,15 @@ struct LFSPointersCommand: ParsableCommand {
 	func run() throws {
 		var silent = false
 
-		if s {
+		if self.s {
 			silent = true
 		}
 
-		if json {
+		if self.json {
 			silent = true
 		}
 
-		if !color {
+		if !self.color {
 			Rainbow.enabled = false
 		}
 
@@ -124,16 +124,16 @@ struct LFSPointersCommand: ParsableCommand {
 			switch status {
 				case let .appending(pointer):
 					let file = try! File(path: url.path)
-					if self.verbose && !silent {
+					if self.verbose, !silent {
 						print("Appending \"\("version \(pointer.version)\noid sha256:\(pointer.oid)\nsize \(pointer.size)")\" to file \"\(file.name)\"...")
 					} else if !silent {
 						print("Appending pointer to file \"\(file.name)\"...")
-				}
+					}
 
 				case let .error(error):
 					let file = try! File(path: url.path)
 
-					if self.verbose && !silent {
+					if self.verbose, !silent {
 						if self.color {
 							fputs("Could not convert \"\(file.name)\" to a pointer.\n Git LFS error: \(error)\n".red, stderr)
 						} else {
@@ -147,12 +147,11 @@ struct LFSPointersCommand: ParsableCommand {
 							fputs("Could not convert \"\(file.name)\" to a pointer.", stderr)
 						}
 					}
-				break
 
 				case .generating:
 					let file = try! File(path: url.path)
 
-					if !silent && self.verbose {
+					if !silent, self.verbose {
 						print("Converting \"\(file.name)\" to pointer...\n")
 					} else if !silent {
 						print("Converting \"\(file.name)\" to pointer...\n")
@@ -160,13 +159,13 @@ struct LFSPointersCommand: ParsableCommand {
 				case let .regexDoesntMatch(regex):
 					let file = try! File(path: url.path)
 
-					if !silent && self.verbose {
+					if !silent, self.verbose {
 						print("File name \"\(file.name)\" does not match regular expression \"\(regex.pattern)\", continuing...")
 					}
 
 				case let .writing(pointer):
 					let file = try! File(path: url.path)
-					if self.verbose && !silent {
+					if self.verbose, !silent {
 						print("Overwriting file \"\(file.name)\" with \"\("version \(pointer.version)\noid sha256:\(pointer.oid)\nsize \(pointer.size)")\"...")
 					} else if !silent {
 						print("Overwriting file \"\(file.name)\" with pointer...")
@@ -175,8 +174,7 @@ struct LFSPointersCommand: ParsableCommand {
 		}
 
 		do {
-
-			if all {
+			if self.all {
 				print("Are you sure? [Y(es)\\N(o)] ")
 				let answer = readLine() ?? ""
 
@@ -195,10 +193,9 @@ struct LFSPointersCommand: ParsableCommand {
 					}
 
 					// Copy the specified directory into the backup directory.
-					try Folder(path: directory.path).copy(to: Folder(path: bd.path))
+					try Folder(path: self.directory.path).copy(to: Folder(path: bd.path))
 				} catch {
 					if !silent {
-
 						if self.color {
 							fputs(
 								"Unable to copy the contents of the target directory to the backup directory. Check the folder permissions and check that both folders exist.".red,
@@ -216,15 +213,15 @@ struct LFSPointersCommand: ParsableCommand {
 				}
 			}
 
-			if all {
+			if self.all {
 				let pointers = try LFSPointer.pointers(
-					forDirectory: directory,
+					forDirectory: self.directory,
 					searchType: .all,
-					recursive: recursive,
+					recursive: self.recursive,
 					statusClosure: printClosure
 				)
 
-				if !json {
+				if !self.json {
 					pointers.forEach({ p in
 
 						do {
@@ -235,14 +232,13 @@ struct LFSPointersCommand: ParsableCommand {
 							)
 						} catch is LocationError {
 							if !silent {
-
 								if self.color {
 									fputs("Unable to overwrite file \"\(p.filename)\". Check the file permissions and check that the file exists.".red, stderr)
 								} else {
 									fputs("Unable to overwrite file \"\(p.filename)\". Check the file permissions and check that the file exists.", stderr)
 								}
 							}
-						} catch let error {
+						} catch {
 							if !silent {
 								fputs("Unable to overwrite file \"\(p.filename)\". Error: \(error)", stderr)
 							}
@@ -251,25 +247,32 @@ struct LFSPointersCommand: ParsableCommand {
 					})
 				} else {
 					do {
-						print(String(data: try pointers.toJSON(inFormat: jsonFormat == .compact ? .init() : .prettyPrinted), encoding: .utf8) ?? "{\"error\": \"Failed to generate JSON\"}")
+						let encoder = JSONEncoder()
+						encoder.outputFormatting = self.jsonFormat == .compact ? .init() : .prettyPrinted
+
+						let result = String(data: try encoder.encode(pointers), encoding: .utf8) ?? "{\"error\": \"Failed to generate JSON\"}"
+
+						print(result)
 					} catch {
 						if !silent {
 							fputs("Unable to generate JSON. Error: \(error)", stderr)
+						} else {
+							print("{\"error\": \"\(error)\"}")
 						}
 					}
 				}
 
 			} else {
-				let urls = files.map({ URL.init(string: $0)! })
+				let urls = self.files.map({ URL(string: $0)! })
 
 				let pointers = try LFSPointer.pointers(
-					forDirectory: directory,
+					forDirectory: self.directory,
 					searchType: .fileNames(urls),
-					recursive: recursive,
+					recursive: self.recursive,
 					statusClosure: printClosure
 				)
 
-				if !json {
+				if !self.json {
 					pointers.forEach({ p in
 
 						do {
@@ -280,49 +283,49 @@ struct LFSPointersCommand: ParsableCommand {
 							)
 						} catch is LocationError {
 							if !silent {
-
 								if self.color {
 									fputs("Unable to overwrite file \"\(p.filename)\". Check the file permissions and check that the file exists.".red, stderr)
 								} else {
 									fputs("Unable to overwrite file \"\(p.filename)\". Check the file permissions and check that the file exists.", stderr)
 								}
-
 							}
-						} catch let error {
+						} catch {
 							if !silent {
 								fputs("Unable to overwrite file \"\(p.filename)\". Error: \(error)", stderr)
 							}
 						}
-
 					})
 				} else {
 					do {
-						print(String(data: try pointers.toJSON(inFormat: jsonFormat == .compact ? .init() : .prettyPrinted), encoding: .utf8) ?? "{\"error\": \"Failed to generate JSON\"}")
+						let encoder = JSONEncoder()
+						encoder.outputFormatting = self.jsonFormat == .compact ? .init() : .prettyPrinted
+
+						let result = String(data: try encoder.encode(pointers), encoding: .utf8) ?? "{\"error\": \"Failed to generate JSON\"}"
+
+						print(result)
 					} catch {
 						if !silent {
 							fputs("Unable to generate JSON. Error: \(error)", stderr)
+						} else {
+							print("{\"error\": \"\(error)\"}")
 						}
 					}
 				}
-
 			}
 
-		} catch let error {
+		} catch {
 			if !silent {
-
 				if self.color {
 					fputs("An error occurred: \(error)".red, stderr)
 				} else {
 					fputs("An error occurred: \(error)", stderr)
 				}
-
 			}
 
 			Foundation.exit(2)
 		}
 
 		if !silent {
-
 			if self.color {
 				print("Done!".green)
 			} else {
@@ -330,7 +333,6 @@ struct LFSPointersCommand: ParsableCommand {
 			}
 		}
 	}
-
 }
 
 LFSPointersCommand.main()

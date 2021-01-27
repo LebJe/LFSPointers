@@ -9,7 +9,6 @@ import Foundation
 
 /// The search types to use when filtering files.
 public enum SearchTypes {
-
 	/// Searches for all files that match any of the filenames in the array.
 	case fileNames([URL])
 
@@ -22,8 +21,8 @@ public enum SearchTypes {
 
 public enum Status {
 	case writing(LFSPointer),
-		 appending(LFSPointer),
-		 generating, 
-		 error(Error),
-		 regexDoesntMatch(NSRegularExpression)
+	     appending(LFSPointer),
+	     generating,
+	     error(Error),
+	     regexDoesntMatch(NSRegularExpression)
 }

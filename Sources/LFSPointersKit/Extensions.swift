@@ -34,3 +34,9 @@ public extension String {
 		}.joined()
 	}
 }
+
+extension LFSPointer: CustomDebugStringConvertible {
+	public var debugDescription: String {
+		"version \(self.version)\noid sha256:\(self.oid)\nsize \(self.size)"
+	}
+}

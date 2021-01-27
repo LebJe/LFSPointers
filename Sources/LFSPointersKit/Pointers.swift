@@ -22,13 +22,12 @@ import Foundation
 /// would look like this:
 ///
 /// ```
-/// let pointer = try LFSPointer(
-/// 	version: "https://git-lfs.github.com/spec/v1",
-///  	oid: "10b2cd328e193dd4b81d921dbe91bda74bda704c37bca43f1e15f41fcd20ac2a",
-///  	size: 1455
-/// )
-///
+/// let pointer = try LFSPointer(fromFile: URL(fileURLWithPath: "file.txt"))
+/// pointer.oid // 10b2cd328e193dd4b81d921dbe91bda74bda704c37bca43f1e15f41fcd20ac2a
+/// pointer.size // 1455
+/// pointer.version // https://git-lfs.github.com/spec/v1
 /// ```
+///
 public struct LFSPointer: Codable, Equatable, Hashable {
 	/// The version of the pointer.
 	///
@@ -125,7 +124,7 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 
 		if recursive {
 			switch type {
-				case .fileNames(let fileNames):
+				case let .fileNames(fileNames):
 					var files: [File] = []
 
 					for file in fileNames {
@@ -144,7 +143,7 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 
 							do {
 								pointers.append(try self.init(fromFile: f.url))
-							} catch let error {
+							} catch {
 								if status != nil { status!(f.url, .error(error)) }
 
 								throw error
@@ -152,15 +151,14 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 						}
 					}
 
-				case .regex(let regex):
+				case let .regex(regex):
 					try folder.files.recursive.forEach({ file in
 						if regex.matches(file.name) {
-
 							if status != nil { status!(file.url, .generating) }
 
 							do {
 								pointers.append(try self.init(fromFile: file.url))
-							} catch let error {
+							} catch {
 								if status != nil { status!(file.url, .error(error)) }
 
 								throw error
@@ -176,7 +174,7 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 
 						do {
 							pointers.append(try self.init(fromFile: file.url))
-						} catch let error {
+						} catch {
 							if status != nil { status!(file.url, .error(error)) }
 
 							throw error
@@ -186,7 +184,7 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 
 		} else {
 			switch type {
-				case .fileNames(let fileNames):
+				case let .fileNames(fileNames):
 					var files: [File] = []
 
 					for file in fileNames {
@@ -201,23 +199,22 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 
 							do {
 								pointers.append(try self.init(fromFile: f.url))
-							} catch let error {
+							} catch {
 								if status != nil { status!(f.url, .error(error)) }
 
 								throw error
 							}
 						}
 					}
-				case .regex(let regex):
+				case let .regex(regex):
 
 					for file in folder.files {
 						if regex.matches(file.name) {
-
 							do {
 								if status != nil { status!(file.url, .generating) }
 
 								pointers.append(try self.init(fromFile: file.url))
-							} catch let error {
+							} catch {
 								if status != nil { status!(file.url, .error(error)) }
 
 								throw error
@@ -225,14 +222,14 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 						} else {
 							if status != nil { status!(file.url, .regexDoesntMatch(regex)) }
 						}
-				}
+					}
 				case .all:
 					for file in folder.files {
 						do {
 							if status != nil { status!(file.url, .generating) }
 
 							pointers.append(try self.init(fromFile: file.url))
-						} catch let error {
+						} catch {
 							if status != nil { status!(file.url, .error(error)) }
 
 							throw error
@@ -260,7 +257,6 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 		shouldAppend: Bool = false,
 		statusClosure status: ((URL, Status) -> Void)? = nil
 	) throws {
-
 		let file = try File(path: file.path)
 
 		if shouldAppend {
@@ -276,24 +272,5 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 
 	enum CodingKeys: String, CodingKey {
 		case version, oid, size, filename, filePath
-	}
-}
-
-extension LFSPointer: CustomDebugStringConvertible {
-	public var debugDescription: String {
-		"version \(self.version)\noid sha256:\(self.oid)\nsize \(self.size)"
-	}
-}
-
-extension Array where Self.Element == LFSPointer {
-	/// Converts and `Array` of `LFSPointer`s to `JSON`.
-	///
-	/// - Parameter jsonFormat: The format of the generated `JSON`.
-	/// - Throws: `EncodingError` when generating `JSON` fails.
-	/// - Returns: `Data` containing the generated `JSON`.
-	public func toJSON(inFormat jsonFormat: JSONEncoder.OutputFormatting = .init()) throws -> Data {
-		let encoder = JSONEncoder()
-		encoder.outputFormatting = jsonFormat
-		return try encoder.encode(self)
 	}
 }

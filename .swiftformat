@@ -1,54 +1,14 @@
-{
-  "fileScopedDeclarationPrivacy" : {
-    "accessLevel" : "private"
-  },
-  "indentation" : {
-    "tabs" : 4
-  },
-  "indentConditionalCompilationBlocks" : true,
-  "indentSwitchCaseLabels" : true,
-  "lineBreakAroundMultilineExpressionChainComponents" : false,
-  "lineBreakBeforeControlFlowKeywords" : false,
-  "lineBreakBeforeEachArgument" : false,
-  "lineBreakBeforeEachGenericRequirement" : false,
-  "lineLength" : 120,
-  "maximumBlankLines" : 2,
-  "prioritizeKeepingFunctionOutputTogether" : false,
-  "respectsExistingLineBreaks" : true,
-  "rules" : {
-    "AllPublicDeclarationsHaveDocumentation" : true,
-    "AlwaysUseLowerCamelCase" : true,
-    "AmbiguousTrailingClosureOverload" : true,
-    "BeginDocumentationCommentWithOneLineSummary" : true,
-    "DoNotUseSemicolons" : true,
-    "DontRepeatTypeInStaticProperties" : true,
-    "FileScopedDeclarationPrivacy" : true,
-    "FullyIndirectEnum" : true,
-    "GroupNumericLiterals" : true,
-    "IdentifiersMustBeASCII" : true,
-    "NeverForceUnwrap" : false,
-    "NeverUseForceTry" : false,
-    "NeverUseImplicitlyUnwrappedOptionals" : false,
-    "NoAccessLevelOnExtensionDeclaration" : true,
-    "NoBlockComments" : false,
-    "NoCasesWithOnlyFallthrough" : true,
-    "NoEmptyTrailingClosureParentheses" : true,
-    "NoLabelsInCasePatterns" : true,
-    "NoLeadingUnderscores" : false,
-    "NoParensAroundConditions" : true,
-    "NoVoidReturnOnFunctionSignature" : true,
-    "OneCasePerLine" : true,
-    "OneVariableDeclarationPerLine" : true,
-    "OnlyOneTrailingClosureArgument" : true,
-    "OrderedImports" : true,
-    "ReturnVoidInsteadOfEmptyTuple" : true,
-    "UseLetInEveryBoundCaseVariable" : true,
-    "UseShorthandTypeNames" : true,
-    "UseSingleLinePropertyGetter" : true,
-    "UseSynthesizedInitializer" : true,
-    "UseTripleSlashForDocumentationComments" : true,
-    "ValidateDocumentationComments" : false
-  },
-  "tabWidth" : 4,
-  "version" : 1
-}
+--swiftversion 5.3
+--binarygrouping none 
+--decimalgrouping none 
+--hexgrouping none 
+--indent tab 
+--indentcase true 
+--nospaceoperators "...,..<" 
+--octalgrouping none 
+--self insert 
+--semicolons never 
+--stripunusedargs unnamed-only 
+--wraparguments before-first 
+--wrapparameters before-first 
+--disable trailingClosures
