@@ -60,9 +60,6 @@ struct LFSPointersCommand: ParsableCommand {
 	@Flag(name: .long, inversion: .prefixedEnableDisable, help: "Whether to send colorized output to the terminal or not.")
 	var color: Bool = true
 
-	@Flag(name: .long, help: "Whether a newline should be added to the end of a pointer.")
-	var newline: Bool = false
-
 	@Option(
 		name: .long,
 		help: "The format in which JSON is printed. You can choose either \"compact\" or \"formatted\"."
@@ -227,7 +224,6 @@ struct LFSPointersCommand: ParsableCommand {
 						do {
 							try p.write(
 								toFile: URL(fileURLWithPath: p.filePath),
-								withNewline: newline,
 								statusClosure: printClosure
 							)
 						} catch is LocationError {
@@ -278,7 +274,6 @@ struct LFSPointersCommand: ParsableCommand {
 						do {
 							try p.write(
 								toFile: URL(fileURLWithPath: p.filePath),
-								withNewline: newline,
 								statusClosure: printClosure
 							)
 						} catch is LocationError {

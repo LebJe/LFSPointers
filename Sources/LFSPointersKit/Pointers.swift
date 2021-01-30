@@ -92,7 +92,11 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 
 		fseek(fp, 0, SEEK_END)
 
-		self.size = ftell(fp)
+		#if !os(Windows)
+			self.size = ftell(fp)
+		#else
+			self.size = Int(ftell(fp))
+		#endif
 
 		fclose(fp)
 
@@ -247,13 +251,10 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 	///   - file: The file to write or append to.
 	///   - shouldAppend: If the file should be appended to.
 	///   - statusClosure: Use this closure to determine the status of this function. It will be passed the `URL` of the file or folder being operated on, as well as an enum representing the status of this function.
-	///   - printOutput: Whether output should be printed.
-	///   - printVerboseOutput: Whether verbose output should be printed.
 	/// - Throws: `LocationError` if the file path is invalid, or `WriteError` if the file could not be written.
 	///
 	public func write(
 		toFile file: URL,
-		withNewline: Bool = false,
 		shouldAppend: Bool = false,
 		statusClosure status: ((URL, Status) -> Void)? = nil
 	) throws {
@@ -262,11 +263,11 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 		if shouldAppend {
 			if status != nil { status!(file.url, .appending(self)) }
 
-			try file.append("version \(self.version)\noid sha256:\(self.oid)\nsize \(self.size)\(withNewline ? "\n" : "")", encoding: .utf8)
+			try file.append("version \(self.version)\noid sha256:\(self.oid)\nsize \(self.size)\n", encoding: .utf8)
 		} else {
 			if status != nil { status!(file.url, .writing(self)) }
 
-			try file.write("version \(self.version)\noid sha256:\(self.oid)\nsize \(self.size)\(withNewline ? "\n" : "")", encoding: .utf8)
+			try file.write("version \(self.version)\noid sha256:\(self.oid)\nsize \(self.size)\n", encoding: .utf8)
 		}
 	}
 
