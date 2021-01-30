@@ -39,7 +39,7 @@ struct LFSPointersCommand: ParsableCommand {
 		commandName: "LFSPointers",
 		abstract: "Replaces large files in a Git repository directory with Git LFS pointers.",
 		discussion: "JSON STRUCTURE:\n\(jsonStructure)",
-		version: "3.0.0"
+		version: "4.0.0"
 	)
 
 	@Flag(name: .shortAndLong, help: "Whether to display verbose output.")
