@@ -1,14 +1,21 @@
 ##  (2021-01-30)
 
+
+
+
+## 4.0.0 (2021-01-30)
+
 * Add SwiftFormat. ([4ceb63f](https://github.com/LebJe/LFSPointers/commit/4ceb63f))
 * Allow tests to pass on Windows. ([62a0685](https://github.com/LebJe/LFSPointers/commit/62a0685))
 * Build and test on Windows. ([497baea](https://github.com/LebJe/LFSPointers/commit/497baea))
 * Delete script.sh ([db926b5](https://github.com/LebJe/LFSPointers/commit/db926b5))
 * Make sure output isn't printed when generating JSON. ([b3996d2](https://github.com/LebJe/LFSPointers/commit/b3996d2))
 * Newlines should always be added. ([661b213](https://github.com/LebJe/LFSPointers/commit/661b213))
+* Remove unnecessary tests. ([24d90fe](https://github.com/LebJe/LFSPointers/commit/24d90fe))
 * Tell SwiftFormat to use Swift 5.2 ([16c8ca3](https://github.com/LebJe/LFSPointers/commit/16c8ca3))
 * Update Changelog ([b0db302](https://github.com/LebJe/LFSPointers/commit/b0db302))
 * Update Changelog ([4e67a91](https://github.com/LebJe/LFSPointers/commit/4e67a91))
+* Update CHANGELOG ([368785c](https://github.com/LebJe/LFSPointers/commit/368785c))
 * Update CHANGELOG ([940c1d4](https://github.com/LebJe/LFSPointers/commit/940c1d4))
 * update documentation ([51961c4](https://github.com/LebJe/LFSPointers/commit/51961c4))
 * Update README ([831318c](https://github.com/LebJe/LFSPointers/commit/831318c))
@@ -20,6 +27,8 @@
 * Update README.md ([f2a61cd](https://github.com/LebJe/LFSPointers/commit/f2a61cd))
 * Update README.md ([721de66](https://github.com/LebJe/LFSPointers/commit/721de66))
 * Update README.md ([84fa31a](https://github.com/LebJe/LFSPointers/commit/84fa31a))
+* Update ReleaseProcess.md ([5e50ad2](https://github.com/LebJe/LFSPointers/commit/5e50ad2))
+* Update version numbers in preparation for a new release. ([3dbdc04](https://github.com/LebJe/LFSPointers/commit/3dbdc04))
 * Updte Changelog ([e9c44d4](https://github.com/LebJe/LFSPointers/commit/e9c44d4))
 
 
