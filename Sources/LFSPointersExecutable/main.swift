@@ -171,8 +171,8 @@ struct LFSPointersCommand: ParsableCommand {
 		}
 
 		do {
-			if self.all {
-				print("Are you sure? [Y(es)\\N(o)] ")
+			if self.all, !self.json {
+				print("Are you sure? [Y(es)\\N(o)] ", terminator: "")
 				let answer = readLine() ?? ""
 
 				switch answer.lowercased() {
@@ -244,7 +244,7 @@ struct LFSPointersCommand: ParsableCommand {
 				} else {
 					do {
 						let encoder = JSONEncoder()
-						encoder.outputFormatting = self.jsonFormat == .compact ? .init() : .prettyPrinted
+						encoder.outputFormatting = [self.jsonFormat == .compact ? .init() : .prettyPrinted, .withoutEscapingSlashes]
 
 						let result = String(data: try encoder.encode(pointers), encoding: .utf8) ?? "{\"error\": \"Failed to generate JSON\"}"
 
@@ -293,7 +293,7 @@ struct LFSPointersCommand: ParsableCommand {
 				} else {
 					do {
 						let encoder = JSONEncoder()
-						encoder.outputFormatting = self.jsonFormat == .compact ? .init() : .prettyPrinted
+						encoder.outputFormatting = [self.jsonFormat == .compact ? .init() : .prettyPrinted, .withoutEscapingSlashes]
 
 						let result = String(data: try encoder.encode(pointers), encoding: .utf8) ?? "{\"error\": \"Failed to generate JSON\"}"
 
