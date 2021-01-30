@@ -9,20 +9,25 @@
 [![Build and Test](https://github.com/LebJe/LFSPointers/workflows/Build%20and%20Test/badge.svg)](https://github.com/LebJe/LFSPointers/actions?query=workflow%3A%22Build+and+Test%22)
 [![Build Container](https://github.com/LebJe/LFSPointers/workflows/Build%20Container/badge.svg)](https://github.com/LebJe/LFSPointers/actions?query=workflow%3A%22Build+Container%22)
 
+Table of Contents
+=================
+
    * [LFS Pointers](#lfs-pointers)
+   * [Table of Contents](#table-of-contents)
       * [Install Program](#install-program)
-         * [Mint](#mint)
-         * [Homebrew](#homebrew)
+         * [<a href="https://github.com/yonaskolb/mint">Mint</a>](#mint)
+         * [<a href="https://brew.sh" rel="nofollow">Homebrew</a>](#homebrew)
          * [From DEB Or RPM](#from-deb-or-rpm)
             * [DEB](#deb)
             * [RPM](#rpm)
          * [Manually](#manually)
-            * [With Docker](#with-docker)
+            * [With <a href="https://www.docker.com" rel="nofollow">Docker</a>](#with-docker)
                * [Ubuntu 16.04](#ubuntu-1604)
                * [Ubuntu 18.04](#ubuntu-1804)
                * [Ubuntu 20.04](#ubuntu-2004)
                * [CentOS 8](#centos-8)
             * [Without Docker](#without-docker)
+            * [Windows](#windows)
          * [From GitHub Release](#from-github-release)
          * [Setup Shell Completions](#setup-shell-completions)
             * [ZSH](#zsh)
@@ -44,14 +49,16 @@
       * [Tested Platforms](#tested-platforms)
          * [Mac](#mac)
          * [Linux](#linux)
-		 * [Windows](#windows)
       * [iOS, watchOS, tvOS](#ios-watchos-tvos)
+      * [Windows](#windows-1)
       * [JSON Structure for LFSPointer Array](#json-structure-for-lfspointer-array)
       * [JSON Structure for Single LFSPointer](#json-structure-for-single-lfspointer)
-      * [Install Swift](#install-swift)
+      * [Install <a href="https://swift.org/download/" rel="nofollow">Swift</a>](#install-swift)
          * [Linux (aarch64)](#linux-aarch64)
             * [Ubuntu](#ubuntu)
       * [Contributing](#contributing)
+
+Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc)
 
 It it recommended that you read the [Git-LFS Homepage](https://git-lfs.github.com) before continuing.
 
@@ -129,10 +136,20 @@ directory.
 If you don’t or can’t use Docker, you can [Install Swift](#Install-Swift), then run:
 
 ```bash
-$ swift build -c release && sudo cp .build/release/LFSPointers /usr/local/bin
+$ swift build -c release
 ```
 
-this will build the program, then copy it into `/usr/local/bin`.
+The binary will be located at `/path/to/LFSPointers/.build/release/LFSPointers`.
+
+#### Windows
+
+[Install Swift](#Install-Swift), then open `Windows Powershell`, and run:
+
+```powershell
+swift build -Xswiftc -sdk -Xswiftc $env:SDKROOT
+```
+
+the executable will be located at `C:\path\to\LFSPointers\.build\release\LFSPointers.exe`.
 
 ### From GitHub Release
 
@@ -321,7 +338,7 @@ Tested on MacOS 10.15 and 11, using Swift 5.2.
 Tested on Ubuntu 18.04 (`x86_64` and `aarch64`), also using Swift 5.2.
 ## iOS, watchOS, tvOS
 These platforms have not been tested on yet, although, at the time of writing the iOS project in the `Samples/FileToPointer` directory is currently working.
-### Windows
+## Windows
 `LFSPointers` is currently building on Windows, but there are a few problems:
 * Windows paths are converted to UNIX paths: `C:\Users\user\file` => `C:/Users/user/file`
 
