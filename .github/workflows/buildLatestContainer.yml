@@ -54,7 +54,7 @@ jobs:
         id: get-latest-tag
         name: Get Latest Tag
         run: |
-          git pull
+          git pull --tags
           export TAG="$(git describe --abbrev=0 --tags)"
           echo $TAG
           echo "::set-output name=TAG::$TAG"
