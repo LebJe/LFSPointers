@@ -1,7 +1,15 @@
-##  (2021-01-11)
+##  (2021-01-30)
 
+* Add SwiftFormat. ([4ceb63f](https://github.com/LebJe/LFSPointers/commit/4ceb63f))
+* Delete script.sh ([db926b5](https://github.com/LebJe/LFSPointers/commit/db926b5))
+* Update Changelog ([b0db302](https://github.com/LebJe/LFSPointers/commit/b0db302))
 * Update Changelog ([4e67a91](https://github.com/LebJe/LFSPointers/commit/4e67a91))
+* Update README ([831318c](https://github.com/LebJe/LFSPointers/commit/831318c))
+* Update README and Improve formatting. ([1fc732c](https://github.com/LebJe/LFSPointers/commit/1fc732c))
 * Update README. ([75a0528](https://github.com/LebJe/LFSPointers/commit/75a0528))
+* Update README.md ([f2a61cd](https://github.com/LebJe/LFSPointers/commit/f2a61cd))
+* Update README.md ([721de66](https://github.com/LebJe/LFSPointers/commit/721de66))
+* Update README.md ([84fa31a](https://github.com/LebJe/LFSPointers/commit/84fa31a))
 * Updte Changelog ([e9c44d4](https://github.com/LebJe/LFSPointers/commit/e9c44d4))
 
 
