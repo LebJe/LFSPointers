@@ -50,6 +50,7 @@
       * [Install Swift](#install-swift)
          * [Linux (aarch64)](#linux-aarch64)
             * [Ubuntu](#ubuntu)
+      * [Contributing](#contributing)
 
 It it recommended that you read the [Git-LFS Homepage](https://git-lfs.github.com) before continuing.
 
@@ -306,10 +307,10 @@ The JSON will be structured as shown [here](#json-structure-for-lfspointer-array
 - [Files](https://github.com/JohnSundell/Files)
 - [Rainbow](https://github.com/onevcat/Rainbow)
 - [Swift Argument Parser](https://github.com/apple/swift-argument-parser)
-- [CryptoSwift](https://github.com/krzyzanowskim/CryptoSwift)
+- [swift-crypto](https://github.com/apple/swift-crypto)
 
 ## More Information
-Run `$ LFSPointers --help`.
+Run `LFSPointers --help`.
 
 ## Tested Platforms
 
@@ -375,3 +376,13 @@ $ curl -s https://packagecloud.io/install/repositories/swift-arm/release/script.
 sudo apt install swiftlang
 ```
 
+## Contributing
+Before committing, please install [pre-commit](https://pre-commit.com), and [swift-format](https://github.com/nicklockwood/SwiftFormat) and install the pre-commit hook:
+```bash
+$ brew bundle # install the packages specified in Brewfile
+$ pre-commit install
+
+# Commit your changes.
+```
+
+To install pre-commit on other platforms, refer to the [documentation](https://pre-commit.com/#install).
