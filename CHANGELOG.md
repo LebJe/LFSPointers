@@ -1,5 +1,9 @@
 ##  (2021-01-30)
 
+* Build container on every commit. ([5b50789](https://github.com/LebJe/LFSPointers/commit/5b50789))
+* Update buildLatestContainer.yml ([6299c3b](https://github.com/LebJe/LFSPointers/commit/6299c3b))
+* Update CHANGELOG ([12d5c54](https://github.com/LebJe/LFSPointers/commit/12d5c54))
+* Update version number in installDeb.sh ([593a7f1](https://github.com/LebJe/LFSPointers/commit/593a7f1))
 
 
 
