@@ -32,7 +32,6 @@ jobs:
             ghcr.io/lebje/lfs-pointers:latest
             
   BuildTaggedContainer:
-    needs: [PackageOnUbuntu-x86_64, PackageOnUbuntu-ARM]
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
