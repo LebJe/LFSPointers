@@ -44,6 +44,7 @@
       * [Tested Platforms](#tested-platforms)
          * [Mac](#mac)
          * [Linux](#linux)
+		 * [Windows](#windows)
       * [iOS, watchOS, tvOS](#ios-watchos-tvos)
       * [JSON Structure for LFSPointer Array](#json-structure-for-lfspointer-array)
       * [JSON Structure for Single LFSPointer](#json-structure-for-single-lfspointer)
@@ -320,6 +321,9 @@ Tested on MacOS 10.15 and 11, using Swift 5.2.
 Tested on Ubuntu 18.04 (`x86_64` and `aarch64`), also using Swift 5.2.
 ## iOS, watchOS, tvOS
 These platforms have not been tested on yet, although, at the time of writing the iOS project in the `Samples/FileToPointer` directory is currently working.
+### Windows
+`LFSPointers` is currently building on Windows, but there are a few problems:
+* Windows paths are converted to UNIX paths: `C:\Users\user\file` => `C:/Users/user/file`
 
 ## JSON Structure for LFSPointer Array
 
