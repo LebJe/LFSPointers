@@ -33,6 +33,8 @@ jobs:
             
   BuildTaggedContainer:
     runs-on: ubuntu-20.04
+    outputs:
+      TAG: ${{ steps.get-latest-tag.outputs.TAG }}
     steps:
       - uses: actions/checkout@v2
       -
