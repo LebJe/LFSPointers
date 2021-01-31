@@ -9,14 +9,18 @@ jobs:
       - uses: actions/checkout@v2
       - name: Run tests
         run: swift test
-
   TestOnMacOS-11_0-x86_64:
     runs-on: macos-11.0
     steps:
       - uses: actions/checkout@v2
       - name: Run tests
         run: swift test
-
+  TestOn-iOS-14_0-ARM64:
+    runs-on: macos-11.0
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run tests
+        run: xcrun xcodebuild -scheme LFSPointersKit -destination "platform=iOS Simulator,id=E3D8AFE7-20E4-4EEC-8889-3DA5DE4C701F,OS=14.0"
   TestOnUbuntu-20_04-ARM:
     runs-on: ubuntu-latest
     steps:
@@ -65,10 +69,9 @@ jobs:
         run: | 
           swift build
           swift test
-  # Uncomment and update as needed when an Apple Silicon VM is available.
-  #TestOnMacOS-ARM:
-  # runs-on: macos-silicon-latest
-  # steps:
-  #   - uses: actions/checkout@v2
-  #   - name: Run tests
-  #     run: swift test
+  TestBuildingOnMacOS-11_0-ARM64:
+    runs-on: macos-11.0
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run tests
+        run: swift build --arch arm64
