@@ -9,11 +9,8 @@
 [![Build and Test](https://github.com/LebJe/LFSPointers/workflows/Build%20and%20Test/badge.svg)](https://github.com/LebJe/LFSPointers/actions?query=workflow%3A%22Build+and+Test%22)
 [![Build Container](https://github.com/LebJe/LFSPointers/workflows/Build%20Container/badge.svg)](https://github.com/LebJe/LFSPointers/actions?query=workflow%3A%22Build+Container%22)
 
-Table of Contents
-=================
-
+<!--ts-->
    * [LFS Pointers](#lfs-pointers)
-   * [Table of Contents](#table-of-contents)
       * [Install Program](#install-program)
          * [<a href="https://github.com/yonaskolb/mint">Mint</a>](#mint)
          * [<a href="https://brew.sh" rel="nofollow">Homebrew</a>](#homebrew)
@@ -58,7 +55,9 @@ Table of Contents
             * [Ubuntu](#ubuntu)
       * [Contributing](#contributing)
 
-Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc)
+<!-- Added by: jefflebrun, at: Sun Jan 31 16:56:49 EST 2021 -->
+
+<!--te-->
 
 It it recommended that you read the [Git-LFS Homepage](https://git-lfs.github.com) before continuing.
 
