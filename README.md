@@ -17,11 +17,11 @@ Table of Contents
       * [Install Program](#install-program)
          * [<a href="https://github.com/yonaskolb/mint">Mint</a>](#mint)
          * [<a href="https://brew.sh" rel="nofollow">Homebrew</a>](#homebrew)
-         * [From DEB Or RPM](#from-deb-or-rpm)
+         * [From DEB or RPM](#from-deb-or-rpm)
             * [DEB](#deb)
             * [RPM](#rpm)
          * [Manually](#manually)
-            * [With <a href="https://www.docker.com" rel="nofollow">Docker</a>](#with-docker)
+            * [Build Using <a href="https://www.docker.com" rel="nofollow">Docker</a>](#build-using-docker)
                * [Ubuntu 16.04](#ubuntu-1604)
                * [Ubuntu 18.04](#ubuntu-1804)
                * [Ubuntu 20.04](#ubuntu-2004)
@@ -49,8 +49,8 @@ Table of Contents
       * [Tested Platforms](#tested-platforms)
          * [Mac](#mac)
          * [Linux](#linux)
-      * [iOS, watchOS, tvOS](#ios-watchos-tvos)
-      * [Windows](#windows-1)
+         * [iOS](#ios)
+         * [Windows](#windows-1)
       * [JSON Structure for LFSPointer Array](#json-structure-for-lfspointer-array)
       * [JSON Structure for Single LFSPointer](#json-structure-for-single-lfspointer)
       * [Install <a href="https://swift.org/download/" rel="nofollow">Swift</a>](#install-swift)
@@ -131,7 +131,7 @@ Then run `mv .build/release/LFSPointers .` to move the binary to your current
 directory.
 
 
-#### Without Docker
+#### Build Without Docker
 
 If you don’t or can’t use Docker, you can [Install Swift](#Install-Swift), then run:
 
@@ -141,9 +141,9 @@ $ swift build -c release
 
 The binary will be located at `/path/to/LFSPointers/.build/release/LFSPointers`.
 
-#### Windows
+#### Build on Windows
 
-[Install Swift](#Install-Swift), then open `Windows Powershell`, and run:
+[Install Swift](#Install-Swift), open `Windows Powershell`, navigate to the directory that contains `LFSPointers`, and run:
 
 ```powershell
 swift build -Xswiftc -sdk -Xswiftc $env:SDKROOT
@@ -183,7 +183,7 @@ to your `.zshrc`, then create `~/.zsh/completion`, and run:
 
 #### Bash
 
-Create a directory to store Bash completions, for example: `mkdir ~/.bash_completions/`, add this to your `.bashrc` or `.bash_profile`:
+Create a directory to store Bash completions, (`~/.bash_completions/`), and add this to your `.bashrc` or `.bash_profile`:
 
 ```bash
 source ~/.bash_completions/LFSPointers.bash
