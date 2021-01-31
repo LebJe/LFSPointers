@@ -29,7 +29,12 @@ struct ContentView: View {
 				self.version = pointer.version
 				self.hash = pointer.oid
 				self.size = String(pointer.size)
-			}.padding(5).background(Color.blue).cornerRadius(5).foregroundColor(.white).padding()
+			}
+			.padding(5)
+			.background(Color.blue)
+			.cornerRadius(5)
+			.foregroundColor(.white)
+			.padding()
 
 			Text("Version: " + version).padding()
 			Text("SHA 256 Hash (oid sha256): \n" + hash).padding()

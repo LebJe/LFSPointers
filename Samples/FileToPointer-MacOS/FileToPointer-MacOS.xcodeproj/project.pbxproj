@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DA9BBC0625015C2F00F74724 /* LFSPointersKit in Frameworks */ = {isa = PBXBuildFile; productRef = DA9BBC0525015C2F00F74724 /* LFSPointersKit */; };
+		DA49D5B525C617C3008E2826 /* LFSPointersKit in Frameworks */ = {isa = PBXBuildFile; productRef = DA49D5B425C617C3008E2826 /* LFSPointersKit */; };
 		DAF8016E2458AEC300413161 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF8016D2458AEC300413161 /* AppDelegate.swift */; };
 		DAF801702458AEC300413161 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF8016F2458AEC300413161 /* ContentView.swift */; };
 		DAF801722458AEC900413161 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAF801712458AEC900413161 /* Assets.xcassets */; };
@@ -31,7 +31,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA9BBC0625015C2F00F74724 /* LFSPointersKit in Frameworks */,
+				DA49D5B525C617C3008E2826 /* LFSPointersKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,7 +101,7 @@
 			);
 			name = "FileToPointer-MacOS";
 			packageProductDependencies = (
-				DA9BBC0525015C2F00F74724 /* LFSPointersKit */,
+				DA49D5B425C617C3008E2826 /* LFSPointersKit */,
 			);
 			productName = "FileToPointer-MacOS";
 			productReference = DAF8016A2458AEC300413161 /* FileToPointer-MacOS.app */;
@@ -132,7 +132,7 @@
 			);
 			mainGroup = DAF801612458AEC300413161;
 			packageReferences = (
-				DAF801802458AFB100413161 /* XCRemoteSwiftPackageReference "LFSPointers" */,
+				DA49D5B325C617C3008E2826 /* XCRemoteSwiftPackageReference "LFSPointers" */,
 			);
 			productRefGroup = DAF8016B2458AEC300413161 /* Products */;
 			projectDirPath = "";
@@ -363,20 +363,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		DAF801802458AFB100413161 /* XCRemoteSwiftPackageReference "LFSPointers" */ = {
+		DA49D5B325C617C3008E2826 /* XCRemoteSwiftPackageReference "LFSPointers" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:LebJe/LFSPointers.git";
 			requirement = {
 				kind = upToNextMinorVersion;
-				minimumVersion = 3.0.0;
+				minimumVersion = 4.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		DA9BBC0525015C2F00F74724 /* LFSPointersKit */ = {
+		DA49D5B425C617C3008E2826 /* LFSPointersKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DAF801802458AFB100413161 /* XCRemoteSwiftPackageReference "LFSPointers" */;
+			package = DA49D5B325C617C3008E2826 /* XCRemoteSwiftPackageReference "LFSPointers" */;
 			productName = LFSPointersKit;
 		};
 /* End XCSwiftPackageProductDependency section */

@@ -17,7 +17,7 @@ struct ContentView: View {
 	var alert: Alert {
 		Alert(
 			title: Text("Error"),
-			message: Text("Unable to generate pointer for the selected file."),
+			message: Text("Unable to generate a pointer for the selected file."),
 			dismissButton: .cancel(Text("OK"))
 		)
 	}
@@ -42,7 +42,7 @@ struct ContentView: View {
 							do {
 								let pointer = try LFSPointer(fromFile: url)
 								let encoder = JSONEncoder()
-								encoder.outputFormatting = .prettyPrinted
+								encoder.outputFormatting = [.withoutEscapingSlashes, .prettyPrinted]
 								self.text = String(data: try encoder.encode(pointer), encoding: .utf8)!
 							} catch {
 								print(error)
