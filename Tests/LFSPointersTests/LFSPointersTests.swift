@@ -3,7 +3,6 @@ import Files
 import XCTest
 
 final class LFSPointersTests: XCTestCase {
-	#warning("When running tests, make sure your working directory is at the root of this project.")
 	let resources = try! Folder.temporary.createSubfolder(named: "Resources")
 
 	override func setUpWithError() throws {

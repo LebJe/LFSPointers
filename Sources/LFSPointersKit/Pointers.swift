@@ -88,14 +88,14 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 
 		try handle.close()
 
-		let fp = fopen(file.path, "r")
+		let fp = fopen(file.path, "rb")
 
 		fseek(fp, 0, SEEK_END)
 
-		#if !os(Windows)
-			self.size = ftell(fp)
-		#else
+		#if os(Windows)
 			self.size = Int(ftell(fp))
+		#else
+			self.size = ftell(fp)
 		#endif
 
 		fclose(fp)
