@@ -4,7 +4,7 @@
 
 [![Swift 5.2](https://img.shields.io/badge/Swift-5.2-brightgreen?logo=swift)](https://swift.org)
 [![SPM Compatible](https://img.shields.io/badge/SPM-compatible-brightgreen.svg)](https://swift.org/package-manager)
-[![https://img.shields.io/badge/Platforms-MacOS%20%7C%20Linux-lightgrey](https://img.shields.io/badge/Platforms-iOS%20%7C%20Mac%20%7C%20Linux%20%7CWindows-lightgrey)](https://img.shields.io/badge/Platforms-MacOS%20%7C%20Linux-lightgrey)
+[![https://img.shields.io/badge/Platforms-iOS%20%7C%20Mac%20%7C%20Linux%20%7C%20Windows-lightgrey](https://img.shields.io/badge/Platforms-iOS%20%7C%20Mac%20%7C%20Linux%20%7C%20Windows-lightgrey)](https://img.shields.io/badge/Platforms-MacOS%20%7C%20Linux-lightgrey)
 [![](https://img.shields.io/github/v/tag/LebJe/LFSPointers)](https://github.com/LebJe/LFSPointers/releases)
 [![Build and Test](https://github.com/LebJe/LFSPointers/workflows/Build%20and%20Test/badge.svg)](https://github.com/LebJe/LFSPointers/actions?query=workflow%3A%22Build+and+Test%22)
 [![Build Container](https://github.com/LebJe/LFSPointers/workflows/Build%20Container/badge.svg)](https://github.com/LebJe/LFSPointers/actions?query=workflow%3A%22Build+Container%22)
@@ -79,7 +79,7 @@ then run:
 $ brew install LebJe/formulae/lfs-pointers
 ```
 
-### From DEB Or RPM
+### From DEB or RPM
 
 #### DEB
 
@@ -100,7 +100,7 @@ sudo yum install LFSPointers
 
 ### Manually
 
-#### With [Docker](https://www.docker.com)
+#### Build Using [Docker](https://www.docker.com)
 If you are on Ubuntu 16.04, 18.04, 20.04, or CentOS 8, you can build `LFSPointers` using:
 
 ##### Ubuntu 16.04
@@ -312,7 +312,7 @@ But wait! It's not safe to run random programs on your computer! To backup your 
 $ LFSPointers -b path/to/backup-directory path/to/Project\ Logos path/to/Project\ Logos/*.png
 ```
 
-If you want to generate JSON output instead, do:
+If you want to generate JSON output instead, run:
 
 ```bash
 $ LFSPointers --json path/to/Project\ Logos path/to/Project\ Logos/*.png
@@ -333,13 +333,13 @@ Run `LFSPointers --help`.
 ## Tested Platforms
 
 ### Mac
-Tested on MacOS 10.15 and 11, using Swift 5.2.
+Tested on MacOS 10.15 and 11, using Swift 5.2 and 5.3.
 ### Linux
-Tested on Ubuntu 18.04 (`x86_64` and `aarch64`), also using Swift 5.2.
-## iOS, watchOS, tvOS
-These platforms have not been tested on yet, although, at the time of writing the iOS project in the `Samples/FileToPointer` directory is currently working.
-## Windows
-`LFSPointers` is currently building on Windows, but there are a few problems:
+Tested on Ubuntu 18.04 (`x86_64` and `aarch64`), also using Swift 5.2 and 5.3.
+### iOS
+This project has not been tested on iOS yet, although, at the time of writing the sample project in `Samples/FileToPointer` is currently working.
+### Windows
+`LFSPointers` is currently being built and tested on Windows, but there are a few problems:
 * Windows paths are converted to UNIX paths: `C:\Users\user\file` => `C:/Users/user/file`
 
 ## JSON Structure for LFSPointer Array
