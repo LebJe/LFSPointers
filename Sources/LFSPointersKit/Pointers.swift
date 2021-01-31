@@ -88,7 +88,12 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 
 		try handle.close()
 
-		let fp = fopen(file.path, "rb")
+		#if os(Windows)
+			var fp: UnsafeMutablePointer<FILE>!
+			fopen_s(&fp, file.path, "rb")
+		#else
+			let fp = fopen(file.path, "rb")
+		#endif
 
 		fseek(fp, 0, SEEK_END)
 
