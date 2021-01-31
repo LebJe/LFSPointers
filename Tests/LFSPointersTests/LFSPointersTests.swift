@@ -8,17 +8,13 @@ final class LFSPointersTests: XCTestCase {
 	override func setUpWithError() throws {
 		let recursive = try resources.createSubfolderIfNeeded(withName: "recursive")
 		try? self.resources.createFileIfNeeded(at: "foo.txt", contents: "Foo".data(using: .utf8))
-		try? recursive.createFileIfNeeded(at: "bar.txt", contents: "Bar".data(using: .utf8))
+		try? recursive.createFileIfNeeded(at: "bar.txt", contents: "BarBar".data(using: .utf8))
 	}
 
 	func testConvertFileToPointer() throws {
 		let pointer = try LFSPointer(fromFile: resources.file(named: "foo.txt").url)
-
-		// TODO: Why is the size and hash different on Windows?
-		#if !os(Windows)
-			XCTAssertEqual(3, pointer.size)
-			XCTAssertEqual("1cbec737f863e4922cee63cc2ebbfaafcd1cff8b790d8cfd2e6a5d550b648afa", pointer.oid)
-		#endif
+		XCTAssertEqual(3, pointer.size)
+		XCTAssertEqual("1cbec737f863e4922cee63cc2ebbfaafcd1cff8b790d8cfd2e6a5d550b648afa", pointer.oid)
 	}
 
 	func testRecursivelyGeneratePointersForFilesInSubdirectories() throws {
