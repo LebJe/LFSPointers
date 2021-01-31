@@ -26,8 +26,8 @@ Table of Contents
                * [Ubuntu 18.04](#ubuntu-1804)
                * [Ubuntu 20.04](#ubuntu-2004)
                * [CentOS 8](#centos-8)
-            * [Without Docker](#without-docker)
-            * [Windows](#windows)
+            * [Build Without Docker](#build-without-docker)
+            * [Build on Windows](#build-on-windows)
          * [From GitHub Release](#from-github-release)
          * [Setup Shell Completions](#setup-shell-completions)
             * [ZSH](#zsh)
@@ -50,7 +50,7 @@ Table of Contents
          * [Mac](#mac)
          * [Linux](#linux)
          * [iOS](#ios)
-         * [Windows](#windows-1)
+         * [Windows](#windows)
       * [JSON Structure for LFSPointer Array](#json-structure-for-lfspointer-array)
       * [JSON Structure for Single LFSPointer](#json-structure-for-single-lfspointer)
       * [Install <a href="https://swift.org/download/" rel="nofollow">Swift</a>](#install-swift)
@@ -291,7 +291,7 @@ and to convert an array of `LFSPointer`s:
 
 ```swift
 let pointers = try LFSPointer.pointers(...)
-pointers.toJSON()
+JSONEncoder().encode(pointers)
 ```
 
 The JSON for the `LFSPointer` array will be structured as shown [here](#json-structure-for-lfspointer-array), and the JSON for the single `LFSPointer` will be structured as shown [here](#json-structure-for-single-lfspointer).
