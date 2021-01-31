@@ -1,9 +1,25 @@
-##  (2021-01-30)
+##  (2021-01-31)
 
 * Build container on every commit. ([5b50789](https://github.com/LebJe/LFSPointers/commit/5b50789))
+* Test LFSPointers on iOS 14.0, and cross-compile it for ARM MacOS on Big Sur. ([e554b58](https://github.com/LebJe/LFSPointers/commit/e554b58))
+* Update buildLatestContain.yml ([5aae9c0](https://github.com/LebJe/LFSPointers/commit/5aae9c0))
+* update buildLatestContainer.yml ([d8f2bfe](https://github.com/LebJe/LFSPointers/commit/d8f2bfe))
+* Update buildLatestContainer.yml ([68fad8f](https://github.com/LebJe/LFSPointers/commit/68fad8f))
+* Update buildLatestContainer.yml ([5e0d568](https://github.com/LebJe/LFSPointers/commit/5e0d568))
+* Update buildLatestContainer.yml ([980b208](https://github.com/LebJe/LFSPointers/commit/980b208))
+* Update buildLatestContainer.yml ([933b7b2](https://github.com/LebJe/LFSPointers/commit/933b7b2))
+* Update buildLatestContainer.yml ([46259fe](https://github.com/LebJe/LFSPointers/commit/46259fe))
 * Update buildLatestContainer.yml ([6299c3b](https://github.com/LebJe/LFSPointers/commit/6299c3b))
 * Update CHANGELOG ([12d5c54](https://github.com/LebJe/LFSPointers/commit/12d5c54))
+* Update README. ([eac935f](https://github.com/LebJe/LFSPointers/commit/eac935f))
+* Update README.me ([51b3a46](https://github.com/LebJe/LFSPointers/commit/51b3a46))
+* Update samples and README. ([ba6ce9a](https://github.com/LebJe/LFSPointers/commit/ba6ce9a))
+* Update Scripts/installDeb.sh ([a5652fb](https://github.com/LebJe/LFSPointers/commit/a5652fb))
+* Update test. ([be5439c](https://github.com/LebJe/LFSPointers/commit/be5439c))
+* Update tests. ([95a41a5](https://github.com/LebJe/LFSPointers/commit/95a41a5))
+* Update Tests. ([d9e8b55](https://github.com/LebJe/LFSPointers/commit/d9e8b55))
 * Update version number in installDeb.sh ([593a7f1](https://github.com/LebJe/LFSPointers/commit/593a7f1))
+* UpdateREADME.md ([9190628](https://github.com/LebJe/LFSPointers/commit/9190628))
 
 
 
