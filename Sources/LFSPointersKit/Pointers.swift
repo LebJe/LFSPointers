@@ -110,9 +110,7 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 	///   - directory: The directory to iterate over.
 	///   - recursive: Whether to include subdirectories when iterating.
 	///   - type:The search method you want to use.
-	///   - printOutput: Whether output should be printed.
-	///   - printVerboseOutput: Whether verbose output should be printed.
-	///   - statusClosure: Use this closure to determine the status of this function. It will be passed the `URL` of the file or folder being operated on, as well as an enum representing the status of this function.
+	///   - status: Use this closure to determine the status of this function. It will be passed the `URL` of the file or folder being operated on, as well as an enum representing the status of this function.
 	/// - Throws: `LocationError` if the directory path is invalid.
 	/// - Returns: An array of `LFSPointer`.
 	///
@@ -250,7 +248,7 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 	/// - Parameters:
 	///   - file: The file to write or append to.
 	///   - shouldAppend: If the file should be appended to.
-	///   - statusClosure: Use this closure to determine the status of this function. It will be passed the `URL` of the file or folder being operated on, as well as an enum representing the status of this function.
+	///   - status: Use this closure to determine the status of this function. It will be passed the `URL` of the file or folder being operated on, as well as an enum representing the status of this function.
 	/// - Throws: `LocationError` if the file path is invalid, or `WriteError` if the file could not be written.
 	///
 	public func write(

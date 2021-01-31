@@ -20,7 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Run tests
-        run: xcrun xcodebuild -scheme LFSPointersKit -destination "platform=iOS Simulator,id=E3D8AFE7-20E4-4EEC-8889-3DA5DE4C701F,OS=14.0"
+        run: xcrun xcodebuild -scheme LFSPointersKit -destination "platform=iOS Simulator,id=E3D8AFE7-20E4-4EEC-8889-3DA5DE4C701F,OS=14.3"
   TestOnUbuntu-20_04-ARM:
     runs-on: ubuntu-latest
     steps:
