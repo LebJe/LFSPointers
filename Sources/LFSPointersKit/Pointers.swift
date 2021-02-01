@@ -146,12 +146,12 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 
 					for f in files {
 						if folderNames.contains(f.name) {
-							if status != nil { status!(f.url, .generating) }
+							status?(f.url, .generating)
 
 							do {
 								pointers.append(try self.init(fromFile: f.url))
 							} catch {
-								if status != nil { status!(f.url, .error(error)) }
+								status?(f.url, .error(error))
 
 								throw error
 							}
@@ -159,34 +159,16 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 					}
 
 				case let .regex(regex):
-					try folder.files.recursive.forEach({ file in
+					return try folder.files.recursive.compactMap({ file in
 						if regex.matches(file.name) {
-							if status != nil { status!(file.url, .generating) }
-
-							do {
-								pointers.append(try self.init(fromFile: file.url))
-							} catch {
-								if status != nil { status!(file.url, .error(error)) }
-
-								throw error
-							}
-
+							return try singleFile(file: file, statusClosure: status)
 						} else {
-							if status != nil { status!(file.url, .regexDoesntMatch(regex)) }
+							status?(file.url, .regexDoesntMatch(regex))
+							return nil
 						}
 					})
 				case .all:
-					try folder.files.recursive.forEach({ file in
-						if status != nil { status!(file.url, .generating) }
-
-						do {
-							pointers.append(try self.init(fromFile: file.url))
-						} catch {
-							if status != nil { status!(file.url, .error(error)) }
-
-							throw error
-						}
-					})
+					return try all(folder: folder, recursive: true, statusClosure: status)
 			}
 
 		} else {
@@ -202,46 +184,28 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 
 					for f in files {
 						if folder.containsFile(named: f.name) {
-							if status != nil { status!(f.url, .generating) }
+							status?(f.url, .generating)
 
 							do {
 								pointers.append(try self.init(fromFile: f.url))
 							} catch {
-								if status != nil { status!(f.url, .error(error)) }
+								status?(f.url, .error(error))
 
 								throw error
 							}
 						}
 					}
 				case let .regex(regex):
-
-					for file in folder.files {
+					return try folder.files.compactMap({ file in
 						if regex.matches(file.name) {
-							do {
-								if status != nil { status!(file.url, .generating) }
-
-								pointers.append(try self.init(fromFile: file.url))
-							} catch {
-								if status != nil { status!(file.url, .error(error)) }
-
-								throw error
-							}
+							return try singleFile(file: file, statusClosure: status)
 						} else {
-							if status != nil { status!(file.url, .regexDoesntMatch(regex)) }
+							status?(file.url, .regexDoesntMatch(regex))
+							return nil
 						}
-					}
+					})
 				case .all:
-					for file in folder.files {
-						do {
-							if status != nil { status!(file.url, .generating) }
-
-							pointers.append(try self.init(fromFile: file.url))
-						} catch {
-							if status != nil { status!(file.url, .error(error)) }
-
-							throw error
-						}
-					}
+					return try all(folder: folder, statusClosure: status)
 			}
 		}
 

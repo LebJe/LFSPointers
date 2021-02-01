@@ -9,6 +9,9 @@
 [![Build and Test](https://github.com/LebJe/LFSPointers/workflows/Build%20and%20Test/badge.svg)](https://github.com/LebJe/LFSPointers/actions?query=workflow%3A%22Build+and+Test%22)
 [![Build Container](https://github.com/LebJe/LFSPointers/workflows/Build%20Container/badge.svg)](https://github.com/LebJe/LFSPointers/actions?query=workflow%3A%22Build+Container%22)
 
+Table of Contents
+=================
+
 <!--ts-->
    * [LFS Pointers](#lfs-pointers)
       * [Install Program](#install-program)
@@ -55,9 +58,10 @@
             * [Ubuntu](#ubuntu)
       * [Contributing](#contributing)
 
-<!-- Added by: jefflebrun, at: Sun Jan 31 16:56:49 EST 2021 -->
+<!-- Added by: jefflebrun, at: Mon Feb  1 14:18:06 EST 2021 -->
 
 <!--te-->
+Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc)
 
 It it recommended that you read the [Git-LFS Homepage](https://git-lfs.github.com) before continuing.
 

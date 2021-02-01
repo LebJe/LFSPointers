@@ -1,7 +1,8 @@
-##  (2021-01-31)
+##  (2021-02-01)
 
 * Build container on every commit. ([5b50789](https://github.com/LebJe/LFSPointers/commit/5b50789))
 * Test LFSPointers on iOS 14.0, and cross-compile it for ARM MacOS on Big Sur. ([e554b58](https://github.com/LebJe/LFSPointers/commit/e554b58))
+* Update buildAndTest.yml ([0f6c340](https://github.com/LebJe/LFSPointers/commit/0f6c340))
 * Update buildLatestContain.yml ([5aae9c0](https://github.com/LebJe/LFSPointers/commit/5aae9c0))
 * update buildLatestContainer.yml ([d8f2bfe](https://github.com/LebJe/LFSPointers/commit/d8f2bfe))
 * Update buildLatestContainer.yml ([68fad8f](https://github.com/LebJe/LFSPointers/commit/68fad8f))
@@ -10,8 +11,11 @@
 * Update buildLatestContainer.yml ([933b7b2](https://github.com/LebJe/LFSPointers/commit/933b7b2))
 * Update buildLatestContainer.yml ([46259fe](https://github.com/LebJe/LFSPointers/commit/46259fe))
 * Update buildLatestContainer.yml ([6299c3b](https://github.com/LebJe/LFSPointers/commit/6299c3b))
+* Update CHANGELOG ([8bb0158](https://github.com/LebJe/LFSPointers/commit/8bb0158))
 * Update CHANGELOG ([12d5c54](https://github.com/LebJe/LFSPointers/commit/12d5c54))
+* Update documentation and buildAndTest.yml ([5f155eb](https://github.com/LebJe/LFSPointers/commit/5f155eb))
 * Update README. ([eac935f](https://github.com/LebJe/LFSPointers/commit/eac935f))
+* Update README.md ([2bcca34](https://github.com/LebJe/LFSPointers/commit/2bcca34))
 * Update README.me ([51b3a46](https://github.com/LebJe/LFSPointers/commit/51b3a46))
 * Update samples and README. ([ba6ce9a](https://github.com/LebJe/LFSPointers/commit/ba6ce9a))
 * Update Scripts/installDeb.sh ([a5652fb](https://github.com/LebJe/LFSPointers/commit/a5652fb))
@@ -20,6 +24,7 @@
 * Update Tests. ([d9e8b55](https://github.com/LebJe/LFSPointers/commit/d9e8b55))
 * Update version number in installDeb.sh ([593a7f1](https://github.com/LebJe/LFSPointers/commit/593a7f1))
 * UpdateREADME.md ([9190628](https://github.com/LebJe/LFSPointers/commit/9190628))
+* Use `fopen_s` on Windows. ([e531b25](https://github.com/LebJe/LFSPointers/commit/e531b25))
 
 
 

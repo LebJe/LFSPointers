@@ -9,7 +9,7 @@ import Foundation
 
 /// The search types to use when filtering files.
 public enum SearchTypes {
-	/// Searches for all files that match any of the filenames in the array.
+	/// Searches for all files that match any of the file names in the array.
 	case fileNames([URL])
 
 	/// Searches for all files whose name matches the regular expression.
