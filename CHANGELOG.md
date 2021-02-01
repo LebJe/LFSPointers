@@ -25,6 +25,7 @@
 * Update version number in installDeb.sh ([593a7f1](https://github.com/LebJe/LFSPointers/commit/593a7f1))
 * UpdateREADME.md ([9190628](https://github.com/LebJe/LFSPointers/commit/9190628))
 * Use `fopen_s` on Windows. ([e531b25](https://github.com/LebJe/LFSPointers/commit/e531b25))
+* Use new logging system. ([d5957f0](https://github.com/LebJe/LFSPointers/commit/d5957f0))
 
 
 
