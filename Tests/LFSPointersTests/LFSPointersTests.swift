@@ -7,8 +7,8 @@ final class LFSPointersTests: XCTestCase {
 
 	override func setUpWithError() throws {
 		let recursive = try resources.createSubfolderIfNeeded(withName: "recursive")
-		try? self.resources.createFileIfNeeded(at: "foo.txt", contents: "Foo".data(using: .utf8))
-		try? recursive.createFileIfNeeded(at: "bar.txt", contents: "BarBar".data(using: .utf8))
+		_ = try? self.resources.createFileIfNeeded(at: "foo.txt", contents: "Foo".data(using: .utf8))
+		_ = try? recursive.createFileIfNeeded(at: "bar.txt", contents: "BarBar".data(using: .utf8))
 	}
 
 	func testConvertFileToPointer() throws {

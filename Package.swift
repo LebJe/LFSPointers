@@ -30,10 +30,10 @@ let package = Package(
 		.target(
 			name: "LFSPointersExecutable",
 			dependencies: [
-				.product(name: "ArgumentParser", package: "swift-argument-parser"),
-				"Rainbow",
 				"Files",
 				"LFSPointersKit",
+				"Rainbow",
+				.product(name: "ArgumentParser", package: "swift-argument-parser"),
 			]
 		),
 		.testTarget(
