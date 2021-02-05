@@ -75,11 +75,14 @@ $ mint install LebJe/LFSPointers
 
 ### [Homebrew](https://brew.sh)
 
-Install Swift, as described [here](#Install-Swift),
-then run:
-
 ```bash
 $ brew install LebJe/formulae/lfs-pointers
+```
+
+If you would like to install from `HEAD` then make sure `swift --version` succeeds ([Install Swift](#Install-Swift) otherwise) then run:
+
+```bash
+$ brew install LebJe/formulae/lfs-pointers --HEAD
 ```
 
 ### From DEB or RPM
