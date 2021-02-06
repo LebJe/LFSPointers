@@ -50,7 +50,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: seanmiddleditch/gha-setup-vsdevenv@master
-      - name: Install swift-DEVELOPMENT-SNAPSHOT-2020-10-29-a
+      - name: Install swift-DEVELOPMENT-SNAPSHOT-2021-01-27-a
         run: Install-Binary -Url "https://swift.org/builds/development/windows10/swift-DEVELOPMENT-SNAPSHOT-2021-01-27-a/swift-DEVELOPMENT-SNAPSHOT-2021-01-27-a-windows10.exe" -Name "installer.exe" -ArgumentList ("-q")
       - name: Set Environment Variables
         run: |
