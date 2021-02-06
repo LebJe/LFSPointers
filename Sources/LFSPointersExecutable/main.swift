@@ -9,7 +9,7 @@ import ArgumentParser
 import Files
 import Foundation
 import LFSPointersKit
-import Rainbow
+import enum Rainbow.Rainbow
 
 let jsonStructure = """
 [

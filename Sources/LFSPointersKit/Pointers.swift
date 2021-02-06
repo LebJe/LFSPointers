@@ -7,7 +7,8 @@
 
 import Crypto
 import Files
-import Foundation
+import struct Foundation.Data
+import struct Foundation.URL
 import struct SystemPackage.FileDescriptor
 import struct SystemPackage.FilePath
 

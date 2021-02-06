@@ -5,7 +5,8 @@
 //  Created by Jeff Lebrun on 4/16/20.
 //
 
-import Foundation
+import class Foundation.NSRegularExpression
+import struct Foundation.URL
 
 /// The search types to use when filtering files.
 public enum SearchTypes {
