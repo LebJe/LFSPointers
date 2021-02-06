@@ -8,7 +8,8 @@
 import Crypto
 import Files
 import Foundation
-import SystemPackage
+import struct SystemPackage.FileDescriptor
+import struct SystemPackage.FilePath
 
 /// Represents a Git LFS pointer for a file.
 ///
