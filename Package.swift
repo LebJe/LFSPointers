@@ -23,7 +23,7 @@ let package = Package(
 		.package(url: "https://github.com/apple/swift-crypto.git", from: "1.1.2"),
 
 		// Swift System provides idiomatic interfaces to system calls and low-level currency types.
-		.package(url: "https://github.com/apple/swift-system.git", .revision("90d412b6f30281cd66d57ef1509138aac0ee58ff")),
+		.package(url: "https://github.com/apple/swift-system.git", .revision("79eed1f99d64ffe5c8452e2a0ca1c010b198c1ee")),
 	],
 	targets: [
 		.target(
