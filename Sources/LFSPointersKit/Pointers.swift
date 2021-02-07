@@ -7,7 +7,10 @@
 
 import Crypto
 import Files
-import Foundation
+import struct Foundation.Data
+import struct Foundation.URL
+import struct SystemPackage.FileDescriptor
+import struct SystemPackage.FilePath
 
 /// Represents a Git LFS pointer for a file.
 ///
@@ -70,40 +73,23 @@ public struct LFSPointer: Codable, Equatable, Hashable {
 
 		self.version = "https://git-lfs.github.com/spec/v1"
 
-		let handle = try FileHandle(forReadingFrom: file.url)
-
-		let readSize = 8192
-		var hasher = SHA256()
-
-		while true {
-			let data = handle.readData(ofLength: readSize)
-			if data.count == 0 {
-				break
-			}
-
-			hasher.update(data: data)
+		let fd = try FileDescriptor.open(FilePath(file.path), .readOnly)
+		defer {
+			try! fd.close()
 		}
 
+		self.size = Int(try fd.seek(offset: 0, from: .end))
+
+		try fd.seek(offset: 0, from: .start)
+
+		let buffer = UnsafeMutableRawBufferPointer.allocate(byteCount: Int(self.size), alignment: 4)
+
+		_ = try fd.read(into: buffer)
+
+		var hasher = SHA256()
+		hasher.update(data: Data(buffer))
+
 		self.oid = String(hexEncoding: Data(hasher.finalize()))
-
-		try handle.close()
-
-		#if os(Windows)
-			var fp: UnsafeMutablePointer<FILE>!
-			fopen_s(&fp, file.path, "rb")
-		#else
-			let fp = fopen(file.path, "rb")
-		#endif
-
-		fseek(fp, 0, SEEK_END)
-
-		#if os(Windows)
-			self.size = Int(ftell(fp))
-		#else
-			self.size = ftell(fp)
-		#endif
-
-		fclose(fp)
 
 		self.filename = file.name
 		self.filePath = file.path
