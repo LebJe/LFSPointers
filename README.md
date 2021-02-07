@@ -14,6 +14,7 @@ Table of Contents
 
 <!--ts-->
    * [LFS Pointers](#lfs-pointers)
+   * [Table of Contents](#table-of-contents)
       * [Install Program](#install-program)
          * [<a href="https://github.com/yonaskolb/mint">Mint</a>](#mint)
          * [<a href="https://brew.sh" rel="nofollow">Homebrew</a>](#homebrew)
@@ -58,7 +59,7 @@ Table of Contents
             * [Ubuntu](#ubuntu)
       * [Contributing](#contributing)
 
-<!-- Added by: jefflebrun, at: Mon Feb  1 14:18:06 EST 2021 -->
+<!-- Added by: jefflebrun, at: Sat Feb  6 23:44:23 EST 2021 -->
 
 <!--te-->
 Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc)
