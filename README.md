@@ -248,9 +248,7 @@ public struct LFSPointer {
 	public let filePath: String
 	
 	/// String representation of this pointer.
-	public var stringRep: String {
-		...
-	}
+	public var stringRep: String
 	...
 }
 ```
