@@ -1,0 +1,42 @@
+#!/usr/bin/env swift
+
+import Foundation
+import Darwin.C
+extension Process {
+	public static func execute(_ command: String, args: String...) throws -> (stdout: String?, stderr: String?) {
+		let process = Process()
+		let stdoutPipe = Pipe()
+		let stderrPipe = Pipe()
+		
+		let path = (ProcessInfo.processInfo.environment["PATH"] ?? "").components(separatedBy: ":").filter({
+			let url = URL(fileURLWithPath: $0).appendingPathComponent(command)
+			return FileManager.default.fileExists(atPath: url.path)
+		})
+
+		process.standardError = stderrPipe
+		process.standardOutput = stdoutPipe
+		process.executableURL = URL(fileURLWithPath: path[0]).appendingPathComponent(command)
+		process.arguments = args
+		try process.run()
+
+		let stdoutData = stdoutPipe.fileHandleForReading.readDataToEndOfFile()
+		let stderrData = stderrPipe.fileHandleForReading.readDataToEndOfFile()
+		let stdoutString = String(data: stdoutData, encoding: .utf8)
+		let stderrString = String(data: stderrData, encoding: .utf8)
+		return (stdoutString, stderrString)
+	}
+}
+
+if CommandLine.argc < 2 {
+	print("USAGE: script <task>\n\n<task>: gen-man (build manpages with pandoc) | build (build for Mac or Linux)")
+} else {
+	switch CommandLine.arguments[1] {
+		case "gen-man":
+			print(try Process.execute("pandoc", args: "--standalone", "--to", "man", "LFSPointers.1.md", "-o", "LFSPointers.1").stdout ?? "")
+		case "build":
+			print(try Process.execute("swift", args: "build", "-c", "release").stderr ?? "")
+		default:
+			print("Unknown argument")
+			break
+	}
+}
