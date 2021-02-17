@@ -5,4 +5,5 @@
 3. Create GitHub release, and wait for builds to finish.
 3. Update version number in `Scripts/installDeb.sh`.
 4. Update version number in [lfs-pointers.rb](https://github.com/LebJe/homebrew-formulae/blob/master/lfs-pointers.rb).
-5. Build Homebrew bottle.
+5. Update version number in `LFSPointers.1.md`.
+6. Build Homebrew bottle.

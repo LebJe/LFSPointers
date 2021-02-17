@@ -8,17 +8,19 @@ extension Process {
 		let process = Process()
 		let stdoutPipe = Pipe()
 		let stderrPipe = Pipe()
-		
-		let path = (ProcessInfo.processInfo.environment["PATH"] ?? "").components(separatedBy: ":").filter({
-			let url = URL(fileURLWithPath: $0).appendingPathComponent(command)
-			return FileManager.default.fileExists(atPath: url.path)
-		})
 
-		process.standardError = stderrPipe
-		process.standardOutput = stdoutPipe
-		process.executableURL = URL(fileURLWithPath: path[0]).appendingPathComponent(command)
-		process.arguments = args
-		try process.run()
+		let path = (ProcessInfo.processInfo.environment["PATH"] ?? "")
+			.components(separatedBy: ":")
+			.filter({
+            	let url = URL(fileURLWithPath: $0).appendingPathComponent(command)
+                return FileManager.default.fileExists(atPath: url.path)
+            })
+
+			process.standardError = stderrPipe
+			process.standardOutput = stdoutPipe
+			process.executableURL = URL(fileURLWithPath: path[0]).appendingPathComponent(command)
+			process.arguments = args
+			try process.run()
 
 		let stdoutData = stdoutPipe.fileHandleForReading.readDataToEndOfFile()
 		let stderrData = stderrPipe.fileHandleForReading.readDataToEndOfFile()
@@ -33,8 +35,8 @@ let help = """
 	
 	SUBCOMMANDS:
 	  build			Build LFSPointers.
-	  gen-man		Generate the manpage using `pandoc`.
-	  gen-changelog 	Generate the CHANGELOG using `conventional-changelog-cli`.
+	  gen-man		Generate the manpage using `pandoc` (`pandoc` must be installed and visible in `PATH`).
+	  gen-changelog 	Generate the CHANGELOG using `conventional-changelog-cli` (`npm` must be installed and visible in `PATH`).
 	"""
 
 if CommandLine.argc < 2 {
