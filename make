@@ -2,6 +2,7 @@
 
 import Foundation
 import Darwin.C
+
 extension Process {
 	public static func execute(_ command: String, args: String...) throws -> (stdout: String?, stderr: String?) {
 		let process = Process()
@@ -27,16 +28,36 @@ extension Process {
 	}
 }
 
+let help = """
+	USAGE: ./make <sub-command>
+	
+	SUBCOMMANDS:
+	  build			Build LFSPointers.
+	  gen-man		Generate the manpage using `pandoc`.
+	  gen-changelog 	Generate the CHANGELOG using `conventional-changelog-cli`.
+	"""
+
 if CommandLine.argc < 2 {
-	print("USAGE: script <task>\n\n<task>: gen-man (build manpages with pandoc) | build (build for Mac or Linux)")
+	print(help)
 } else {
 	switch CommandLine.arguments[1] {
 		case "gen-man":
 			print(try Process.execute("pandoc", args: "--standalone", "--to", "man", "LFSPointers.1.md", "-o", "LFSPointers.1").stdout ?? "")
+		case "gen-changelog":
+			print("Make sure NPM is installed.")
+			print("Installing conventional-changelog-cli...")
+			print(try Process.execute("npm", args: "install", "-g", "conventional-changelog-cli").stdout ?? "")
+			print("Generating CHANGELOG...")
+			let changelog = try Process.execute("conventional-changelog", args: "-p jscs", "-r", "0", "-u").stdout!
+			try changelog.data(using: .utf8)!.write(to: URL(fileURLWithPath: "CHANGELOG.md"))
+			print("Generated CHANGELOG.")
 		case "build":
+			print("Building...")
 			print(try Process.execute("swift", args: "build", "-c", "release").stderr ?? "")
+			print("Built LFSPointers.")
+		case "--help", "-h", "-?":
+			print(help)
 		default:
-			print("Unknown argument")
-			break
+			print("Unknown argument: \(CommandLine.arguments[1])")
 	}
 }

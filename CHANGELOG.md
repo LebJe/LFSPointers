@@ -1,5 +1,6 @@
-##  (2021-02-07)
+##  (2021-02-17)
 
+* Add manpage and manpage generator ([6c434b0](https://github.com/LebJe/LFSPointers/commit/6c434b0))
 * Build container on every commit. ([5b50789](https://github.com/LebJe/LFSPointers/commit/5b50789))
 * Import structs instead of full package. ([82d5c63](https://github.com/LebJe/LFSPointers/commit/82d5c63))
 * Import structs instead of full package. ([7d13d15](https://github.com/LebJe/LFSPointers/commit/7d13d15))
@@ -17,6 +18,7 @@
 * Update buildLatestContainer.yml ([933b7b2](https://github.com/LebJe/LFSPointers/commit/933b7b2))
 * Update buildLatestContainer.yml ([46259fe](https://github.com/LebJe/LFSPointers/commit/46259fe))
 * Update buildLatestContainer.yml ([6299c3b](https://github.com/LebJe/LFSPointers/commit/6299c3b))
+* Update CHANGELOG ([d3d1632](https://github.com/LebJe/LFSPointers/commit/d3d1632))
 * Update CHANGELOG ([9a3a6b5](https://github.com/LebJe/LFSPointers/commit/9a3a6b5))
 * Update CHANGELOG ([8bb0158](https://github.com/LebJe/LFSPointers/commit/8bb0158))
 * Update CHANGELOG ([12d5c54](https://github.com/LebJe/LFSPointers/commit/12d5c54))
@@ -24,6 +26,7 @@
 * Update https://github.com/apple/swift-system to 5bea53afe72f83ed9829da53c1d3cc585104421e ([0cdf2f6](https://github.com/LebJe/LFSPointers/commit/0cdf2f6))
 * Update README and CHANGELOG ([137df07](https://github.com/LebJe/LFSPointers/commit/137df07))
 * Update README. ([eac935f](https://github.com/LebJe/LFSPointers/commit/eac935f))
+* Update README.md ([08bae62](https://github.com/LebJe/LFSPointers/commit/08bae62))
 * Update README.md ([1cb21cf](https://github.com/LebJe/LFSPointers/commit/1cb21cf))
 * Update README.md ([2bcca34](https://github.com/LebJe/LFSPointers/commit/2bcca34))
 * Update README.me ([51b3a46](https://github.com/LebJe/LFSPointers/commit/51b3a46))
