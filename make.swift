@@ -44,7 +44,9 @@ if CommandLine.argc < 2 {
 } else {
 	switch CommandLine.arguments[1] {
 		case "gen-man":
-			print(try Process.execute("pandoc", args: "--standalone", "--to", "man", "LFSPointers.1.md", "-o", "LFSPointers.1").stdout ?? "")
+			print("Generating manpages...")
+			print(try Process.execute("pandoc", args: "--standalone", "--to", "man", "LFSPointers.1.md", "-o", "lfs-pointers.1").stdout ?? "")
+			print("Generated manpage.")
 		case "gen-changelog":
 			print("Make sure NPM is installed.")
 			print("Installing conventional-changelog-cli...")
