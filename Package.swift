@@ -14,7 +14,7 @@ let package = Package(
 		.package(url: "https://github.com/apple/swift-argument-parser.git", from: "0.3.1"),
 
 		// Delightful console output for Swift developers.
-		.package(url: "https://github.com/onevcat/Rainbow", from: "3.1.5"),
+		.package(url: "https://github.com/onevcat/Rainbow", from: "4.0.0"),
 
 		// A nicer way to handle files & folders in Swift
 		.package(url: "https://github.com/JohnSundell/Files", from: "4.1.1"),
