@@ -51,7 +51,7 @@ Options
 
 : Convert all files to pointers (USE WITH CAUTION!).
 
-\--json                  
+\-j, \--json                  
 
 : Sends JSON to standard output. The JSON is structured as shown above. This will automatically enable \--silent.
 
@@ -59,7 +59,7 @@ Options
 
 : Whether to send colorized output to the terminal or not. (default: true)
 
-\--json-format <json-format>
+\--json-format, \-jf <json-format>
 
 : The format in which JSON is printed. You can choose either "compact" or "formatted". (default: compact)
 

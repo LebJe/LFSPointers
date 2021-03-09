@@ -37,7 +37,7 @@ enum JSONFormat: String, CaseIterable, ExpressibleByArgument {
 struct LFSPointersCommand: ParsableCommand {
 	static let configuration = CommandConfiguration(
 		commandName: "LFSPointers",
-		abstract: "Replaces large files in a Git repository directory with Git LFS pointers.",
+		abstract: "Replaces large files in a Git repository with Git LFS pointers.",
 		discussion: "JSON STRUCTURE:\n\(jsonStructure)",
 		version: "4.0.0"
 	)
@@ -54,14 +54,14 @@ struct LFSPointersCommand: ParsableCommand {
 	@Flag(name: .shortAndLong, help: "Convert all files to pointers (USE WITH CAUTION!).")
 	var all: Bool = false
 
-	@Flag(name: .long, help: "Sends JSON to standard output. The JSON is structured as shown above. This will automatically enable --silent.")
+	@Flag(name: .shortAndLong, help: "Sends JSON to standard output. The JSON is structured as shown above. This will automatically enable --silent.")
 	var json: Bool = false
 
 	@Flag(name: .long, inversion: .prefixedEnableDisable, help: "Whether to send colorized output to the terminal or not.")
 	var color: Bool = true
 
 	@Option(
-		name: .long,
+		name: [.long, .customLong("jf", withSingleDash: true)],
 		help: "The format in which JSON is printed. You can choose either \"compact\" or \"formatted\"."
 	)
 	var jsonFormat: JSONFormat = .compact

@@ -1,6 +1,6 @@
 # LFS Pointers
 
-**A Swift library and CLI that allows you to convert a Git repository directory of large files to Git LFS pointers.**
+**A Swift library and CLI that allows you to convert a Git repository of large files to Git LFS pointers.**
 
 ![LFSPointers image](images/LFSPointers.png)
 
