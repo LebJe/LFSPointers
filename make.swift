@@ -21,6 +21,7 @@ extension Process {
 			process.executableURL = URL(fileURLWithPath: path[0]).appendingPathComponent(command)
 			process.arguments = args
 			try process.run()
+			process.waitUntilExit()
 
 		let stdoutData = stdoutPipe.fileHandleForReading.readDataToEndOfFile()
 		let stderrData = stderrPipe.fileHandleForReading.readDataToEndOfFile()

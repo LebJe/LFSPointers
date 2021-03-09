@@ -1,5 +1,5 @@
 meta:
-  description: A command line tool and SPM package that allows you to convert a Git repository directory of large files to Git LFS pointers.
+  description: A Swift library and CLI that allows you to convert a Git repository of large files to Git LFS pointers.
   vendor: LebJe
   maintainer: LebJe
 files:

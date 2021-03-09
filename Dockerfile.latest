@@ -2,7 +2,7 @@ ARG ARCH=
 FROM ${ARCH}ubuntu:focal as build
 
 LABEL maintainer="LebJe"
-LABEL Description="A command line tool and SPM package that allows you to convert a Git repository directory of large files to Git LFS pointers."
+LABEL Description="A Swift library and CLI that allows you to convert a Git repository of large files to Git LFS pointers."
 LABEL org.opencontainers.image.source https://github.com/LebJe/LFSPointers
 
 WORKDIR /build
