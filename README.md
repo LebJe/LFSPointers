@@ -11,6 +11,8 @@
 [![Build and Test](https://github.com/LebJe/LFSPointers/workflows/Build%20and%20Test/badge.svg)](https://github.com/LebJe/LFSPointers/actions?query=workflow%3A%22Build+and+Test%22)
 [![Build Container](https://github.com/LebJe/LFSPointers/workflows/Build%20Container/badge.svg)](https://github.com/LebJe/LFSPointers/actions?query=workflow%3A%22Build+Container%22)
 
+**4.0.1 is the last release in which the executable is named `LFSPointers`. All future releases will name it `lfs-pointers`.**
+
 Table of Contents
 =================
 
