@@ -46,7 +46,7 @@ if CommandLine.argc < 2 {
 	switch CommandLine.arguments[1] {
 		case "gen-man":
 			print("Generating manpages...")
-			print(try Process.execute("pandoc", args: "--standalone", "--to", "man", "LFSPointers.1.md", "-o", "lfs-pointers.1").stdout ?? "")
+			print(try Process.execute("pandoc", args: "--standalone", "--to", "man", "lfs-pointers.1.md", "-o", "lfs-pointers.1").stdout ?? "")
 			print("Generated manpage.")
 		case "gen-changelog":
 			print("Make sure `brew` is installed.")
