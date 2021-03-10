@@ -1,12 +1,14 @@
 meta:
-  description: A Swift library and CLI that allows you to convert a Git repository of large files to Git LFS pointers.
-  vendor: LebJe
-  maintainer: LebJe
+  description: "A Swift library and CLI that allows you to convert a Git repository of large files to Git LFS pointers."
+  vendor: "LebJe"
+  maintainer: "LebJe"
 files:
   "/usr/bin/LFSPointers":
-    file: LFSPointers
+    file: "LFSPointers"
     mode: "0755"
   "/etc/bash_completion.d/LFSPointers.bash":
-    file: LFSPointers.bash
+    file: "LFSPointers.bash"
   "/usr/share/zsh/site-functions/_LFSPointers":
-    file: _LFSPointers
+    file: "_LFSPointers"
+  "/usr/share/man/man1/lfs-pointers.1":
+    file: "lfs-pointers.1"

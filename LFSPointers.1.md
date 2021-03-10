@@ -1,4 +1,4 @@
-% LFSPOINTERS(1) Version 4.0.0 | LFSPointers Documentation
+% LFSPOINTERS(1) Version 4.0.1 | LFSPointers Documentation
 
 NAME
 ====
