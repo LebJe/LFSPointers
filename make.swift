@@ -49,12 +49,11 @@ if CommandLine.argc < 2 {
 			print(try Process.execute("pandoc", args: "--standalone", "--to", "man", "LFSPointers.1.md", "-o", "lfs-pointers.1").stdout ?? "")
 			print("Generated manpage.")
 		case "gen-changelog":
-			print("Make sure NPM is installed.")
-			print("Installing conventional-changelog-cli...")
-			print(try Process.execute("npm", args: "install", "-g", "conventional-changelog-cli").stdout ?? "")
+			print("Make sure `brew` is installed.")
+			print("Installing git-chglog...")
+			print(try Process.execute("brew", args: "install", "git-chglog/git-chglog/git-chglog").stdout ?? "")
 			print("Generating CHANGELOG...")
-			let changelog = try Process.execute("conventional-changelog", args: "-p jscs", "-r", "0", "-u").stdout!
-			try changelog.data(using: .utf8)!.write(to: URL(fileURLWithPath: "CHANGELOG.md"))
+			print(try Process.execute("git-chglog", args: "-o", "CHANGELOG.md", try Process.execute("git", args: "describe", "--tags", try Process.execute("git", args: "rev-list", "--tags", "--max-count=1").stdout!).stdout!).stdout!)
 			print("Generated CHANGELOG.")
 		case "build":
 			print("Building...")
